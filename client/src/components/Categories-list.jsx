@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import CategoryItem from "./Category-item";
 import apiService from '../apiService'
 import CreateCategory from "./Create-new-category";
 import { Context } from "../context/Context";
 import { useContext } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 function CategoriesList () {
   const [categories, setCategories] = useState([]);
@@ -14,6 +14,7 @@ function CategoriesList () {
   const [createCategory, setCreateCategory] = useState(false);
   const { user } = useContext(Context);
   const { id } = useParams();
+  const navigate = useNavigate()
 
   function getAllCategories () {
     apiService.getCategories().then(data => {
@@ -50,6 +51,7 @@ function CategoriesList () {
               <img src={cat.icon_url} alt={cat.title} onClick={() => {
                 setCurrCat(cat);
                 setClicked(true)
+                navigate("/user-map/" + cat._id);
               }} />
             </div>
           )
@@ -60,7 +62,8 @@ function CategoriesList () {
         </div>
       </div>
       {createCategory ? <CreateCategory setCatArray={setCatArray} travelId={id} /> : ''}
-      {clicked && <CategoryItem category={catArray.find((cat) => cat.title === currCat.title)} />}
+      {/*{clicked && <CategoryItem category={catArray.find((cat) => cat.title === currCat.title)} />}*/}
+      {/*clicked && <UserMap category={catArray.find((cat) => cat.title === currCat.title)} />*/}
     </div>
   );
 }

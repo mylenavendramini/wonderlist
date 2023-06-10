@@ -26,7 +26,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/timeline/:id" element={<TimelineList />} />
         <Route path="/categories/:id" element={<CategoriesList />} />
-        <Route path="/user-map" element={<UserMap cityName={cityName} />} />
+        <Route path="/user-map/:id" element={<UserMap cityName={cityName} />} />
         <Route path="/travel-collections" element={<TravelCollections />} />
 
         <Route

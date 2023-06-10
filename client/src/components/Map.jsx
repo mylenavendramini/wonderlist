@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import { API_MAPS_KEY } from '../apiServiceMaps';
 import CategoryItem from './Category-item';
-import { useContext } from 'react';
-import { Context } from '../context/Context';
+import { useParams } from 'react-router';
+import apiService from '../apiService';
+
 // import dotenv from 'dotenv'
 // dotenv.config();
 
@@ -23,9 +24,13 @@ function UserMap (props) {
   const [placeIds, setPlaceIds] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [placeInfo, setPlaceInfo] = useState([]);
+
+  // const [place, setPlace] = useState('');
+  // const [address, setAddress] = useState('');
+  const { id } = useParams();
   console.log(placeInfo, 'placeInfo');
+
   const uniquePlaceIds = [];
-  const { closeModal, updateCloseModal } = useContext(Context);
   // TODO: setInitialCenter to be the name of the city
   // TODO: save placeInfo in the database
 
@@ -62,7 +67,7 @@ function UserMap (props) {
           uniquePlaceIds.push(placeId);
         }
       })
-      console.log(uniquePlaceIds)
+      // console.log(uniquePlaceIds)
       setPlaceIds(uniquePlaceIds);
 
     };
@@ -96,7 +101,7 @@ function UserMap (props) {
 
       placesServiceRef.current.getDetails(request, (place, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          console.log(place);
+          // console.log(place);
           // Store the place details:
           setPlaceInfo((prevPlaces) => {
             if (!prevPlaces.find((prevPlace) => prevPlace.place_id === place.place_id)) {
@@ -104,13 +109,13 @@ function UserMap (props) {
             }
             return prevPlaces;
           });
-          updateCloseModal(true);
         } else {
           console.error('Error fetching place details:', status);
         }
       });
     }
   };
+
 
   const placeId = placeIds[placeIds.length - 1];
   const reverseGeocode = (coordinates) => {
@@ -125,7 +130,7 @@ function UserMap (props) {
           };
 
           // Do something with the place data
-          console.log(placeData);
+          console.log(placeData, 'placeData');
         } else {
           console.log('No results found');
         }
@@ -158,6 +163,28 @@ function UserMap (props) {
   const isMarkerSelected = (placeId) => {
     return selectedPlace && selectedPlace.id === placeId;
   };
+  // console.log(place, address)
+
+  // function updatePlaceAndAddress () {
+  //   if (placeInfo.length > 0) {
+  //     placeInfo[placeInfo.length - 1].name && setPlace(placeInfo[placeInfo.length - 1].name);
+  //     placeInfo[placeInfo.length - 1].formatted_address && setAddress(placeInfo[placeInfo.length - 1].formatted_address);
+  //   }
+  // }
+
+  // function updateCategory () {
+  //   if (place !== '' && address !== '') {
+  //     apiService.editCategory(id, place, address).then(data => {
+  //       console.log(data)
+  //     });
+  //     setPlace('');
+  //     setAddress('');
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   updateCategory();
+  // }, [place, address])
 
   // function displayMarkers () {
   //   return clickedPlaces.map((clicked, idx) => {
@@ -171,6 +198,24 @@ function UserMap (props) {
 
   return (
     <div className='map-container'>
+      <CategoryItem category={props.category} placeInfo={placeInfo} />
+      {/*<div className="category-item">
+        <h2>TODO: Travel Name</h2>
+        <h3>TODO: Travel City</h3>
+        <h3>{props.category && props.category.title}</h3>
+        <div className='map-container'>
+          <h3>Find your places and add them to your list</h3>
+        </div>
+        <div>
+          <div className='list-items'>
+            <ul><li>{props.category && props.category.place}</li>
+              <li>{props.category && props.category.address}</li></ul>
+            <div className='close-item'>
+              <i className="fa fa-close btn btn-close"></i>
+            </div>
+          </div>
+        </div>
+  </div>*/}
       <Map
         google={props.google}
         onClick={handleMapClick}

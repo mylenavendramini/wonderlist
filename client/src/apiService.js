@@ -49,6 +49,17 @@ apiService.createCategory = async (categoryObj, travelId) => {
   return data;
 }
 
+apiService.editCategory = async (id, place, address) => {
+  const res = await fetch(`${url}/categories/${id}`,
+    {
+      method: "PUT",
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify({ place, address })
+    });
+  const data = res.json();
+  return data;
+}
+
 apiService.getActivities = async () => {
   const res = await fetch(`${url}/activities`);
   const data = res.json()

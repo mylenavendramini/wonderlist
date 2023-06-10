@@ -1,70 +1,47 @@
 const url = 'http://localhost:3001';
 
+const apiServiceJWT = {};
 
-export async function register (user) {
-  try {
-    const res = await fetch(`${url}/register`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(user),
-    });
-    const data = res.json()
-    return data;
-  } catch (error) {
-    console.log(error)
-  }
+apiServiceJWT.register = (user) => {
+  return fetch(`${url}/register`, {
+    method: 'POST',
+    credentials: 'include',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(user),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 }
 
-export async function login (user) {
-  try {
-    const res = await fetch(`${url}/login`, {
-      method: 'POST',
-      credentials: 'include',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(user),
-    });
-    const data = res.json()
-    return data;
-  } catch (error) {
-    console.log(error)
-  }
+apiServiceJWT.login = (user) => {
+  return fetch(`${url}/login`, {
+    method: 'POST',
+    credentials: 'include',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(user),
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 };
 
-export async function profile (accessToken) {
-  try {
-    const res = await fetch(`${url}/profile`, {
-      method: 'GET',
-      credentials: 'include',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    const data = res.json()
-    return data;
-  } catch (error) {
-    console.log(error)
-  }
+apiServiceJWT.profile = (accessToken) => {
+  return fetch(`${url}/profile`, {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
 };
 
-export async function logout (tokenName) {
+apiServiceJWT.logout = (tokenName) => {
   localStorage.removeItem(tokenName);
-  try {
-    const res = await fetch(`${url}/logout`, {
-      method: 'POST',
-      credentials: 'include',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokenName}`,
-      },
-    });
-    const data = res.json()
-    return data;
-  } catch (error) {
-    console.log(error)
-  }
 };
+
+export default apiServiceJWT;

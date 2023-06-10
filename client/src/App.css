@@ -1,38 +1,350 @@
 .App {
-  text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  font-size: 7rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+li {
+  list-style: none;
+}
+
+.btn {
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  color: var(--secondary);
+  background-color: var(--tertiary);
+  padding: 10px 20px;
+  /* background-color: transparent; */
+  opacity: 1;
+  outline: 0 solid transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 5px;
+  box-shadow: var(--primary) 0 10px 20px -10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn:hover {
+  /* border-radius: 999px;
+  padding: 0.5rem 2rem; */
+}
+
+.btn-check,
+.btn-plus {
+  border-radius: 50%;
+  padding: 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 8%;
+}
+
+.btn-plus {
+  bottom: 10px;
+  left: 50px;
+}
+
+.btn-add {
+  margin-top: 2rem;
+  border-radius: 50%;
+  padding: 10px;
+  width: 8%;
+  background-color: var(--primary);
+}
+
+/* NAVBAR */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+.navbar ul {
+  display: flex;
+}
+.navbar li {
+  margin-right: 1rem;
+}
+
+/* HOME */
+
+.home-wrap {
+  position: relative;
+}
+
+.home-wrap::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background-image: url(../public/travel-paper.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.home-content {
+  position: relative;
+}
+
+.home-content {
+  height: 100vh;
+  color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-content h2 {
+  margin-bottom: 3rem;
+}
+
+/* Form */
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  display: flex;
+  width: 50vh;
+  flex-direction: column;
+  padding: 3rem;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+}
+.form label,
+.form h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.form input,
+.new-date-city {
+  margin-bottom: 1rem;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.form button {
+  margin-top: 1rem;
+}
+
+/* TRAVEL FORM */
+
+.travel-form {
+  display: flex;
+  justify-content: center;
+}
+
+.travel-form form {
+  border: none;
+  position: relative;
+  /* TODO: change this margin */
+  margin: 10rem 0;
+}
+
+.travel-itinerary-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-information {
+}
+
+.edit-information-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-information-item button {
+}
+
+.new-date-city {
+  background-color: white;
+}
+
+.new-date-city span {
+  font-weight: 1000;
+}
+
+/* TIMELINE-LIST */
+
+.categories-item-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 2rem 0;
+}
+
+.categories-item-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.categories-item-icon {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  border: 1px solid var(--primary);
+  margin: 1rem 3rem;
+  padding: 2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.categories-item-icon img {
 }
 
-.App-link {
-  color: #61dafb;
+.timeline-list,
+.categories-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.list-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  border: 1px solid var(--primary);
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.close-item {
+  display: flex;
+  justify-content: right;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.btn-close {
+  border-radius: 50%;
+  padding: 10px;
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.categories-list {
+  /* TODO: change this margin */
+  margin: 10rem 0;
+}
+
+/* TRAVEL COLLECTIONS */
+.travel-collections {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.travel-collection-item {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.dropdown-target {
+  cursor: pointer;
+}
+
+.menu {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu:first-child {
+  margin-top: 0.5rem;
+}
+
+/* CREATE NEW ACTIVITY */
+
+.list-items-activities {
+  margin: 0;
+}
+
+/* CREATE NEW ACTIVITY POPUP */
+
+.create-activity {
+  background-color: var(--secondary);
+  position: absolute;
+  padding: 1rem;
+}
+
+.modal {
+  font-size: 12px;
+}
+
+.modal > .content {
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.popup-content {
+  /* background-color: transparent !important ;
+  border: none !important ; */
+}
+
+.modal > .content-map {
+  /* position: absolute; */
+  display: block;
+  /* justify-content: center;
+  align-items: center; */
+  /* background: transparent; */
+}
+
+.modal > .close {
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  right: -10px;
+  top: -10px;
+  background: transparent;
+  border: none;
+}
+
+/* MAP */
+
+.map-container {
+  margin: 1rem;
+}
+
+.map {
+  position: relative;
 }
