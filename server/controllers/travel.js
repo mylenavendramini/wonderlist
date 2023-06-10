@@ -1,4 +1,6 @@
+const authMiddleware = require('../middlewares/auth');
 const TravelModel = require('../models/travel');
+const UserModel = require('../models/user');
 
 const getTravelCollections = async (req, res) => {
   try {
@@ -11,9 +13,11 @@ const getTravelCollections = async (req, res) => {
 
 const createTravelCollection = async (req, res) => {
   try {
-    const travelCollection = req.body;
-    console.log(travelCollection)
-    const newTravelCollection = await TravelModel.createTravelCollection(travelCollection);
+    const { travelCollection, userId } = req.body;
+    // const user = await TravelModel.findOne({ _id: _id }).populate('activities', 'categories');
+
+    const newTravelCollection = await TravelModel.createTravelCollection(travelCollection, userId);
+
     res.status(201).send(newTravelCollection);
   } catch (error) {
     res.status(400).send({ error, message: 'Could not create travel collection.' });

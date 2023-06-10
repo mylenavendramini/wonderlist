@@ -11,8 +11,8 @@ const getCategories = async (req, res) => {
 
 const createCategory = async (req, res) => {
   try {
-    const category = req.body;
-    const newCategory = await CategoriesModel.createCategory(category);
+    const { categoryObj, travelId } = req.body;
+    const newCategory = await CategoriesModel.createCategory(categoryObj, travelId);
     res.status(201).send(newCategory);
   } catch (error) {
     res.status(400).send({ error, message: 'Could not create category.' });
@@ -29,15 +29,16 @@ const deleteCategory = async (req, res) => {
   }
 }
 
-// TODO:
 const editCategory = async (req, res) => {
   try {
-    const id = req.params.id;
-    const changed = req.body;
-    const categoryToEdit = await CategoriesModel.editCategory(id, changed);
-    res.status(200).send(categoryToEdit)
+    const categoryId = req.params.id;
+    const { place, address } = req.body;
+    // console.log(categoryId, place, address)
+    const updatedCategory = await CategoriesModel.editCategory(categoryId, place, address);
+    console.log(updatedCategory)
+    res.status(200).send(updatedCategory);
   } catch (error) {
-    res.status(400).send({ error, message: 'Could not edit category.' });
+    res.status(400).send({ error, message: 'Could not update category.' });
   }
 }
 

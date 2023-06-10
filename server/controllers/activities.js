@@ -11,9 +11,10 @@ const getActivities = async (req, res) => {
 
 const createActivity = async (req, res) => {
   try {
-    const activity = req.body;
-    console.log(activity)
-    const newActivity = await Activity.createActivity(activity);
+    // const activity = req.body;
+    const { activityObj, travelId } = req.body;
+
+    const newActivity = await Activity.createActivity(activityObj, travelId);
     res.status(201).send(newActivity);
   } catch (error) {
     res.status(400).send({ error, message: 'Could not create activity.' });

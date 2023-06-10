@@ -4,9 +4,18 @@ const userSchema = new Schema({
   userName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  travelCollection: [{ type: Schema.Types.ObjectId, ref: "Travel" }]
+  travelCollections: [{ type: Schema.Types.ObjectId, ref: "Travel" }]
 })
 
 const User = model("User", userSchema);
 
-module.exports = User;
+const editUser = async (id) => {
+  // try {
+  //   const userToEdit = await User.findByIdAndUpdate(id);
+  //   return userToEdit;
+  // } catch (error) {
+  //   console.log(error);
+  // }
+}
+
+module.exports = { User, editUser };
