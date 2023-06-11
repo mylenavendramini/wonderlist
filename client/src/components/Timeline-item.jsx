@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import apiService from '../apiService';
 
 function TimelineItem ({ date }) {
+  const [checkedActivities, setCheckedActivities] = useState([]);
   const { activities, updateActivities } = useContext(Context);
   const { id } = useParams();
 
@@ -24,6 +25,14 @@ function TimelineItem ({ date }) {
     );
   }
 
+  function handleCheck (activityId) {
+    if (checkedActivities.includes(activityId)) {
+      setCheckedActivities(checkedActivities.filter((id) => id !== activityId));
+    } else {
+      setCheckedActivities([...checkedActivities, activityId]);
+    }
+  }
+
   useEffect(() => {
     getAllActivities();
   }, []);
@@ -36,8 +45,8 @@ function TimelineItem ({ date }) {
         <h3 className="vertical-timeline-element-title">London</h3>
         {activities.filter((activity) => activity.date === date).map((activity, idx) => (
           <div className='list-items' key={idx}>
-            <i className="fa fa-check btn btn-close"></i>
-            <li>{activity.activity}</li>
+            <i className="fa fa-check btn btn-close" onClick={() => handleCheck(activity._id)}></i>
+            <li className={checkedActivities.includes(activity._id) ? 'toggle-check' : null}>{activity.activity}</li>
             <div className='close-item'>
               <i className="fa fa-close btn btn-close" onClick={() => handleDelete(activity._id)}></i>
             </div>

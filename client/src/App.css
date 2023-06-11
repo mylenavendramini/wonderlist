@@ -257,6 +257,10 @@ li {
   margin: 10rem 0;
 }
 
+.toggle-check {
+  text-decoration: line-through;
+}
+
 /* TRAVEL COLLECTIONS */
 .travel-collections {
   display: flex;
