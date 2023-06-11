@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-function Home () {
+function Home ({ isAuthenticated }) {
   const navigate = useNavigate();
-  const handleOnClick = () => navigate('/register');
+  const handleOnClick = () => {
+    isAuthenticated ? navigate('/profile') : navigate('/login');
+  }
   return (
     <div className="home-wrap">
       <div className="home-content">

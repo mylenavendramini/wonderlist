@@ -25,15 +25,20 @@ function UserMap (props) {
   const [clickedPlaces, setClickedPlaces] = useState([]);
   const [placeIds, setPlaceIds] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+
+
   // const [placeInfo, setPlaceInfo] = useState([]);
   // get the category from Categories-List:
   const location = useLocation();
-  const category = location.state;
+  const { category, travelCollection } = location.state;
+
+
+
+
   const { id } = useParams();
   const placeId = placeIds[placeIds.length - 1];
+
   // console.log(placeInfo, 'placeInfo');
-  console.log('global')
-  console.log({ placeIds })
   const { placeInfo, updatePlaceInfo } = useContext(Context)
 
   const uniquePlaceIds = [];
@@ -69,9 +74,6 @@ function UserMap (props) {
       }
     })
     setPlaceIds(uniquePlaceIds);
-    console.log({ uniquePlaceIds })
-    console.log('outside the function')
-    console.log({ placeIds })
   };
 
   useEffect(() => {
@@ -116,7 +118,6 @@ function UserMap (props) {
             return prevPlaces;
           });
           // localStorage.setItem('placeInfo', JSON.stringify([...placeInfo, place]));
-          console.log({ placeIds })
         } else {
           console.error('Error fetching place details:', status);
         }
@@ -191,8 +192,7 @@ function UserMap (props) {
 
   return (
     <div className='map-container'>
-      <CategoryItem category={category} />
-
+      <CategoryItem category={category} travelCollection={travelCollection} />
       <Map
         google={props.google}
         onClick={handleMapClick}

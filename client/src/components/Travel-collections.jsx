@@ -40,40 +40,51 @@ function TravelCollections () {
   };
 
   return (
-    <div className="travel-collections">
+    <div className="container horizontal">
       {travelCollections.length > 0 ? (
-        <h2>Your travel collections:</h2>
+        <>
+          <h2>Your travel collections:</h2>
+          {travelCollections
+            .filter((travel) => checkUserId(travel._id))
+            .map((travel, idx) => {
+              const travelId = travel._id;
+              const isOpen = openIndex === idx;
+              return (
+                <div className="container horizontal" >
+                  <div className="list-items dropdown-container" key={travel._id}>
+                    <h3
+                      onClick={() => handleOpen(idx)}
+                      className="dropdown-target"
+                    >
+                      {travel.travelName}
+                    </h3>
+                    {isOpen && (
+                      <div className="menu" key={idx}>
+                        <Link to={`/timeline/${travelId}`}>
+                          &rarr; Check timeline
+                        </Link>
+                        <Link to={`/categories/${travelId}`}>
+                          &rarr; Check categories
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                  <div className="close-item">
+                    <i
+                      className="fa fa-close btn btn-close"
+                      onClick={() => handleDelete(travelId)}
+                    ></i>
+                  </div>
+                </div>
+              );
+            })}
+        </>
       ) : (
         <>
           <h2>You need to be logged in to access the travel collections.</h2>
           <Link to="/login">Login</Link>
         </>
       )}
-
-      {travelCollections.filter((travel) => checkUserId(travel._id)).map((travel, idx) => {
-        const travelId = travel._id;
-        const isOpen = openIndex === idx;
-        return (
-          <div className="travel-collection-item" key={travel._id}>
-            <div className="list-items dropdown-container">
-              <h3 onClick={() => handleOpen(idx)} className="dropdown-target">{travel.travelName}</h3>
-              {isOpen &&
-                <div className="menu" key={idx}>
-                  <Link to={`/timeline/${travelId}`}>&rarr; Check timeline</Link>
-                  <Link to={`/categories/${travelId}`}>&rarr; Check categories</Link>
-                </div>
-              }
-
-            </div>
-            <div className='close-item'>
-              <i className="fa fa-close btn btn-close" onClick={() => handleDelete(travelId)}></i>
-            </div>
-          </div>
-        )
-      }
-      )}
-
-
     </div>
   );
 }

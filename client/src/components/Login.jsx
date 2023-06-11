@@ -37,12 +37,17 @@ const Login = ({ setIsAuthenticated }) => {
       updateUser(user);
       console.log(user)
       navigate('/profile');
+      window.location.reload()
     }
   };
 
   const validateForm = () => {
     return !state.email || !state.password;
   };
+
+  const handleOnClick = () => {
+    navigate('/register');
+  }
 
   return (
     <div className="register">
@@ -62,6 +67,8 @@ const Login = ({ setIsAuthenticated }) => {
           value={state.password}
           onChange={handleChange}
         />
+
+        <h3>Don't have an account yet? <span id='btn-span' onClick={handleOnClick}>Create an account now to access exclusive features!</span></h3>
         <button className="btn btn-submit" type="submit" disabled={validateForm()}>
           Login
         </button>

@@ -20,14 +20,18 @@ function Logout ({ setIsAuthenticated }) {
     navigate('/');
   };
   return (
-    <div className="logout">
-      <h2>Are you sure you want to log out?</h2>
-      <Link to="/">
-        <button className="confirm-btn">No</button>
-      </Link>
-      <button className="confirm-btn" onClick={() => handleClick()}>
-        Yes
-      </button>
+    <div className="register">
+      <form className="form">
+        <h2>Are you sure you want to log out?</h2>
+        <div className='logout'>
+          <Link to="/">
+            <button className="btn btn-submit">No</button>
+          </Link>
+          <Link>
+            <button className="btn btn-submit" onClick={() => handleClick()}>Yes</button>
+          </Link>
+        </div>
+      </form>
     </div>
   );
 }

@@ -37,8 +37,6 @@ function TimelineItem ({ date }) {
     getAllActivities();
   }, []);
 
-
-
   return (
     <div>
       <div className="timeline-item">

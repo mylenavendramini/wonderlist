@@ -1,4 +1,6 @@
-.App {
+.app {
+  position: relative;
+  min-height: 100vh;
 }
 
 a {
@@ -13,6 +15,16 @@ h1 {
 
 li {
   list-style: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 5rem; /* padding for navbar */
+  padding-bottom: 5rem; /* padding for footer */
 }
 
 .btn {
@@ -68,6 +80,26 @@ li {
 .navbar {
   display: flex;
   justify-content: space-between;
+  background-color: var(--secondary);
+  border-bottom: 1px solid var(--primary);
+  box-shadow: 0px 15px 10px -15px var(--primary);
+  padding: 1.5rem 0rem;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: var(--secondary);
+  border-top: 1px solid var(--primary);
+  box-shadow: 0px -15px 10px -15px var(--primary);
+  padding: 1.5rem 0rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 .navbar ul {
   display: flex;
@@ -122,12 +154,19 @@ li {
   height: 100vh;
 }
 
+.logout {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 4rem;
+}
+
 .form {
   display: flex;
   width: 50vh;
   flex-direction: column;
   padding: 3rem;
   border: 1px solid var(--primary);
+  /* box-shadow: -15px 15px 10px -15px var(--primary); */
   border-radius: 5px;
 }
 .form label,
@@ -151,18 +190,18 @@ li {
   margin-top: 1rem;
 }
 
-/* TRAVEL FORM */
-
-.travel-form {
-  display: flex;
-  justify-content: center;
+#btn-span {
+  cursor: pointer;
+  font-weight: 1000;
+  text-decoration: underline;
 }
+
+/* TRAVEL FORM */
 
 .travel-form form {
   border: none;
   position: relative;
-  /* TODO: change this margin */
-  margin: 10rem 0;
+  /* margin: 10rem 0; */
 }
 
 .travel-itinerary-container {
@@ -214,6 +253,10 @@ li {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.categories-item-icon.no-border {
+  border: none;
+}
 .categories-item-icon img {
 }
 
@@ -252,6 +295,11 @@ li {
   color: var(--primary);
 }
 
+.btn-plus-blue {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
 .categories-list {
   /* TODO: change this margin */
   margin: 10rem 0;
@@ -262,11 +310,11 @@ li {
 }
 
 /* TRAVEL COLLECTIONS */
-.travel-collections {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 3rem;
 }
 
 .travel-collection-item {
@@ -346,7 +394,10 @@ li {
 /* MAP */
 
 .map-container {
-  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem; /* padding for navbar */
+  padding-bottom: 5rem; /* padding for footer */
 }
 
 .map {

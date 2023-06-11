@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
+
+
 function Footer () {
   return (
     <div className="footer">
-      <h1>Hello world!</h1>
+      <Link to="/">Wonder List</Link>
     </div>
   );
 }

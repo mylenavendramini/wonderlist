@@ -5,16 +5,18 @@ import { useParams, useNavigate } from 'react-router';
 import { Context } from "../context/Context"
 
 
-function CategoryItem ({ category }) {
+function CategoryItem ({ category, travelCollection }) {
   // console.log(placeInfo)
   const [place, setPlace] = useState('');
   const [address, setAddress] = useState('');
   const [categoryItems, setCategoryItems] = useState([])
   const [uniqueCatArray, setUniqueCatArray] = useState([])
+  const [categoryObj, setCategoryObj] = useState(null)
+  const [travelCollectionObj, setTravelCollectionObj] = useState(null)
   const { id } = useParams(); // travelId
   const { categories } = useContext(Context);
   // console.log({ categories })
-  const categoryTitle = category.title;
+  const categoryTitle = categoryObj && categoryObj.title;
   const navigate = useNavigate()
   const { placeInfo, updatePlaceInfo } = useContext(Context)
 
@@ -52,10 +54,13 @@ function CategoryItem ({ category }) {
     })
   }
   // console.log({ uniqueCatArray })
+
   // console.log(categoryItems, 'categoryItems')
 
   useEffect(() => {
     getCategoryItems()
+    setCategoryObj(category)
+    setTravelCollectionObj(travelCollection)
   }, [])
 
   useEffect(() => {
@@ -107,7 +112,6 @@ function CategoryItem ({ category }) {
     // console.log(newCategory)
     // console.log(id)
     apiService.createCategory(newCategory, id).then(data => alert('Place added to your list')).catch(error => console.log(error));
-    // TODO: when I refresh the page, Places loose the information passed by 'category'
     getCategoryItems();
     localStorage.setItem('uniqueCatArray', JSON.stringify([...uniqueCatArray, newCategory]));
 
@@ -115,7 +119,7 @@ function CategoryItem ({ category }) {
 
   return (
     <div className="category-item">
-      <h2>TODO: Travel Name</h2>
+      <h2>{travelCollectionObj && travelCollectionObj.travelName}</h2>
       <h3>TODO: Travel City</h3>
       <h3>{categoryTitle}</h3>
       <div className='map-container'>

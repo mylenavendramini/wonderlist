@@ -38,13 +38,12 @@ function TimelineList () {
   // TODO: all the activities are showing to all the travelCollections, but in the database they are separated: FIX it in the client
 
   return (
-    <div className="timeline-list">
+    <div className="timeline-list container">
       <h2>Timeline</h2>
       <h3>{travelCollection && travelCollection.travelName}</h3>
       <VerticalTimeline lineColor="#091d36">
         {dates.map((date, idx) => {
           const isEven = idx % 2 === 0;
-
           return (
             <VerticalTimelineElement
               key={idx}

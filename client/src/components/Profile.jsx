@@ -30,7 +30,7 @@ function Profile () {
   // }, []);
 
   return (
-    <div className="profile">
+    <div className="container">
       <h2>Welcome, {user && user.userName} </h2>
       <TravelForm />
     </div>

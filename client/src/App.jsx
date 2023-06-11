@@ -5,7 +5,7 @@ import apiServiceJWT from './apiServiceJWT';
 
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
-import Home from './components/Home';
+import Footer from './components/Footer';
 import { Context } from './context/Context';
 
 function App () {
@@ -28,14 +28,11 @@ function App () {
   }, [])
 
   return (
-    <div className="App">
+    <div className="app">
       <Router>
-
         <Navbar isAuthenticated={isAuthenticated} />
-        <Home />
-        {/*<div>{user}</div>*/}
-        <Dashboard setIsAuthenticated={setIsAuthenticated} />
-
+        <Dashboard setIsAuthenticated={setIsAuthenticated} isAuthenticated={isAuthenticated} />
+        <Footer />
       </Router>
     </div>
   );

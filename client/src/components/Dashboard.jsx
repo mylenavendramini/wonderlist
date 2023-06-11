@@ -10,33 +10,33 @@ import TravelCollections from './Travel-collections';
 import UserMap from './Map';
 import Places from './Places';
 
-
-const Dashboard = ({ setIsAuthenticated }) => {
-  const cityName = "London";
+const Dashboard = ({ setIsAuthenticated, isAuthenticated }) => {
   return (
     <section className="dashboard">
       <Routes>
         <Route
           path="/register"
-          element={<Register setIsAuthenticated={setIsAuthenticated} />}
+          element={<Register
+            setIsAuthenticated={setIsAuthenticated} />}
         />
         <Route
           path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
+          element={<Login
+            setIsAuthenticated={setIsAuthenticated} />}
         />
         <Route path="/profile" element={<Profile />} />
         <Route path="/timeline/:id" element={<TimelineList />} />
         <Route path="/categories/:id" element={<CategoriesList />} />
         <Route path="/places/:id" element={<Places />} />
-        <Route path="/user-map/:id" element={<UserMap cityName={cityName} />} />
+        <Route path="/user-map/:id" element={<UserMap />} />
         <Route path="/travel-collections" element={<TravelCollections />} />
-
         <Route
           path="/logout"
           element={<Logout setIsAuthenticated={setIsAuthenticated} />}
         />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
       </Routes>
+
     </section>
   );
 };

@@ -53,6 +53,8 @@ function CategoriesList () {
     }
   }
 
+
+
   // console.log({ uniqueCatArray })
   // console.log({ titlesArray })
 
@@ -68,17 +70,15 @@ function CategoriesList () {
               <img src={cat.icon_url} alt={cat.title} onClick={() => {
                 setCurrCat(cat);
                 setClicked(true)
-                // navigate("/user-map/" + cat._id);
-                console.log('wasiudhasiudhasd')
-                navigate("/user-map/" + id, { state: cat });
+                navigate("/user-map/" + id, { state: { cat, travelCollection } });
                 // Refresh the /user-map page to be abble to add places to placeInfo
                 // window.location.reload();
               }} />
             </div>
           )
           )}
-          <div className="categories-item-icon close-item" onClick={handleCreateCategory}>
-            <i className="fa fa-plus btn btn-close"></i>
+          <div className="categories-item-icon close-item no-border" onClick={handleCreateCategory}>
+            <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
           </div>
         </div>
       </div>
