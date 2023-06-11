@@ -7,13 +7,14 @@ import { Context } from "../context/Context";
 import { useContext } from "react";
 
 function TravelCollections () {
-  const [travelCollections, setTravelCollections] = useState([]);
-  const [open, setOpen] = useState(false);  // dropdown
-  const { user } = useContext(Context);
+  // const [travelCollections, setTravelCollections] = useState([]);
+  // const [open, setOpen] = useState(false);  // dropdown
+  const [openIndex, setOpenIndex] = useState(null); // index of the open dropdown
+  const { user, travelCollections, updateTravelCollections } = useContext(Context);
 
   async function getAllTravelCollections () {
     const travelCollections = await apiService.getTravelCollections();
-    setTravelCollections(travelCollections);
+    updateTravelCollections(travelCollections);
   }
   useEffect(() => {
     getAllTravelCollections();
@@ -22,6 +23,9 @@ function TravelCollections () {
   async function handleDelete (id) {
     const travelCollectionToDelete = await apiService.deleteTravelCollection(id);
     console.log(travelCollectionToDelete);
+    updateTravelCollections((prevData) =>
+      prevData.filter((travel) => travel._id !== id)
+    );
   }
 
   function checkUserId (travelId) {
@@ -31,8 +35,8 @@ function TravelCollections () {
     }
   }
 
-  const handleOpen = () => {
-    setOpen(!open);
+  const handleOpen = (index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
@@ -48,14 +52,15 @@ function TravelCollections () {
 
       {travelCollections.filter((travel) => checkUserId(travel._id)).map((travel, idx) => {
         const travelId = travel._id;
+        const isOpen = openIndex === idx;
         return (
-          <div className="travel-collection-item" key={idx}>
-            <div className="list-items dropdown-container" key={idx}>
-              <h3 onClick={handleOpen} className="dropdown-target">{travel.travelName}</h3>
-              {open &&
+          <div className="travel-collection-item" key={travel._id}>
+            <div className="list-items dropdown-container">
+              <h3 onClick={() => handleOpen(idx)} className="dropdown-target">{travel.travelName}</h3>
+              {isOpen &&
                 <div className="menu" key={idx}>
-                  <Link to={`/timeline/${travelId}`} key={idx}>&rarr; Check timeline</Link>
-                  <Link to={`/categories/${travelId}`} key={idx}>&rarr; Check categories</Link>
+                  <Link to={`/timeline/${travelId}`}>&rarr; Check timeline</Link>
+                  <Link to={`/categories/${travelId}`}>&rarr; Check categories</Link>
                 </div>
               }
 

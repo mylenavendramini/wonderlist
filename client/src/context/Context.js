@@ -5,12 +5,18 @@ export const Context = createContext();
 
 export const MyProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [travelCollections, setTravelCollections] = useState([]);
   const [dates, setDates] = useState(['9th June, 2023', '10th June, 2023']);
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [placeInfo, setPlaceInfo] = useState([]);
 
   const updateUser = (newUser) => {
     setUser(newUser)
+  }
+
+  const updateTravelCollections = (newTravelCollections) => {
+    setTravelCollections(newTravelCollections)
   }
 
   const updateDates = (newDates) => {
@@ -25,8 +31,12 @@ export const MyProvider = ({ children }) => {
     setCategories(newCategory)
   }
 
+  const updatePlaceInfo = (newPlaceInfo) => {
+    setPlaceInfo(newPlaceInfo)
+  }
+
   return (
-    <Context.Provider value={{ user, updateUser, dates, updateDates, activities, updateActivities, categories, updateCategories }}>
+    <Context.Provider value={{ user, updateUser, travelCollections, updateTravelCollections, dates, updateDates, activities, updateActivities, categories, updateCategories, placeInfo, updatePlaceInfo }}>
       {children}
     </Context.Provider>
   )

@@ -7,14 +7,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 
 function CategoriesList () {
-
   const [currCat, setCurrCat] = useState({});
   const [catArray, setCatArray] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [createCategory, setCreateCategory] = useState(false);
-  const { user, categories, updateCategories } = useContext(Context);
+  const { user, categories, updateCategories, travelCollections } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate()
+
+  function getTravelCollection () {
+    return travelCollections.find((travel) => travel._id === id)
+  }
+  const travelCollection = getTravelCollection();
 
   function getAllCategories () {
     apiService.getCategories().then(data => {
@@ -30,19 +34,14 @@ function CategoriesList () {
 
   function handleCreateCategory () {
     setCreateCategory(true);
-    //TODO:
-    // stop showing the component
   }
 
-  function checkUserId (travelId) {
-    if (user) {
-      const travelCol = user.travelCollections;
-      return travelCol.includes(travelId);
-    }
+  function handleCategoryCreation (newCategory) {
+    setCatArray(prevCategories => [...prevCategories, newCategory]);
+    setCreateCategory(false);
   }
 
-  //TODO: I have to filter to only show the categories title once
-  // if (cat.title)
+
   const uniqueCatArray = [];
   const titlesArray = [];
 
@@ -54,15 +53,15 @@ function CategoriesList () {
     }
   }
 
-  console.log({ uniqueCatArray })
-  console.log({ titlesArray })
+  // console.log({ uniqueCatArray })
+  // console.log({ titlesArray })
 
 
   return (
     <div className="categories-list">
       <h2>Categories</h2>
       <div className="categories-item-container">
-        <h3>TODO: London</h3>
+        <h3>{travelCollection && travelCollection.travelName}</h3>
         <div className="categories-item-boxes">
           {uniqueCatArray.map((cat, idx) => (
             <div key={idx} className="categories-item-icon">
@@ -71,7 +70,9 @@ function CategoriesList () {
                 setClicked(true)
                 // navigate("/user-map/" + cat._id);
                 console.log('wasiudhasiudhasd')
-                navigate("/user-map/" + id, { state: cat })
+                navigate("/user-map/" + id, { state: cat });
+                // Refresh the /user-map page to be abble to add places to placeInfo
+                // window.location.reload();
               }} />
             </div>
           )
@@ -81,7 +82,12 @@ function CategoriesList () {
           </div>
         </div>
       </div>
-      {createCategory ? <CreateCategory setCatArray={setCatArray} travelId={id} /> : ''}
+      {createCategory && <CreateCategory
+        setCatArray={setCatArray}
+        travelId={id}
+        handleCategoryCreation={handleCategoryCreation}
+      />
+      }
       {/*{clicked && <CategoryItem category={catArray.find((cat) => cat.title === currCat.title)} />}*/}
       {/*clicked && <UserMap category={catArray.find((cat) => cat.title === currCat.title)} />*/}
     </div>

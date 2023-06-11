@@ -1,11 +1,16 @@
 import { useState } from "react";
 import apiService from "../apiService";
 
-function CreateCategory ({ setCatArray, travelId }) {
+function CreateCategory ({ setCatArray, travelId, handleCategoryCreation }) {
   const [category, setCategory] = useState('');
+  const [formError, setFormError] = useState("");
 
   function handleSubmit (e) {
     e.preventDefault();
+    if (category.trim() === "") {
+      setFormError("Please enter a category name");
+      return;
+    }
     const newCategory = {
       title: category,
       place: '',
@@ -14,11 +19,16 @@ function CreateCategory ({ setCatArray, travelId }) {
     }
     console.log(newCategory)
     console.log(travelId)
-    apiService.createCategory(newCategory, travelId).then(newCategory => setCatArray(categories => [...categories, newCategory]));
+    // apiService.createCategory(newCategory, travelId).then(newCategory => setCatArray(categories => [...categories, newCategory]));
+    apiService.createCategory(newCategory, travelId).then((createdCategory) => {
+      setCatArray((prevCategories) => [...prevCategories, createdCategory]);
+      handleCategoryCreation(createdCategory);
+    });
     setCategory('');
+    setFormError("");
   };
 
-  function validateForm () { }
+
   return (
     <div className="create-category">
       <form className="form" onSubmit={handleSubmit}>
@@ -29,7 +39,7 @@ function CreateCategory ({ setCatArray, travelId }) {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         />
-        <button className="btn" type="submit" disabled={validateForm()}>
+        {formError && <p className="error-message">{formError}</p>}        <button className="btn" type="submit">
           Create category
         </button>
       </form>

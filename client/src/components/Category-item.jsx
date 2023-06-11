@@ -1,10 +1,11 @@
 import 'reactjs-popup/dist/index.css';
 import { useEffect, useState, useContext } from 'react';
 import apiService from '../apiService';
-import { useParams } from 'react-router';
-import { Context } from "../context/Context";
+import { useParams, useNavigate } from 'react-router';
+import { Context } from "../context/Context"
 
-function CategoryItem ({ category, placeInfo }) {
+
+function CategoryItem ({ category }) {
   // console.log(placeInfo)
   const [place, setPlace] = useState('');
   const [address, setAddress] = useState('');
@@ -12,8 +13,14 @@ function CategoryItem ({ category, placeInfo }) {
   const [uniqueCatArray, setUniqueCatArray] = useState([])
   const { id } = useParams(); // travelId
   const { categories } = useContext(Context);
-  console.log({ categories })
+  // console.log({ categories })
   const categoryTitle = category.title;
+  const navigate = useNavigate()
+  const { placeInfo, updatePlaceInfo } = useContext(Context)
+
+  // TODO: two problems:
+  // when refresh the page, I don't get the places
+  // when add the place, don't display them automatically
 
   const placesArray = [];
   function uniquePlaces () {
@@ -27,19 +34,16 @@ function CategoryItem ({ category, placeInfo }) {
       }
     }
   }
-
   // the place need to be filter after go to categories
 
 
   // TODO: get the category items with the same title
   function getCategoryItems () {
     categories.forEach(cat => {
-      console.log(cat)
-
+      // console.log(cat)
       if (cat.title === categoryTitle) {
-
-        console.log(cat.title, 'cat title');
-        console.log({ categoryTitle });
+        // console.log(cat.title, 'cat title');
+        // console.log({ categoryTitle });
         // no duplicates
         setCategoryItems((prev) => (
           [...prev, cat])
@@ -47,8 +51,8 @@ function CategoryItem ({ category, placeInfo }) {
       }
     })
   }
-  console.log({ uniqueCatArray })
-  console.log(categoryItems, 'categoryItems')
+  // console.log({ uniqueCatArray })
+  // console.log(categoryItems, 'categoryItems')
 
   useEffect(() => {
     getCategoryItems()
@@ -60,7 +64,8 @@ function CategoryItem ({ category, placeInfo }) {
 
 
   useEffect(() => {
-    updatePlaceAndAddress()
+    updatePlaceAndAddress();
+    getCategoryItems()
   }, [placeInfo])
 
   useEffect(() => {
@@ -68,6 +73,8 @@ function CategoryItem ({ category, placeInfo }) {
       addNewCategory();
     }
   }, [place, address]);
+
+
 
   // every time the user clicks, we update the category
 
@@ -97,9 +104,13 @@ function CategoryItem ({ category, placeInfo }) {
       address: address,
       icon_url: '/icons8-new-50.png',
     }
-    console.log(newCategory)
-    console.log(id)
-    apiService.createCategory(newCategory, id).then(data => console.log(data)).catch(error => console.log(error));
+    // console.log(newCategory)
+    // console.log(id)
+    apiService.createCategory(newCategory, id).then(data => alert('Place added to your list')).catch(error => console.log(error));
+    // TODO: when I refresh the page, Places loose the information passed by 'category'
+    getCategoryItems();
+    localStorage.setItem('uniqueCatArray', JSON.stringify([...uniqueCatArray, newCategory]));
+
   }
 
   return (
@@ -111,17 +122,7 @@ function CategoryItem ({ category, placeInfo }) {
         <h3>Find your places and add them to your list</h3>
       </div>
       <div>
-        {uniqueCatArray.map((cat, idx) => (
-          <div className='list-items' key={idx}>
-            <ul>
-              <li>{cat.place}</li>
-              <li>{cat.address}</li>
-            </ul>
-            <div className='close-item'>
-              <i className="fa fa-close btn btn-close"></i>
-            </div>
-          </div>
-        ))}
+        <h3 onClick={() => navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })}>CLICK ME</h3>
       </div>
     </div>
   );

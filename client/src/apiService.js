@@ -60,6 +60,20 @@ apiService.editCategory = async (id, place, address) => {
   return data;
 }
 
+apiService.deleteCategory = async (id) => {
+  try {
+    const res = await fetch(`${url}/categories/${id}`,
+      {
+        method: "DELETE",
+      });
+    const data = res.json();
+    return data;
+  }
+  catch (error) {
+    console.log(error)
+  }
+}
+
 apiService.getActivities = async () => {
   const res = await fetch(`${url}/activities`);
   const data = res.json()

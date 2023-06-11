@@ -8,6 +8,7 @@ import TimelineList from './Timeline-list';
 import CategoriesList from './Categories-list';
 import TravelCollections from './Travel-collections';
 import UserMap from './Map';
+import Places from './Places';
 
 
 const Dashboard = ({ setIsAuthenticated }) => {
@@ -26,6 +27,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/timeline/:id" element={<TimelineList />} />
         <Route path="/categories/:id" element={<CategoriesList />} />
+        <Route path="/places/:id" element={<Places />} />
         <Route path="/user-map/:id" element={<UserMap cityName={cityName} />} />
         <Route path="/travel-collections" element={<TravelCollections />} />
 

@@ -38,6 +38,7 @@ const deleteCategory = async (id) => {
   }
 }
 
+
 const editCategory = async (categoryId, place, address) => {
   try {
     console.log(categoryId, 'catid')

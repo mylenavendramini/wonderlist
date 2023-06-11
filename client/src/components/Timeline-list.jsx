@@ -12,16 +12,16 @@ import { Context } from '../context/Context';
 function TimelineList () {
   const { id } = useParams();
   const { dates, updateDates } = useContext(Context);
-  const [travelCollections, setTravelCollections] = useState([]);
+  // const [travelCollections, setTravelCollections] = useState([]);
+  const { updateTravelCollections, travelCollections } = useContext(Context);
 
 
   async function getAllTravelCollections () {
     const travelCollections = await apiService.getTravelCollections();
-    setTravelCollections(travelCollections);
+    updateTravelCollections(travelCollections);
   }
   useEffect(() => {
     getAllTravelCollections();
-
   }, [])
 
   function getTravelCollection () {

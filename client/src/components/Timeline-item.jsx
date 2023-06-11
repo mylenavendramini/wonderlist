@@ -19,6 +19,9 @@ function TimelineItem ({ date }) {
   async function handleDelete (id) {
     const activityToDelete = await apiService.deleteActivity(id);
     console.log(activityToDelete);
+    updateActivities((prevData) =>
+      prevData.filter((activity) => activity._id !== id)
+    );
   }
 
   useEffect(() => {
