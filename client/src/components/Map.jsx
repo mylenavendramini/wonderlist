@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import { API_MAPS_KEY } from '../apiServiceMaps';
 import CategoryItem from './Category-item';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import apiService from '../apiService';
 
 // import dotenv from 'dotenv'
@@ -24,6 +24,10 @@ function UserMap (props) {
   const [placeIds, setPlaceIds] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [placeInfo, setPlaceInfo] = useState([]);
+  // get the category from Categories-List:
+  const location = useLocation();
+  const category = location.state;
+
 
   // const [place, setPlace] = useState('');
   // const [address, setAddress] = useState('');
@@ -196,9 +200,11 @@ function UserMap (props) {
   //   })
   // }
 
+
+
   return (
     <div className='map-container'>
-      <CategoryItem category={props.category} placeInfo={placeInfo} />
+      <CategoryItem category={category} placeInfo={placeInfo} />
       {/*<div className="category-item">
         <h2>TODO: Travel Name</h2>
         <h3>TODO: Travel City</h3>

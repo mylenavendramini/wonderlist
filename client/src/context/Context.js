@@ -7,7 +7,7 @@ export const MyProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [dates, setDates] = useState(['9th June, 2023', '10th June, 2023']);
   const [activities, setActivities] = useState([]);
-  const [closeModal, setClosalModal] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   const updateUser = (newUser) => {
     setUser(newUser)
@@ -21,12 +21,12 @@ export const MyProvider = ({ children }) => {
     setActivities(newActivities)
   }
 
-  const updateModal = (newBoolean) => {
-    setClosalModal(newBoolean)
+  const updateCategories = (newCategory) => {
+    setCategories(newCategory)
   }
 
   return (
-    <Context.Provider value={{ user, updateUser, dates, updateDates, activities, updateActivities, closeModal, updateModal }}>
+    <Context.Provider value={{ user, updateUser, dates, updateDates, activities, updateActivities, categories, updateCategories }}>
       {children}
     </Context.Provider>
   )

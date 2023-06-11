@@ -37,7 +37,15 @@ function TravelCollections () {
 
   return (
     <div className="travel-collections">
-      <h2>Your travel collections: </h2>
+      {travelCollections.length > 0 ? (
+        <h2>Your travel collections:</h2>
+      ) : (
+        <>
+          <h2>You need to be logged in to access the travel collections.</h2>
+          <Link to="/login">Login</Link>
+        </>
+      )}
+
       {travelCollections.filter((travel) => checkUserId(travel._id)).map((travel, idx) => {
         const travelId = travel._id;
         return (

@@ -6,10 +6,7 @@ function Navbar ({ isAuthenticated }) {
     <div className='navbar'>
       <ul>
         <li>
-          <Link to="/categories">Categories</Link>
-        </li>
-        <li>
-          <Link to="/timeline">Timeline</Link>
+          <Link to="/travel-collections">Travel Collections</Link>
         </li>
       </ul>
       <ul>

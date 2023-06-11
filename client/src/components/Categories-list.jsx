@@ -7,12 +7,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 
 function CategoriesList () {
-  const [categories, setCategories] = useState([]);
+
   const [currCat, setCurrCat] = useState({});
   const [catArray, setCatArray] = useState([]);
   const [clicked, setClicked] = useState(false);
   const [createCategory, setCreateCategory] = useState(false);
-  const { user } = useContext(Context);
+  const { user, categories, updateCategories } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate()
 
@@ -20,6 +20,7 @@ function CategoriesList () {
     apiService.getCategories().then(data => {
       console.log(data)
       setCatArray(data)
+      updateCategories(data);
     });
   }
 
@@ -40,18 +41,37 @@ function CategoriesList () {
     }
   }
 
+  //TODO: I have to filter to only show the categories title once
+  // if (cat.title)
+  const uniqueCatArray = [];
+  const titlesArray = [];
+
+  for (const obj of catArray) {
+    const title = obj.title;
+    if (!titlesArray.includes(title)) {
+      titlesArray.push(title);
+      uniqueCatArray.push(obj);
+    }
+  }
+
+  console.log({ uniqueCatArray })
+  console.log({ titlesArray })
+
+
   return (
     <div className="categories-list">
       <h2>Categories</h2>
       <div className="categories-item-container">
         <h3>TODO: London</h3>
         <div className="categories-item-boxes">
-          {catArray.map((cat, idx) => (
+          {uniqueCatArray.map((cat, idx) => (
             <div key={idx} className="categories-item-icon">
               <img src={cat.icon_url} alt={cat.title} onClick={() => {
                 setCurrCat(cat);
                 setClicked(true)
-                navigate("/user-map/" + cat._id);
+                // navigate("/user-map/" + cat._id);
+                console.log('wasiudhasiudhasd')
+                navigate("/user-map/" + id, { state: cat })
               }} />
             </div>
           )
