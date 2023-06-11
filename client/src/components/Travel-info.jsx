@@ -31,8 +31,8 @@ function TravelInfo ({ travelCollection, dates, cities }) {
         <h3>Travel information:</h3>
         <div className="edit-information-item">
           <div className="new-date-city">
-            <p><span>City: </span>{travelCollectionInfo.cityName}</p>
-            <p><span>Date: </span>{travelCollectionInfo.startingDate} to {travelCollectionInfo.endingDate}</p>
+            <p><span>City: </span>{travelCollectionInfo && travelCollectionInfo.cityName}</p>
+            <p><span>Date: </span>{travelCollectionInfo && travelCollectionInfo.startingDate} to {travelCollectionInfo && travelCollectionInfo.endingDate}</p>
           </div>
           <button className="btn btn-check" onClick={handleClick}>
             <i className="fa fa-check"></i>

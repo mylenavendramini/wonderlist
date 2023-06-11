@@ -27,4 +27,11 @@ function getDatesBetween (startDate, endDate) {
   return dates;
 }
 
-module.exports = { getDay, formatDate, getDatesBetween }
+function futureDate (startDate) {
+  const now = new Date()
+  const inputStartDate = new Date(startDate);
+  const inputEndDate = new Date(startDate);
+  if (inputStartDate < now || inputEndDate < now) return alert('You have to choose a future date.');
+}
+
+module.exports = { getDay, formatDate, getDatesBetween, futureDate }

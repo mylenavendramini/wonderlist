@@ -17,15 +17,7 @@ function TravelForm () {
 
   return (
     <div className="travel-form">
-      <TravelNameForm setFormSubmitted={setFormSubmitted} cities={cities} setCities={setCities} />
-
-      {formSubmitted && travelCollection.travelName ? (
-        <TravelInfo
-          travelCollection={travelCollection}
-          dates={dates}
-          cities={cities}
-        />
-      ) : null}
+      <TravelNameForm setFormSubmitted={setFormSubmitted} cities={cities} setCities={setCities} formSubmitted={formSubmitted} setTravelCollection={setTravelCollection} travelCollection={travelCollection} />
     </div>
   );
 }

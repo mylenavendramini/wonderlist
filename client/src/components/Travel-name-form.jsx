@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TravelItineraryForm from "./Travel-itinerary-form";
 
-function TravelNameForm ({ setFormSubmitted, setCities, cities }) {
+function TravelNameForm ({ setFormSubmitted, setCities, cities, formSubmitted, setTravelCollection, travelCollection }) {
 
   const [travelName, setTravelName] = useState('');
   const [formError, setFormError] = useState("");
@@ -16,6 +16,7 @@ function TravelNameForm ({ setFormSubmitted, setCities, cities }) {
       setFormError("Please enter a travel name");
       return;
     }
+    setFormSubmitted(true)
     setTravelName('');
     setFormError("");
   };
@@ -23,20 +24,22 @@ function TravelNameForm ({ setFormSubmitted, setCities, cities }) {
 
   return (
     <>
-      <form className="form" onSubmit={handleTravelNameSubmit}>
-        <label htmlFor="travel-name">Travel name:</label>
-        <input
-          type="text"
-          name="travel-name"
-          value={travelName}
-          onChange={handleTravelNameChange}
-          required
-        />
-        <button className="btn btn-check" type="submit">
-          <i className="fa fa-check"></i>
-        </button>
-      </form>
-      <TravelItineraryForm travelName={travelName} setFormSubmitted={setFormSubmitted} setCities={setCities} cities={cities} />
+      {formSubmitted ?
+        <TravelItineraryForm travelName={travelName} setCities={setCities} cities={cities} setTravelCollection={setTravelCollection} travelCollection={travelCollection} />
+        :
+        <form className="form" onSubmit={handleTravelNameSubmit}>
+          <label htmlFor="travel-name">Travel name:</label>
+          <input
+            type="text"
+            name="travel-name"
+            value={travelName}
+            onChange={handleTravelNameChange}
+            required
+          />
+          <button className="btn btn-check" type="submit">
+            <i className="fa fa-check"></i>
+          </button>
+        </form>}
     </>
   );
 }

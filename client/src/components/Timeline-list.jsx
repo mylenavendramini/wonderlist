@@ -2,6 +2,7 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import PlaneIcon from './Icons/PlaneIcon';
 import MontainIcon from './Icons/MontainIcon';
+import SuitcaseIcon from './Icons/SuitcaseIcon';
 import TimelineItem from './Timeline-item';
 import { useContext, useEffect, useState } from "react";
 import apiService from "../apiService";
@@ -12,7 +13,6 @@ import { Context } from '../context/Context';
 function TimelineList () {
   const { id } = useParams();
   const { dates, updateDates } = useContext(Context);
-  // const [travelCollections, setTravelCollections] = useState([]);
   const { updateTravelCollections, travelCollections } = useContext(Context);
 
 
@@ -41,31 +41,23 @@ function TimelineList () {
     <div className="timeline-list">
       <h2>Timeline</h2>
       <h3>{travelCollection && travelCollection.travelName}</h3>
-      {dates.map((date, idx) => {
-        return (
-          <VerticalTimeline
-            lineColor="#091d36" key={idx}
-          >
-            <VerticalTimelineElement
-              className="vertical-timeline-element--work"
-              date={date}
-              iconStyle={{ background: '#091d36', color: '#fff' }}
-              icon={<PlaneIcon />}
-            >
-              <TimelineItem date={date} />
-            </VerticalTimelineElement>
-            <VerticalTimelineElement
-              className="vertical-timeline-element--work"
-              date={date}
-              iconStyle={{ background: '#091d36', color: '#fff' }}
-              icon={<MontainIcon />}
-            >
-              <TimelineItem date={date} />
-            </VerticalTimelineElement>
+      <VerticalTimeline lineColor="#091d36">
+        {dates.map((date, idx) => {
+          const isEven = idx % 2 === 0;
 
-          </VerticalTimeline>
-        )
-      })}
+          return (
+            <VerticalTimelineElement
+              key={idx}
+              className="vertical-timeline-element--work"
+              date={date}
+              iconStyle={{ background: '#091d36', color: '#fff' }}
+              icon={isEven ? <PlaneIcon /> : <MontainIcon />}
+            >
+              <TimelineItem date={date} />
+            </VerticalTimelineElement>
+          );
+        })}
+      </VerticalTimeline>
       {/*<VerticalTimeline
           lineColor="#091d36"
         >

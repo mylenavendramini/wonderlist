@@ -19,8 +19,6 @@ function CreateNewActivity ({ date, travelId }) {
 
   function handleActivitySubmit (e) {
     e.preventDefault();
-    // validateForm();
-    setActivity('');
     const newActivity = {
       date: date,
       activity: activity,
@@ -31,23 +29,11 @@ function CreateNewActivity ({ date, travelId }) {
       newActivity
     ]));
 
-    apiService.createActivity(newActivity, travelId).then(newActivity => setActivity(activities => [...activities, newActivity]));
+    apiService.createActivity(newActivity, travelId).then(newActivity => setActivity(''));
   }
 
   return (
     <>
-      {/*dates.map((date, idx) => (
-        <div key={idx}>
-          <div className="list-items">
-            <p>{date}</p>
-            <div className='close-item'>
-              <i className="fa fa-plus btn btn-close" onClick={() => handleAddInput(date)}></i>
-            </div>
-          </div>
-        </div>
-      ))*/}
-
-
       <form className="form" onSubmit={(e) => handleActivitySubmit(e)}>
         <label htmlFor="activity-name">Activity name:</label>
         <input

@@ -1,17 +1,18 @@
-import { useContext, useState } from "react";
-import { formatDate, getDatesBetween } from "../utils/helper";
+import { useContext, useEffect, useState } from "react";
+import { formatDate, futureDate, getDatesBetween } from "../utils/helper";
 import apiService from "../apiService";
 import { Context } from "../context/Context";
+import TravelInfo from "./Travel-info";
 
-function TravelItineraryForm ({ travelName, setFormSubmitted, cities, setCities }) {
-  const [travelCollection, setTravelCollection] = useState({});
+function TravelItineraryForm ({ travelName, cities, setCities, setTravelCollection, travelCollection }) {
   const [city, setCity] = useState('');
-
+  const [formSubmitted, setFormSubmitted] = useState(false);
   // const [dates, setDates] = useState(['']);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [formError, setFormError] = useState("");
   const { user, updateUser, dates, updateDates } = useContext(Context);
+
 
   // Itinerary inputs
   function handleAddInput () {
@@ -25,6 +26,7 @@ function TravelItineraryForm ({ travelName, setFormSubmitted, cities, setCities 
   };
 
   // TODO: it's only working for ONE city
+  // TODO: It's allowing form without dates
 
   function handleCityChange (e) {
     const newCity = e.target.value;
@@ -60,12 +62,11 @@ function TravelItineraryForm ({ travelName, setFormSubmitted, cities, setCities 
   };
 
   function handleFinishForm () {
-
-    if (travelName.trim() === "" || cities.some((c) => c.trim() === "")) {
+    if (cities.some((c) => c.trim() === "")) {
       setFormError("Please fill in all fields");
       return;
     }
-    validateForm();
+    futureDate();
 
     const datesBetween = getDatesBetween(startDate, endDate);
     updateDates(datesBetween);
@@ -84,72 +85,72 @@ function TravelItineraryForm ({ travelName, setFormSubmitted, cities, setCities 
     apiService.createTravelCollection(newTravelCollection, user._id);
     setCity('');
     setFormError('');
+
     setFormSubmitted(true);
-
   }
 
-  function validateForm () {
-    // Only future dates:
-    const now = new Date()
-    const inputStartDate = new Date(startDate);
-    const inputEndDate = new Date(startDate);
-    if (inputStartDate < now || inputEndDate < now) return alert('You have to choose a future date.');
-    // if (!city || !travelName || !startDate || !endDate) {
-    //   // TODO: set message
-    //   return alert('Please, fill the required fields.')
-    // }
-  }
+
 
   return (
-    <div className="TravelItineraryForm">
-      <form className="form" onSubmit={handleDateCitySubmit}>
-        <label htmlFor="travel-itinerary">Travel itinerary:</label>
-        <button className="btn btn-plus" type="submit" onClick={handleAddInput}>
-          <i className="fa fa-plus" ></i>
-        </button>
-        {cities.map((city, idx) => {
-          return (
-            <div key={idx} className="travel-itinerary-container">
-              <input
-                name="travel-itinerary"
-                placeholder='City'
-                onChange={(e) => {
-                  handleCityChange(e);
-                  handleCitiesChange(idx, e)
-                }}
-                value={city}
-                type="text"
-                required
-              />
-              <input
-                name="travel-itinerary"
-                onChange={(e) => {
-                  handleStartDateChange(e);
-                  handleDatesBetweenChange(idx, e)
-                }}
-                value={startDate}
-                type="date"
-                required
-              />
-              <input
-                name="travel-itinerary"
-                onChange={(e) => {
-                  handleEndDateChange(e);
-                  handleDatesBetweenChange(idx, e)
-                }}
-                value={endDate}
-                type="date"
-                required
-              />
-            </div>
-          );
-        })}
-        <button className="btn btn-check" onClick={handleFinishForm}>
-          <i className="fa fa-check"></i>
-        </button>
-      </form>
-      {formError && <p className="error-message">{formError}</p>}
-    </div>
+    <>
+      {formSubmitted ?
+        <TravelInfo
+          travelCollection={travelCollection}
+          dates={dates}
+          cities={cities}
+        />
+        :
+        <form className="form" >
+          <label htmlFor="travel-itinerary">Travel itinerary:</label>
+          <button className="btn btn-plus" type="submit" onClick={handleAddInput}>
+            <i className="fa fa-plus" ></i>
+          </button>
+          {cities.map((city, idx) => {
+            return (
+              <div key={idx} className="travel-itinerary-container">
+                <input
+                  name="travel-itinerary"
+                  placeholder='City'
+                  onChange={(e) => {
+                    handleCityChange(e);
+                    handleCitiesChange(idx, e)
+                  }}
+                  value={city}
+                  type="text"
+                  required
+                />
+                <input
+                  name="travel-itinerary"
+                  onChange={(e) => {
+                    handleStartDateChange(e);
+                    handleDatesBetweenChange(idx, e)
+                  }}
+                  value={startDate}
+                  type="date"
+                  required
+                />
+                <input
+                  name="travel-itinerary"
+                  onChange={(e) => {
+                    handleEndDateChange(e);
+                    handleDatesBetweenChange(idx, e)
+                  }}
+                  value={endDate}
+                  type="date"
+                  required
+                />
+              </div>
+            );
+          })}
+          <button className="btn btn-check" onClick={handleFinishForm} type="submit">
+            <i className="fa fa-check"></i>
+          </button>
+        </form>
+      }
+
+
+
+    </>
   );
 }
 

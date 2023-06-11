@@ -3,7 +3,7 @@ import CreateNewActivity from './Create-new-activity';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Context } from '../context/Context';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import apiService from '../apiService';
 
@@ -27,6 +27,7 @@ function TimelineItem ({ date }) {
   useEffect(() => {
     getAllActivities();
   }, []);
+
 
 
   return (
@@ -53,7 +54,6 @@ function TimelineItem ({ date }) {
                 <i className="fa fa-close btn btn-close"></i>
               </button>
               <div className="content">
-                {' '}
                 <CreateNewActivity date={date} travelId={id} />
               </div>
             </div>
