@@ -4,6 +4,7 @@ import CreateCategory from "./Create-new-category";
 import { Context } from "../context/Context";
 import { useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import { firstLetterUpperCase } from "../utils/helper";
 
 
 function CategoriesList () {
@@ -70,28 +71,28 @@ function CategoriesList () {
     <div className="categories-list">
       <h2>Categories</h2>
       <div className="categories-item-container">
-        <h3>{travelCollectionArr.length && travelCollectionArr[0].travelName}</h3>
+        <h3>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h3>
         {travelCollectionArr.map((travelCol) => {
           const details = travelCol.details;
           return (
             <div className="categories-item-boxes">
-              <h3>{details.cityName}</h3>
+              <h3>{firstLetterUpperCase(details.cityName)}</h3>
               {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
-                console.log(cat.cityName.trim());
                 return (
-                  <Fragment key={idx}>
-                    <div className="categories-item-icon">
-                      <img src={cat.icon_url} alt={cat.title} onClick={() => {
-                        setCurrCat(cat);
-                        setClicked(true);
-                        navigate("/user-map/" + id, { state: { category: cat, travelCol } });
-                        // Refresh the /user-map page to be abble to add places to placeInfo
-                        // window.location.reload();
-                      }} />
-
+                  <div className="categories-item" key={idx}>
+                    <div className="categories-item">
+                      <div className="categories-item-icon">
+                        <img src={cat.icon_url} alt={cat.title} onClick={() => {
+                          setCurrCat(cat);
+                          setClicked(true);
+                          navigate("/user-map/" + id, { state: { category: cat, travelCol } });
+                          // Refresh the /user-map page to be abble to add places to placeInfo
+                          // window.location.reload();
+                        }} />
+                      </div>
+                      <h3>{firstLetterUpperCase(cat.title)}</h3>
                     </div>
-                    <h3>{cat.title}</h3>
-                  </Fragment>
+                  </div>
                 )
               }
               )}

@@ -5,6 +5,7 @@ import apiService from "../apiService";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 import { useContext } from "react";
+import { firstLetterUpperCase } from "../utils/helper";
 
 function TravelCollections () {
   // const [travelCollections, setTravelCollections] = useState([]);
@@ -57,7 +58,7 @@ function TravelCollections () {
                       onClick={() => handleOpen(idx)}
                       className="dropdown-target"
                     >
-                      {travel.travelName}
+                      {firstLetterUpperCase(travel.travelName)}
                     </h3>
                     {isOpen && (
                       <div className="menu" key={idx}>

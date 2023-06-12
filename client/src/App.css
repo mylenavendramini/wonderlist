@@ -239,8 +239,16 @@ li {
 
 .categories-item-boxes {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 2rem;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+  justify-content: center;
+}
+
+.categories-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .categories-item-icon {
@@ -307,6 +315,12 @@ li {
 
 .toggle-check {
   text-decoration: line-through;
+}
+
+.checked {
+  background-color: var(--primary);
+  opacity: 0.5;
+  color: var(--secondary);
 }
 
 /* TRAVEL COLLECTIONS */

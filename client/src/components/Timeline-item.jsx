@@ -6,6 +6,8 @@ import { Context } from '../context/Context';
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import apiService from '../apiService';
+import { firstLetterUpperCase } from '../utils/helper';
+
 
 function TimelineItem ({ date, travelCol }) {
   const [checkedActivities, setCheckedActivities] = useState([]);
@@ -38,12 +40,13 @@ function TimelineItem ({ date, travelCol }) {
     getAllActivities();
   }, []);
 
+
   return (
     <div>
       <div className="timeline-item">
-        <h3 className="vertical-timeline-element-title">{travelCollectionDetails.cityName}</h3>
+        <h3 className="vertical-timeline-element-title">{firstLetterUpperCase(travelCollectionDetails.cityName)}</h3>
         {activities.filter((activity) => activity.date === date).map((activity, idx) => (
-          <div className='list-items' key={idx}>
+          <div className={checkedActivities.includes(activity._id) ? 'list-items checked' : 'list-items'} key={idx}>
             <i className="fa fa-check btn btn-close" onClick={() => handleCheck(activity._id)}></i>
             <li className={checkedActivities.includes(activity._id) ? 'toggle-check' : null}>{activity.activity}</li>
             <div className='close-item'>

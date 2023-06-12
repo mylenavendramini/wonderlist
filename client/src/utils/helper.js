@@ -35,4 +35,11 @@ function futureDate (startDate) {
 }
 
 
-module.exports = { getDay, formatDate, getDatesBetween, futureDate }
+function firstLetterUpperCase (text) {
+  const arr = text.split('');
+  arr[0] = arr[0].toUpperCase();
+  return arr.join('');
+}
+
+
+module.exports = { getDay, formatDate, getDatesBetween, futureDate, firstLetterUpperCase }

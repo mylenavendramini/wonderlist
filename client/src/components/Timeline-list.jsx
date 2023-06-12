@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import apiService from "../apiService";
 import { useParams } from 'react-router-dom';
 import { Context } from '../context/Context';
-import { compareDates } from "../utils/helper";
+import { compareDates, firstLetterUpperCase } from "../utils/helper";
 
 
 function TimelineList () {
@@ -47,7 +47,7 @@ function TimelineList () {
   return (
     <div className="timeline-list container">
       <h2>Timeline</h2>
-      <h3>{travelCollectionArr.length && travelCollectionArr[0].travelName}</h3>
+      <h3>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h3>
       {sortedtravelCollectionArr.map((travelCollection, idx) => {
         const datesBetween = travelCollection.details.datesBetween;
         return (
@@ -57,6 +57,8 @@ function TimelineList () {
               return (
                 <VerticalTimelineElement
                   key={idx}
+                  contentStyle={{ background: 'var(--secondary)', border: '1px solid var(--primary-lighter)', 'box-shadow': '0px 15px 10px -15px var(--primary)' }}
+                  contentArrowStyle={{ display: 'none' }}
                   className="vertical-timeline-element--work"
                   date={date}
                   iconStyle={{ background: '#091d36', color: '#fff' }}
