@@ -10,15 +10,19 @@ function CategoriesList () {
   const [currCat, setCurrCat] = useState({});
   const [catArray, setCatArray] = useState([]);
   const [clicked, setClicked] = useState(false);
+  const [selectedCity, setSelectedCity] = useState(null);
   const [createCategory, setCreateCategory] = useState(false);
   const { user, categories, updateCategories, travelCollections } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate()
 
-  function getTravelCollection () {
-    return travelCollections.find((travel) => travel._id === id)
+  function getTravelCollectionArr () {
+    const travelElement = travelCollections.find((travel) => travel._id === id);
+    const travelNameElement = travelElement && travelElement.travelName;
+    return travelCollections.filter((travel) => travel.travelName === travelNameElement);
   }
-  const travelCollection = getTravelCollection();
+
+  const travelCollectionArr = getTravelCollectionArr();
 
   function getAllCategories () {
     apiService.getCategories().then(data => {
@@ -28,19 +32,24 @@ function CategoriesList () {
     });
   }
 
+
   useEffect(() => {
     getAllCategories()
   }, [])
 
-  function handleCreateCategory () {
+  console.log({ categories });
+  console.log({ travelCollectionArr })
+
+  function handleCreateCategory (cityName) {
     setCreateCategory(true);
+    setClicked(false);
+    setSelectedCity(cityName);
   }
 
   function handleCategoryCreation (newCategory) {
     setCatArray(prevCategories => [...prevCategories, newCategory]);
     setCreateCategory(false);
   }
-
 
   const uniqueCatArray = [];
   const titlesArray = [];
@@ -55,7 +64,7 @@ function CategoriesList () {
 
 
 
-  // console.log({ uniqueCatArray })
+  console.log({ uniqueCatArray })
   // console.log({ titlesArray })
 
 
@@ -63,31 +72,39 @@ function CategoriesList () {
     <div className="categories-list">
       <h2>Categories</h2>
       <div className="categories-item-container">
-        <h3>{travelCollection && travelCollection.travelName}</h3>
-        <div className="categories-item-boxes">
-          {uniqueCatArray.map((cat, idx) => (
-            <div key={idx} className="categories-item-icon">
-              <img src={cat.icon_url} alt={cat.title} onClick={() => {
-                setCurrCat(cat);
-                setClicked(true)
-                navigate("/user-map/" + id, { state: { cat, travelCollection } });
-                // Refresh the /user-map page to be abble to add places to placeInfo
-                // window.location.reload();
-              }} />
-            </div>
-          )
-          )}
-          <div className="categories-item-icon close-item no-border" onClick={handleCreateCategory}>
-            <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
-          </div>
-        </div>
+        <h3>{travelCollectionArr.length && travelCollectionArr[0].travelName}</h3>
+        {travelCollectionArr.map((travelCol) => {
+          const details = travelCol.details;
+          return (
+            <div className="categories-item-boxes">
+              <h3>{details.cityName}</h3>
+              {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => (
+                <div key={idx} className="categories-item-icon">
+                  <img src={cat.icon_url} alt={cat.title} onClick={() => {
+                    setCurrCat(cat);
+                    setClicked(true);
+                    navigate("/user-map/" + id, { state: { cat, travelCol } });
+                    // Refresh the /user-map page to be abble to add places to placeInfo
+                    // window.location.reload();
+                  }} />
+                </div>
+              )
+              )}
+              <div className="categories-item-icon close-item no-border" onClick={() => handleCreateCategory(details.cityName)}>
+                <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
+              </div>
+            </div>)
+        })}
+        {createCategory && <CreateCategory
+          setCatArray={setCatArray}
+          travelId={id}
+          selectedCity={selectedCity}
+          handleCategoryCreation={handleCategoryCreation}
+        />
+        }
+
       </div>
-      {createCategory && <CreateCategory
-        setCatArray={setCatArray}
-        travelId={id}
-        handleCategoryCreation={handleCategoryCreation}
-      />
-      }
+
       {/*{clicked && <CategoryItem category={catArray.find((cat) => cat.title === currCat.title)} />}*/}
       {/*clicked && <UserMap category={catArray.find((cat) => cat.title === currCat.title)} />*/}
     </div>

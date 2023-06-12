@@ -1,7 +1,7 @@
 import { useState } from "react";
 import apiService from "../apiService";
 
-function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, }) {
+function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, selectedCity }) {
   const [category, setCategory] = useState('');
   const [formError, setFormError] = useState("");
 
@@ -12,6 +12,7 @@ function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, }) {
       return;
     }
     const newCategory = {
+      cityName: selectedCity,
       title: category,
       place: '',
       address: '',

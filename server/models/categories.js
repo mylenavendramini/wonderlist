@@ -2,6 +2,7 @@ const { Schema, model } = require('./index');
 const { Travel } = require('./travel')
 
 const categoriesSchema = new Schema({
+  cityName: String,
   title: String,
   place: String,
   address: String,

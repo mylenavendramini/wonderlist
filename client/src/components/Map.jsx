@@ -30,7 +30,7 @@ function UserMap (props) {
   // const [placeInfo, setPlaceInfo] = useState([]);
   // get the category from Categories-List:
   const location = useLocation();
-  const { category, travelCollection } = location.state;
+  const { category, travelCol } = location.state;
 
 
 
@@ -192,7 +192,7 @@ function UserMap (props) {
 
   return (
     <div className='map-container'>
-      <CategoryItem category={category} travelCollection={travelCollection} />
+      <CategoryItem category={category} />
       <Map
         google={props.google}
         onClick={handleMapClick}
