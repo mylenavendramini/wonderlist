@@ -37,8 +37,6 @@ function CategoriesList () {
     getAllCategories()
   }, [])
 
-  console.log({ categories });
-  console.log({ travelCollectionArr })
 
   function handleCreateCategory (cityName) {
     setCreateCategory(true);
@@ -64,7 +62,7 @@ function CategoriesList () {
 
 
 
-  console.log({ uniqueCatArray })
+  // console.log({ uniqueCatArray })
   // console.log({ titlesArray })
 
 
@@ -83,7 +81,7 @@ function CategoriesList () {
                   <img src={cat.icon_url} alt={cat.title} onClick={() => {
                     setCurrCat(cat);
                     setClicked(true);
-                    navigate("/user-map/" + id, { state: { cat, travelCol } });
+                    navigate("/user-map/" + id, { state: { category: cat, travelCol } });
                     // Refresh the /user-map page to be abble to add places to placeInfo
                     // window.location.reload();
                   }} />

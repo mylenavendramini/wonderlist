@@ -34,7 +34,6 @@ function UserMap (props) {
 
 
 
-
   const { id } = useParams();
   const placeId = placeIds[placeIds.length - 1];
 
@@ -192,7 +191,7 @@ function UserMap (props) {
 
   return (
     <div className='map-container'>
-      <CategoryItem category={category} />
+      <CategoryItem category={category} travelCol={travelCol} />
       <Map
         google={props.google}
         onClick={handleMapClick}

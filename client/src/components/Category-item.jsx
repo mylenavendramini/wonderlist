@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router';
 import { Context } from "../context/Context"
 
 
-function CategoryItem ({ category, travelCollection }) {
+function CategoryItem ({ category, travelCol }) {
   // console.log(placeInfo)
   const [place, setPlace] = useState('');
   const [address, setAddress] = useState('');
@@ -18,8 +18,6 @@ function CategoryItem ({ category, travelCollection }) {
   // console.log({ categories })
   const categoryTitle = categoryObj && categoryObj.title;
   const categoryCity = categoryObj && categoryObj.cityName;
-
-  console.log(categoryCity)
   const navigate = useNavigate()
   const { placeInfo, updatePlaceInfo } = useContext(Context)
 
@@ -63,7 +61,7 @@ function CategoryItem ({ category, travelCollection }) {
   useEffect(() => {
     getCategoryItems()
     setCategoryObj(category)
-    setTravelCollectionObj(travelCollection)
+    setTravelCollectionObj(travelCol)
   }, [])
 
   useEffect(() => {
@@ -120,12 +118,12 @@ function CategoryItem ({ category, travelCollection }) {
 
   }
 
+
   return (
     <div className="category-item">
       <h2>{travelCollectionObj && travelCollectionObj.travelName}</h2>
       <h3>{categoryCity}</h3>
       <h3>{categoryTitle}</h3>
-      <h3>Why not working?</h3>
       <div className='map-container'>
         <h3>Find your places and add them to your list</h3>
       </div>
