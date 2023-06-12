@@ -14,8 +14,6 @@ const getTravelCollections = async (req, res) => {
 const createTravelCollection = async (req, res) => {
   try {
     const { travelCollection, userId } = req.body;
-    // const user = await TravelModel.findOne({ _id: _id }).populate('activities', 'categories');
-
     const newTravelCollection = await TravelModel.createTravelCollection(travelCollection, userId);
 
     res.status(201).send(newTravelCollection);

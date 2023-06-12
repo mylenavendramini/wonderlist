@@ -7,10 +7,11 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import apiService from '../apiService';
 
-function TimelineItem ({ date }) {
+function TimelineItem ({ date, travelCol }) {
   const [checkedActivities, setCheckedActivities] = useState([]);
   const { activities, updateActivities } = useContext(Context);
   const { id } = useParams();
+  const travelCollectionDetails = travelCol.details;
 
   async function getAllActivities () {
     const activitiesItems = await apiService.getActivities();
@@ -40,7 +41,7 @@ function TimelineItem ({ date }) {
   return (
     <div>
       <div className="timeline-item">
-        <h3 className="vertical-timeline-element-title">London</h3>
+        <h3 className="vertical-timeline-element-title">{travelCollectionDetails.cityName}</h3>
         {activities.filter((activity) => activity.date === date).map((activity, idx) => (
           <div className='list-items' key={idx}>
             <i className="fa fa-check btn btn-close" onClick={() => handleCheck(activity._id)}></i>

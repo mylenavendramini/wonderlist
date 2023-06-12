@@ -16,6 +16,8 @@ export const MyProvider = ({ children }) => {
   const [endDates, setEndDates] = useState([''])
   const [cities, setCities] = useState(['']);
 
+  // dates should be related to activities
+
   const [dates, setDates] = useState(['9th June, 2023', '10th June, 2023']);
 
   const updateUser = (newUser) => {
@@ -57,6 +59,7 @@ export const MyProvider = ({ children }) => {
   const updatePlaceInfo = (newPlaceInfo) => {
     setPlaceInfo(newPlaceInfo)
   }
+
 
   return (
     <Context.Provider value={{ user, updateUser, travelCollections, updateTravelCollections, dates, updateDates, activities, updateActivities, categories, updateCategories, placeInfo, updatePlaceInfo, cities, updateCities, startDates, updateStartDates, endDates, updateEndDates, travelName, updateTravelName }}>

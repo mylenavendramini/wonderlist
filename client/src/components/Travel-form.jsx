@@ -7,7 +7,6 @@ import TravelNameForm from "./Travel-name-form";
 
 
 function TravelForm () {
-  const [travelCollection, setTravelCollection] = useState(null);
   // const [startDates, setStartDates] = useState([])
   const [cities, setCities] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -16,7 +15,7 @@ function TravelForm () {
 
   return (
     <div className="travel-form">
-      <TravelNameForm setFormSubmitted={setFormSubmitted} cities={cities} setCities={setCities} formSubmitted={formSubmitted} setTravelCollection={setTravelCollection} travelCollection={travelCollection} />
+      <TravelNameForm setFormSubmitted={setFormSubmitted} cities={cities} setCities={setCities} formSubmitted={formSubmitted} />
     </div>
   );
 }

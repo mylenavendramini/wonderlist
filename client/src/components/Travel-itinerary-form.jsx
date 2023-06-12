@@ -5,20 +5,22 @@ import { Context } from "../context/Context";
 import TravelInfo from "./Travel-info";
 
 class TravelCollection {
-  constructor (travelName, city, startDate, endDate) {
+  constructor (travelName, city, startDate, endDate, datesBetween) {
     this.travelName = travelName;
     this.details = {
       cityName: city,
       startingDate: formatDate(startDate),
       endingDate: formatDate(endDate),
+      datesBetween: datesBetween
     };
   }
 }
 
-function TravelItineraryForm ({ setCities, setTravelCollection, travelCollection, travelNameParent }) {
+function TravelItineraryForm ({ setCities, travelNameParent }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
-  const { dates, updateDates, cities, updateCities, startDates, updateStartDates, endDates, updateEndDates, } = useContext(Context);
+  const [travelCollections, setTravelCollections] = useState([]);
+  const { user, dates, updateDates, cities, updateCities, startDates, updateStartDates, endDates, updateEndDates, } = useContext(Context);
 
   function handleAddInput () {
     if (cities[cities.length - 1].trim() === "") {
@@ -58,23 +60,28 @@ function TravelItineraryForm ({ setCities, setTravelCollection, travelCollection
 
     futureDate();
 
-    const datesBetween = getDatesBetween(startDates[0], endDates[0]);
-    updateDates(datesBetween);
 
-    const newTravelCollection = cities.map((city, idx) => {
+
+    const newTravelCollections = cities.map((city, idx) => {
       const startDate = startDates[idx];
       const endDate = endDates[idx];
-      return new TravelCollection(travelNameParent, city, startDate, endDate);
+      const datesBetween = getDatesBetween(startDate, endDate);
+      return new TravelCollection(travelNameParent, city, startDate, endDate, datesBetween);
     });
-    console.log({ newTravelCollection })
-    setTravelCollection(newTravelCollection);
+    console.log({ newTravelCollections })
+    setTravelCollections(prev => [...prev, ...newTravelCollections]);
+    // pass to the back end each element in the newTravelCollections array
+    newTravelCollections.forEach(newTravel => {
+      apiService.createTravelCollection(newTravel, user._id);
+    })
     setFormSubmitted(true);
   }
+
 
   return (
     <>
       {formSubmitted ? (
-        <TravelInfo travelCollection={travelCollection} dates={dates} cities={cities} />
+        <TravelInfo travelCollections={travelCollections} />
       ) : (
         <form className="form">
           <label htmlFor="travel-itinerary">Travel itinerary:</label>

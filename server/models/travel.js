@@ -7,6 +7,7 @@ const travelSchema = new Schema({
     cityName: String,
     startingDate: String,
     endingDate: String,
+    datesBetween: [],
     activities: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
     categories: [{ type: Schema.Types.ObjectId, ref: "Categories" }]
   }

@@ -24,39 +24,41 @@ function TimelineList () {
     getAllTravelCollections();
   }, [])
 
-  function getTravelCollection () {
-    return travelCollections.find((travel) => travel._id === id)
+  function getTravelCollectionArr () {
+    const travelElement = travelCollections.find((travel) => travel._id === id);
+    const travelNameElement = travelElement && travelElement.travelName;
+    return travelCollections.filter((travel) => travel.travelName === travelNameElement);
   }
-  const travelCollection = getTravelCollection();
 
-  const mockDates = ['9th June, 2023', '10th June, 2023', '11th June, 2023', '12th June, 2023', '13th June, 2023', '14th June, 2023', '15th June, 2023', '16th June, 2023', '17th June, 2023']
-  // get dates here in here
-  // where is dates? travel-info
-  // how to pass? redux
-  // pass the dates to the timeline-item using map
+  const travelCollectionArr = getTravelCollectionArr();
 
-  // TODO: all the activities are showing to all the travelCollections, but in the database they are separated: FIX it in the client
 
   return (
     <div className="timeline-list container">
       <h2>Timeline</h2>
-      <h3>{travelCollection && travelCollection.travelName}</h3>
-      <VerticalTimeline lineColor="#091d36">
-        {dates.map((date, idx) => {
-          const isEven = idx % 2 === 0;
-          return (
-            <VerticalTimelineElement
-              key={idx}
-              className="vertical-timeline-element--work"
-              date={date}
-              iconStyle={{ background: '#091d36', color: '#fff' }}
-              icon={isEven ? <PlaneIcon /> : <MontainIcon />}
-            >
-              <TimelineItem date={date} />
-            </VerticalTimelineElement>
-          );
-        })}
-      </VerticalTimeline>
+      <h3>{travelCollectionArr.length && travelCollectionArr[0].travelName}</h3>
+      {travelCollectionArr.map((travelCollection, idx) => {
+        const datesBetween = travelCollection.details.datesBetween;
+        return (
+          <VerticalTimeline lineColor="#091d36" key={idx}>
+            {datesBetween.map((date, idx) => {
+              const isEven = idx % 2 === 0;
+              return (
+                <VerticalTimelineElement
+                  key={idx}
+                  className="vertical-timeline-element--work"
+                  date={date}
+                  iconStyle={{ background: '#091d36', color: '#fff' }}
+                  icon={isEven ? <PlaneIcon /> : <MontainIcon />}
+                >
+                  <TimelineItem date={date} travelCol={travelCollection} />
+                </VerticalTimelineElement>
+              );
+            })}
+          </VerticalTimeline>
+        )
+      })}
+
       {/*<VerticalTimeline
           lineColor="#091d36"
         >

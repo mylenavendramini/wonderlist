@@ -20,6 +20,7 @@ function TravelCollections () {
     getAllTravelCollections();
   }, []);
 
+
   async function handleDelete (id) {
     const travelCollectionToDelete = await apiService.deleteTravelCollection(id);
     console.log(travelCollectionToDelete);
@@ -50,8 +51,8 @@ function TravelCollections () {
               const travelId = travel._id;
               const isOpen = openIndex === idx;
               return (
-                <div className="container horizontal" >
-                  <div className="list-items dropdown-container" key={travel._id}>
+                <div className="container horizontal" key={travel._id}>
+                  <div className="list-items dropdown-container" >
                     <h3
                       onClick={() => handleOpen(idx)}
                       className="dropdown-target"

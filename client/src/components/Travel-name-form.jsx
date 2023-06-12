@@ -3,7 +3,7 @@ import TravelItineraryForm from "./Travel-itinerary-form";
 import { useContext } from 'react';
 import { Context } from '../context/Context';
 
-function TravelNameForm ({ setFormSubmitted, formSubmitted, setTravelCollection, travelCollection }) {
+function TravelNameForm ({ setFormSubmitted, formSubmitted, }) {
   const [travelNameInput, setTravelNameInput] = useState('');
   const [formError, setFormError] = useState("");
   const { travelName, updateTravelName } = useContext(Context);
@@ -29,7 +29,7 @@ function TravelNameForm ({ setFormSubmitted, formSubmitted, setTravelCollection,
   return (
     <>
       {formSubmitted ?
-        <TravelItineraryForm travelNameParent={travelName} setTravelCollection={setTravelCollection} travelCollection={travelCollection} />
+        <TravelItineraryForm travelNameParent={travelName} />
         :
         <form className="form" onSubmit={handleTravelNameSubmit}>
           <label htmlFor="travel-name">Travel name:</label>
