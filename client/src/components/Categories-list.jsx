@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import apiService from '../apiService'
 import CreateCategory from "./Create-new-category";
 import { Context } from "../context/Context";
@@ -35,6 +35,7 @@ function CategoriesList () {
 
   useEffect(() => {
     getAllCategories()
+
   }, [])
 
 
@@ -49,21 +50,20 @@ function CategoriesList () {
     setCreateCategory(false);
   }
 
-  const uniqueCatArray = [];
-  const titlesArray = [];
 
+
+  const uniqueCatArray = []
+  const titlesArray = [];
+  const cityNamesArray = [];
   for (const obj of catArray) {
-    const title = obj.title;
-    if (!titlesArray.includes(title)) {
+    const title = obj.title && obj.title.trim();
+    const city = obj.cityName && obj.cityName.trim();
+    if (!titlesArray.includes(title) || !cityNamesArray.includes(city)) {
       titlesArray.push(title);
-      uniqueCatArray.push(obj);
+      cityNamesArray.push(city);
+      uniqueCatArray.push(obj)
     }
   }
-
-
-
-  // console.log({ uniqueCatArray })
-  // console.log({ titlesArray })
 
 
   return (
@@ -76,17 +76,24 @@ function CategoriesList () {
           return (
             <div className="categories-item-boxes">
               <h3>{details.cityName}</h3>
-              {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => (
-                <div key={idx} className="categories-item-icon">
-                  <img src={cat.icon_url} alt={cat.title} onClick={() => {
-                    setCurrCat(cat);
-                    setClicked(true);
-                    navigate("/user-map/" + id, { state: { category: cat, travelCol } });
-                    // Refresh the /user-map page to be abble to add places to placeInfo
-                    // window.location.reload();
-                  }} />
-                </div>
-              )
+              {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
+                console.log(cat.cityName.trim());
+                return (
+                  <Fragment key={idx}>
+                    <div className="categories-item-icon">
+                      <img src={cat.icon_url} alt={cat.title} onClick={() => {
+                        setCurrCat(cat);
+                        setClicked(true);
+                        navigate("/user-map/" + id, { state: { category: cat, travelCol } });
+                        // Refresh the /user-map page to be abble to add places to placeInfo
+                        // window.location.reload();
+                      }} />
+
+                    </div>
+                    <h3>{cat.title}</h3>
+                  </Fragment>
+                )
+              }
               )}
               <div className="categories-item-icon close-item no-border" onClick={() => handleCreateCategory(details.cityName)}>
                 <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
@@ -108,5 +115,9 @@ function CategoriesList () {
     </div>
   );
 }
+
+
+
+
 
 export default CategoriesList;

@@ -22,6 +22,7 @@ const getCategories = async () => {
 
 const createCategory = async (category, travelId) => {
   try {
+    console.log(category)
     const newCategory = await Categories.create(category);
     const result = await Travel.findOneAndUpdate({ _id: travelId }, { $push: { 'details.categories': newCategory._id } }, { new: true });
     return newCategory;

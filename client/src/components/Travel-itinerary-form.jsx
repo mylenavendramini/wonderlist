@@ -6,7 +6,7 @@ import TravelInfo from "./Travel-info";
 
 class TravelCollection {
   constructor (travelName, city, startDate, endDate, datesBetween) {
-    this.travelName = travelName;
+    this.travelName = travelName.trim();
     this.details = {
       cityName: city,
       startingDate: formatDate(startDate),
@@ -66,7 +66,7 @@ function TravelItineraryForm ({ setCities, travelNameParent }) {
       const startDate = startDates[idx];
       const endDate = endDates[idx];
       const datesBetween = getDatesBetween(startDate, endDate);
-      return new TravelCollection(travelNameParent, city, startDate, endDate, datesBetween);
+      return new TravelCollection(travelNameParent, city.trim(), startDate, endDate, datesBetween);
     });
     console.log({ newTravelCollections })
     setTravelCollections(prev => [...prev, ...newTravelCollections]);

@@ -396,6 +396,7 @@ li {
 .map-container {
   display: flex;
   justify-content: center;
+  /* min-height: 50vh; */
   padding-top: 5rem; /* padding for navbar */
   padding-bottom: 5rem; /* padding for footer */
 }

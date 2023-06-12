@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import apiService from "../apiService";
 import { useParams } from 'react-router-dom';
 import { Context } from '../context/Context';
+import { compareDates } from "../utils/helper";
 
 
 function TimelineList () {
@@ -30,14 +31,24 @@ function TimelineList () {
     return travelCollections.filter((travel) => travel.travelName === travelNameElement);
   }
 
-  const travelCollectionArr = getTravelCollectionArr();
 
+
+  // const travelCollectionArr = getTravelCollectionArr();
+
+  const travelCollectionArr = getTravelCollectionArr();
+  const sortedtravelCollectionArr = travelCollectionArr.sort((a, b) => {
+    const datesA = a.details.datesBetween;
+    const datesB = b.details.datesBetween;
+    const dateA = new Date(datesA[0].replace(/(st|nd|rd|th)/, ''));
+    const dateB = new Date(datesB[0].replace(/(st|nd|rd|th)/, ''));
+    return dateA - dateB;
+  });
 
   return (
     <div className="timeline-list container">
       <h2>Timeline</h2>
       <h3>{travelCollectionArr.length && travelCollectionArr[0].travelName}</h3>
-      {travelCollectionArr.map((travelCollection, idx) => {
+      {sortedtravelCollectionArr.map((travelCollection, idx) => {
         const datesBetween = travelCollection.details.datesBetween;
         return (
           <VerticalTimeline lineColor="#091d36" key={idx}>

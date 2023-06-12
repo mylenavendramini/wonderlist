@@ -34,4 +34,5 @@ function futureDate (startDate) {
   if (inputStartDate < now || inputEndDate < now) return alert('You have to choose a future date.');
 }
 
+
 module.exports = { getDay, formatDate, getDatesBetween, futureDate }

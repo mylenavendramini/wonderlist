@@ -15,9 +15,9 @@ import { Context } from '../context/Context';
 const mapStyles = {
   width: '80vh',
   height: '60vh',
-  top: '50%',
+  top: '60%',
   left: '50%',
-  transform: 'translate(-50%, -50%)',
+  transform: 'translate(-50%, -70%)',
 };
 
 function UserMap (props) {
@@ -191,7 +191,9 @@ function UserMap (props) {
 
   return (
     <div className='map-container'>
+
       <CategoryItem category={category} travelCol={travelCol} />
+
       <Map
         google={props.google}
         onClick={handleMapClick}

@@ -112,23 +112,28 @@ function CategoryItem ({ category, travelCol }) {
     }
     // console.log(newCategory)
     // console.log(id)
-    apiService.createCategory(newCategory, id).then(data => alert('Place added to your list')).catch(error => console.log(error));
+    apiService.createCategory(newCategory, id).then(data => alert(`${newCategory.place} added to your list`)).catch(error => console.log(error));
     getCategoryItems();
     localStorage.setItem('uniqueCatArray', JSON.stringify([...uniqueCatArray, newCategory]));
 
   }
 
+  function handleGoToList (e) {
+    console.log('what?')
+    navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })
+  }
 
   return (
     <div className="category-item">
-      <h2>{travelCollectionObj && travelCollectionObj.travelName}</h2>
-      <h3>{categoryCity}</h3>
-      <h3>{categoryTitle}</h3>
+      <h2>Travel Collection: {travelCollectionObj && travelCollectionObj.travelName}</h2>
+      {categoryCity && <h3>City: {categoryCity}</h3>}
+      <h3>Category: {categoryTitle}</h3>
+
+      <div className='list-items' onClick={handleGoToList}>
+        <h3 >My list of places</h3>
+      </div>
       <div className='map-container'>
         <h3>Find your places and add them to your list</h3>
-      </div>
-      <div>
-        <h3 onClick={() => navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })}>CLICK ME</h3>
       </div>
     </div>
   );

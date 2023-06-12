@@ -13,7 +13,7 @@ function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, select
     }
     const newCategory = {
       cityName: selectedCity,
-      title: category,
+      title: category.trim(),
       place: '',
       address: '',
       icon_url: '/icons8-new-50.png',
@@ -25,6 +25,7 @@ function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, select
       setCatArray((prevCategories) => [...prevCategories, createdCategory]);
       handleCategoryCreation(createdCategory);
     });
+
     setCategory('');
     setFormError("");
   };
