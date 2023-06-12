@@ -4,152 +4,117 @@ import apiService from "../apiService";
 import { Context } from "../context/Context";
 import TravelInfo from "./Travel-info";
 
-function TravelItineraryForm ({ travelName, cities, setCities, setTravelCollection, travelCollection }) {
-  const [city, setCity] = useState('');
+class TravelCollection {
+  constructor (travelName, city, startDate, endDate) {
+    this.travelName = travelName;
+    this.details = {
+      cityName: city,
+      startingDate: formatDate(startDate),
+      endingDate: formatDate(endDate),
+    };
+  }
+}
+
+function TravelItineraryForm ({ setCities, setTravelCollection, travelCollection, travelNameParent }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
-  // const [dates, setDates] = useState(['']);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
   const [formError, setFormError] = useState("");
-  const { user, updateUser, dates, updateDates } = useContext(Context);
+  const { dates, updateDates, cities, updateCities, startDates, updateStartDates, endDates, updateEndDates, } = useContext(Context);
 
-
-  // Itinerary inputs
   function handleAddInput () {
-    if (city.trim() === "") {
-      setFormError("Please enter a city name");
+    if (cities[cities.length - 1].trim() === "") {
+      setFormError("Please fill in the previous city details");
       return;
     }
-    setCities([...cities, '']);
-    updateDates([...dates, '']);
+
+    updateCities([...cities, ""]);
+    updateStartDates([...startDates, ""]);
+    updateEndDates([...endDates, ""]);
     setFormError("");
-  };
+  }
 
-  // TODO: it's only working for ONE city
-  // TODO: It's allowing form without dates
-
-  function handleCityChange (e) {
-    const newCity = e.target.value;
-    setCity(newCity);
-  };
-
-  function handleCitiesChange (idx, e) {
+  function handleCityChange (idx, e) {
     const updatedCities = [...cities];
     updatedCities[idx] = e.target.value;
-    setCities(updatedCities);
-  };
+    updateCities(updatedCities);
+  }
 
-  function handleDatesBetweenChange (e, idx) {
-    // const updatedDates = [...dates];
-    // updatedDates[idx] = e.target.value;
-    // setDates(updatedDates);
-  };
+  function handleStartDateChange (idx, e) {
+    const updatedStartDates = [...startDates];
+    updatedStartDates[idx] = e.target.value;
+    updateStartDates(updatedStartDates);
+  }
 
-  function handleStartDateChange (e) {
-    const newStartDate = e.target.value;
-    setStartDate(newStartDate);
-  };
-
-  function handleEndDateChange (e) {
-    const newEndDate = e.target.value;
-    setEndDate(newEndDate);
-  };
-
-  function handleDateCitySubmit (e) {
-    e.preventDefault();
-    // Do something with the city and date values
-
-  };
+  function handleEndDateChange (idx, e) {
+    const updatedEndDates = [...endDates];
+    updatedEndDates[idx] = e.target.value;
+    updateEndDates(updatedEndDates);
+  }
 
   function handleFinishForm () {
-    if (cities.some((c) => c.trim() === "")) {
+    if (cities.some((c) => c.trim() === "") || startDates.some((d) => d.trim() === "") || endDates.some((d) => d.trim() === "")) {
       setFormError("Please fill in all fields");
       return;
     }
+
     futureDate();
 
-    const datesBetween = getDatesBetween(startDate, endDate);
+    const datesBetween = getDatesBetween(startDates[0], endDates[0]);
     updateDates(datesBetween);
-    // store all dates -> array of dates
-    // send each date to ACTIVITIES MODEL -> map array of dates and send each date to ActivityComponent
 
-    const newTravelCollection = {
-      travelName,
-      details: {
-        cityName: city,
-        startingDate: formatDate(startDate),
-        endingDate: formatDate(endDate),
-      }
-    }
-    setTravelCollection(newTravelCollection)
-    apiService.createTravelCollection(newTravelCollection, user._id);
-    setCity('');
-    setFormError('');
-
+    const newTravelCollection = cities.map((city, idx) => {
+      const startDate = startDates[idx];
+      const endDate = endDates[idx];
+      return new TravelCollection(travelNameParent, city, startDate, endDate);
+    });
+    console.log({ newTravelCollection })
+    setTravelCollection(newTravelCollection);
     setFormSubmitted(true);
   }
 
-
-
   return (
     <>
-      {formSubmitted ?
-        <TravelInfo
-          travelCollection={travelCollection}
-          dates={dates}
-          cities={cities}
-        />
-        :
-        <form className="form" >
+      {formSubmitted ? (
+        <TravelInfo travelCollection={travelCollection} dates={dates} cities={cities} />
+      ) : (
+        <form className="form">
           <label htmlFor="travel-itinerary">Travel itinerary:</label>
-          <button className="btn btn-plus" type="submit" onClick={handleAddInput}>
-            <i className="fa fa-plus" ></i>
+          <button className="btn btn-plus" type="button" onClick={handleAddInput}>
+            <i className="fa fa-plus"></i>
           </button>
           {cities.map((city, idx) => {
             return (
               <div key={idx} className="travel-itinerary-container">
                 <input
                   name="travel-itinerary"
-                  placeholder='City'
-                  onChange={(e) => {
-                    handleCityChange(e);
-                    handleCitiesChange(idx, e)
-                  }}
+                  placeholder="City"
+                  onChange={(e) => handleCityChange(idx, e)}
                   value={city}
                   type="text"
                   required
                 />
                 <input
                   name="travel-itinerary"
-                  onChange={(e) => {
-                    handleStartDateChange(e);
-                    handleDatesBetweenChange(idx, e)
-                  }}
-                  value={startDate}
+                  onChange={(e) => handleStartDateChange(idx, e)}
+                  value={startDates[idx]}
                   type="date"
                   required
                 />
                 <input
                   name="travel-itinerary"
-                  onChange={(e) => {
-                    handleEndDateChange(e);
-                    handleDatesBetweenChange(idx, e)
-                  }}
-                  value={endDate}
+                  onChange={(e) => handleEndDateChange(idx, e)}
+                  value={endDates[idx]}
                   type="date"
                   required
                 />
               </div>
             );
           })}
-          <button className="btn btn-check" onClick={handleFinishForm} type="submit">
+          {formError && <p className="error-message">{formError}</p>}
+          <button className="btn btn-check" type="button" onClick={handleFinishForm}>
             <i className="fa fa-check"></i>
           </button>
         </form>
-      }
-
-
-
+      )}
     </>
   );
 }

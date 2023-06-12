@@ -6,13 +6,36 @@ export const Context = createContext();
 export const MyProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [travelCollections, setTravelCollections] = useState([]);
-  const [dates, setDates] = useState(['9th June, 2023', '10th June, 2023']);
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [placeInfo, setPlaceInfo] = useState([]);
 
+  const [travelName, setTravelName] = useState('')
+  // Need to start with something, to have input in the TravelItineraryForm
+  const [startDates, setStartDates] = useState([''])
+  const [endDates, setEndDates] = useState([''])
+  const [cities, setCities] = useState(['']);
+
+  const [dates, setDates] = useState(['9th June, 2023', '10th June, 2023']);
+
   const updateUser = (newUser) => {
     setUser(newUser)
+  }
+
+  const updateCities = (newCities) => {
+    setCities(newCities)
+  }
+
+  const updateStartDates = (newStartDates) => {
+    setStartDates(newStartDates)
+  }
+
+  const updateEndDates = (newEndDates) => {
+    setEndDates(newEndDates)
+  }
+
+  const updateTravelName = (newTravelName) => {
+    setTravelName(newTravelName)
   }
 
   const updateTravelCollections = (newTravelCollections) => {
@@ -36,7 +59,7 @@ export const MyProvider = ({ children }) => {
   }
 
   return (
-    <Context.Provider value={{ user, updateUser, travelCollections, updateTravelCollections, dates, updateDates, activities, updateActivities, categories, updateCategories, placeInfo, updatePlaceInfo }}>
+    <Context.Provider value={{ user, updateUser, travelCollections, updateTravelCollections, dates, updateDates, activities, updateActivities, categories, updateCategories, placeInfo, updatePlaceInfo, cities, updateCities, startDates, updateStartDates, endDates, updateEndDates, travelName, updateTravelName }}>
       {children}
     </Context.Provider>
   )
