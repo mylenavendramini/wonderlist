@@ -5,6 +5,8 @@ import { Context } from "../context/Context";
 import { useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { firstLetterUpperCase } from "../utils/helper";
+import PlaneIcon from "./Icons/PlaneIcon";
+import LocationIcon from "./Icons/Location";
 
 
 function CategoriesList () {
@@ -77,27 +79,35 @@ function CategoriesList () {
           return (
             <div className="categories-item-boxes">
               <h3>{firstLetterUpperCase(details.cityName)}</h3>
-              {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
-                return (
-                  <div className="categories-item" key={idx}>
-                    <div className="categories-item">
-                      <div className="categories-item-icon">
-                        <img src={cat.icon_url} alt={cat.title} onClick={() => {
+              <div className="categories-item-box">
+                {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
+                  return (
+
+                    <div className="categories-item" key={idx}>
+                      <div className="categories-item-icon" onClick={() => {
+                        setCurrCat(cat);
+                        setClicked(true);
+                        navigate("/user-map/" + id, { state: { category: cat, travelCol } });
+                      }}>
+                        <LocationIcon />
+                        {/*<img src={cat.icon_url} alt={cat.title} onClick={() => {
                           setCurrCat(cat);
                           setClicked(true);
                           navigate("/user-map/" + id, { state: { category: cat, travelCol } });
                           // Refresh the /user-map page to be abble to add places to placeInfo
                           // window.location.reload();
-                        }} />
+                        }} />*/}
                       </div>
                       <h3>{firstLetterUpperCase(cat.title)}</h3>
                     </div>
-                  </div>
-                )
-              }
-              )}
-              <div className="categories-item-icon close-item no-border" onClick={() => handleCreateCategory(details.cityName)}>
-                <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
+
+                  )
+                }
+                )}
+
+                <div className="categories-item-icon close-item no-border" onClick={() => handleCreateCategory(details.cityName)}>
+                  <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
+                </div>
               </div>
             </div>)
         })}

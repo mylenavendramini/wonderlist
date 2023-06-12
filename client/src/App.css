@@ -245,10 +245,22 @@ li {
   justify-content: center;
 }
 
+.categories-item-box {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  justify-content: center;
+  background: var(--secondary);
+  border: 1px solid var(--primary-lighter);
+  box-shadow: 0px 15px 10px -15px var(--primary);
+}
+
 .categories-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .categories-item-icon {
@@ -257,15 +269,14 @@ li {
   align-items: center;
   border: 1px solid var(--primary);
   margin: 1rem 3rem;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 5px;
   cursor: pointer;
+  width: 15%;
 }
 
 .categories-item-icon.no-border {
   border: none;
-}
-.categories-item-icon img {
 }
 
 .timeline-list,
