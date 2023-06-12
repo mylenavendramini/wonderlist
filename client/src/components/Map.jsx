@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-import { API_MAPS_KEY } from '../apiServiceMaps';
 import CategoryItem from './Category-item';
 import { useLocation, useParams } from 'react-router';
 import apiService from '../apiService';
 import { Context } from '../context/Context';
+import env from "react-dotenv";
+
+const API_MAPS_KEY = env.API_MAPS_KEY;
 
 
 // import dotenv from 'dotenv'

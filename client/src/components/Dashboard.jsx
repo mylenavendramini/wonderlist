@@ -12,7 +12,7 @@ import Places from './Places';
 
 const Dashboard = ({ setIsAuthenticated, isAuthenticated }) => {
   return (
-    <section className="dashboard">
+    <>
       <Routes>
         <Route
           path="/register"
@@ -36,8 +36,7 @@ const Dashboard = ({ setIsAuthenticated, isAuthenticated }) => {
         />
         <Route path="/" element={<Home isAuthenticated={isAuthenticated} />} />
       </Routes>
-
-    </section>
+    </>
   );
 };
 

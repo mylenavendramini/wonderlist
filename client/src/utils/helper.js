@@ -41,5 +41,9 @@ function firstLetterUpperCase (text) {
   return arr.join('');
 }
 
+function ScrollToTop () {
+  window.scrollTo(0, 0);
+}
 
-module.exports = { getDay, formatDate, getDatesBetween, futureDate, firstLetterUpperCase }
+
+module.exports = { getDay, formatDate, getDatesBetween, futureDate, firstLetterUpperCase, ScrollToTop };

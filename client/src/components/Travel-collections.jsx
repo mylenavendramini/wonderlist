@@ -5,7 +5,7 @@ import apiService from "../apiService";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 import { useContext } from "react";
-import { firstLetterUpperCase } from "../utils/helper";
+import { ScrollToTop, firstLetterUpperCase } from "../utils/helper";
 
 function TravelCollections () {
   // const [travelCollections, setTravelCollections] = useState([]);
@@ -42,44 +42,38 @@ function TravelCollections () {
   };
 
   return (
-    <div className="container horizontal">
+    <div className="travel-collection-container">
       {travelCollections.length > 0 ? (
         <>
           <h2>Your travel collections:</h2>
-          {travelCollections
-            .filter((travel) => checkUserId(travel._id))
-            .map((travel, idx) => {
-              const travelId = travel._id;
-              const isOpen = openIndex === idx;
-              return (
-                <div className="container horizontal" key={travel._id}>
-                  <div className="list-items dropdown-container" >
-                    <h3
-                      onClick={() => handleOpen(idx)}
-                      className="dropdown-target"
-                    >
+          <div className="travel-collection-boxes">
+            {travelCollections
+              .filter((travel) => checkUserId(travel._id))
+              .map((travel, idx) => {
+                const travelId = travel._id;
+                return (
+                  <div className="travel-collection-box" key={travel._id}>
+                    <h3>
                       {firstLetterUpperCase(travel.travelName)}
                     </h3>
-                    {isOpen && (
-                      <div className="menu" key={idx}>
-                        <Link to={`/timeline/${travelId}`}>
-                          &rarr; Check timeline
-                        </Link>
-                        <Link to={`/categories/${travelId}`}>
-                          &rarr; Check categories
-                        </Link>
-                      </div>
-                    )}
+                    <div className="travel-collection-btns">
+                      <Link onClick={ScrollToTop} to={`/timeline/${travelId}`} className="btn btn-travel">
+                        Timeline
+                      </Link>
+                      <Link onClick={ScrollToTop} to={`/categories/${travelId}`} className="btn btn-travel">
+                        Categories
+                      </Link>
+                    </div>
+                    <div className="close-item btn-close-absolute">
+                      <i
+                        className="fa fa-close btn btn-close"
+                        onClick={() => handleDelete(travelId)}
+                      ></i>
+                    </div>
                   </div>
-                  <div className="close-item">
-                    <i
-                      className="fa fa-close btn btn-close"
-                      onClick={() => handleDelete(travelId)}
-                    ></i>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
         </>
       ) : (
         <>

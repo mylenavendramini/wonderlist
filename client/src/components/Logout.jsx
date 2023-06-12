@@ -27,7 +27,7 @@ function Logout ({ setIsAuthenticated }) {
           <Link to="/">
             <button className="btn btn-submit">No</button>
           </Link>
-          <Link>
+          <Link to="/">
             <button className="btn btn-submit" onClick={() => handleClick()}>Yes</button>
           </Link>
         </div>
