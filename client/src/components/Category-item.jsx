@@ -15,6 +15,7 @@ function CategoryItem ({ category, travelCol }) {
   const [uniqueCatArray, setUniqueCatArray] = useState([])
   const [categoryObj, setCategoryObj] = useState(null)
   const [travelCollectionObj, setTravelCollectionObj] = useState(null)
+  const [message, setMessage] = useState("");
   const { id } = useParams(); // travelId
   const { categories } = useContext(Context);
   // console.log({ categories })
@@ -116,12 +117,11 @@ function CategoryItem ({ category, travelCol }) {
     }
     // console.log(newCategory)
     // console.log(id)
-    apiService.createCategory(newCategory, id).then(data => alert(`${newCategory.place} added to your list`)).catch(error => console.log(error));
+    apiService.createCategory(newCategory, id);
+    setMessage(`${newCategory.place} added to your list!`);
     getCategoryItems();
     localStorage.setItem('uniqueCatArray', JSON.stringify([...uniqueCatArray, newCategory]));
   }
-
-
 
   function handleGoToList (e) {
     navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })
@@ -131,11 +131,11 @@ function CategoryItem ({ category, travelCol }) {
   return (
     <div className="category-item">
       <h2>{travelCollectionObj && travelCollectionObj.travelName}</h2>
-      <h3>City: {categoryCity && firstLetterUpperCase(categoryCity)}</h3>
       <h3>Category: {categoryTitle && firstLetterUpperCase(categoryTitle)}</h3>
       <div className="categories-item-box-pointer" onClick={handleGoToList}>
         {/*<h3 className="btn btn-travel" onClick={handleGoToList}>My list of places</h3>*/}
-        <h3 id='no-underline'>Find a place and add it to your list:</h3>
+        <h3 id='no-underline'>Find a place in <span>{categoryCity && firstLetterUpperCase(categoryCity)}</span> and add it to your list:</h3>
+        {message && <p className="add-message">&#128205; {message}</p>}
       </div>
     </div>
   );

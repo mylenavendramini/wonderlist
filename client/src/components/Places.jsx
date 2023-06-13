@@ -55,12 +55,12 @@ function Places () {
 
   console.log('working')
   return (
-    <div className="places-container">
+    <div className="travel-collection-container places-container">
       <h2>MY PLACES</h2>
       {uniquePlacesData.length > 0 ? uniquePlacesData.map((cat, idx) => (
         <div className='list-items' key={idx}>
           <ul>
-            <li>{cat.place}</li>
+            <li>&#128205; {cat.place}</li>
             <li>{cat.address}</li>
           </ul>
           <div className='close-item'>
@@ -74,7 +74,7 @@ function Places () {
             return (
               <div className='list-items' key={idx}>
                 <ul>
-                  <li>{cat.place}</li>
+                  <li id='list-place'>&#128205; {cat.place}</li>
                   <li>{cat.address}</li>
                 </ul>
                 <div className='close-item'>

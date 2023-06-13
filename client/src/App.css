@@ -757,15 +757,39 @@ input[type='date']:invalid::-webkit-datetime-edit {
   text-underline-offset: 5px;
 }
 
+.categories-item-box-pointer span {
+  text-decoration: underline;
+  text-decoration-color: var(--primary-half-opacity);
+  text-underline-offset: 5px;
+}
+
+.add-message {
+}
+
 /* PLACES */
 
 .places-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem 0;
+  margin: 2rem;
   padding-top: 5rem; /* padding for navbar */
   padding-bottom: 5rem; /* padding for footer */
+}
+
+.places-container h2 {
+  margin-bottom: 2rem;
+}
+
+.places-container ul {
+  margin: 1rem 2rem 1rem 0;
+}
+
+#list-place {
+  font-size: 1.2rem;
+  text-decoration: underline;
+  text-decoration-color: var(--primary-half-opacity);
+  text-underline-offset: 5px;
 }
 
 .categories-item-box-pointer {
