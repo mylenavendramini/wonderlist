@@ -57,6 +57,9 @@ function TravelCollections () {
         <>
           <h2>YOUR TRAVEL COLLECTIONS</h2>
           <div className="travel-collection-image">
+            {/*<div className="image-relative">
+              <lottie-player src="walking.json" background="transparent" speed="1" ></lottie-player>
+      </div>*/}
             <div className="travel-collection-boxes">
               {uniqueTravelCollections
                 .filter((travel) => checkUserId(travel._id))
@@ -67,17 +70,20 @@ function TravelCollections () {
                       <h3>
                         {firstLetterUpperCase(travel.travelName)}
                       </h3>
+                      <p><span>City: </span>{travel.details.cityName}</p>
+                      <p><span>Dates: </span>{travel.details.startingDate} to {travel.details.endingDate}</p>
                       <div className="travel-collection-btns">
                         <Link onClick={scrollToTop} to={`/timeline/${travelId}`} className="btn btn-travel">
                           Timeline
                         </Link>
                         <Link onClick={scrollToTop} to={`/places/${travelId}`} className="btn btn-travel">
-                          My places
+                          Fav Places
                         </Link>
-                        <Link onClick={scrollToTop} to={`/categories/${travelId}`} className="btn btn-travel">
-                          Add new places
-                        </Link>
+
                       </div>
+                      <Link onClick={scrollToTop} to={`/categories/${travelId}`} className="btn btn-travel-text">
+                        Add new places
+                      </Link>
                       <div className="close-item btn-close-absolute">
                         <i
                           className="fa fa-close btn btn-close"
@@ -88,9 +94,6 @@ function TravelCollections () {
                   );
                 })}
 
-            </div>
-            <div className="image-relative">
-              <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_Rfd6wq.json" background="transparent" speed="1" loop autoplay></lottie-player>
             </div>
           </div>
         </>

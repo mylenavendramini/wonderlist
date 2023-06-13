@@ -23,7 +23,6 @@ const Login = ({ setIsAuthenticated }) => {
 
   const handleSubmit = async (e) => {
     // Check the session branch to see how to handle redirects
-    // REMOVE-START
     e.preventDefault();
     const res = await apiServiceJWT.login(state);
 

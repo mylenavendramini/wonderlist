@@ -71,47 +71,45 @@ function CategoriesList () {
 
 
   return (
-    <div className="categories-list">
-      <h2>Categories</h2>
+    <div className="travel-collection-container categories">
+      <h2>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h2>
       <div className="categories-item-container">
-        <h3>Travel Collection: {travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h3>
         {travelCollectionArr.map((travelCol, idx) => {
           const details = travelCol.details;
           return (
             <div className="categories-item-boxes" key={idx}>
-              <h3>City: {firstLetterUpperCase(details.cityName)}</h3>
-              <h4>Add you categories here:</h4>
-
-
-              {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
-                return (
-                  <div className="categories-item-box" key={idx}>
-                    <div className="categories-item" >
-                      <div className="categories-item-icon" key={idx} onClick={() => {
+              <h3 id="no-underline">Add you categories here:</h3>
+              <h3>{firstLetterUpperCase(details.cityName)}</h3>
+              <div className="categories-item-box" >
+                <div className="categories-item" >
+                  <div className="categories-item-icon">
+                    <LocationIcon />
+                  </div>
+                  <h3>Coffees</h3>
+                </div>
+                {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
+                  return (
+                    <div className="categories-item" key={idx} >
+                      <div className="categories-item-icon" onClick={() => {
                         setCurrCat(cat);
                         setClicked(true);
                         navigate("/user-map/" + id, { state: { category: cat, travelCol } });
                       }}>
                         <LocationIcon />
                       </div>
-                      <h3>{firstLetterUpperCase(cat.title)}</h3>
+                      <div>
+                        <h3>{firstLetterUpperCase(cat.title)}</h3>
+                      </div>
                     </div>
-                  </div>
-                )
-              }
-              )}
-              <div className="categories-item-box">
-                <div className="categories-item" >
-                  <div className="categories-item-icon">
-                    <LocationIcon />
-                  </div>
-                  <h3>Favorite Coffees</h3>
+
+                  )
+                }
+                )}
+                <div className="categories-item-icon close-item no-border" id="btn-center" onClick={() => handleCreateCategory(details.cityName)}>
+                  <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
                 </div>
               </div>
 
-              <div className="categories-item-icon close-item no-border" id="btn-center" onClick={() => handleCreateCategory(details.cityName)}>
-                <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
-              </div>
             </div>)
         })}
         <div id="bottom">

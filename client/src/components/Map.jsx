@@ -8,9 +8,9 @@ import { Context } from '../context/Context';
 const API_MAPS_KEY = process.env.REACT_APP_API_MAPS_KEY2;
 
 const mapStyles = {
-  width: '80vh',
+  width: '100vh',
   height: '60vh',
-  top: '100%',
+  top: '60%',
   left: '50%',
   transform: 'translate(-50%, -0%)',
 };

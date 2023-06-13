@@ -23,14 +23,11 @@ li {
   list-style: none;
 }
 /*
-.image {
+.travel-collection-container {
   position: relative;
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
 }
 
-.image::before {
+.travel-collection-container::before {
   content: ' ';
   display: block;
   position: absolute;
@@ -38,11 +35,11 @@ li {
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 1;
-  background-image: url(../public/tickets.json);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  opacity: 0.3;
+  background-image: url(../public/travel-wallpaper.png);
+  background-repeat: space;
+  background-size: auto;
+  background-size: 20%;
 } */
 
 .container {
@@ -135,8 +132,9 @@ li {
   margin-top: 2rem;
   border-radius: 50%;
   padding: 10px;
+  max-width: 8%;
   width: 8%;
-  background-color: var(--primary);
+  background-color: var(--primary-half-opacity);
 }
 
 /* NAVBAR */
@@ -305,7 +303,19 @@ input[type='date']:invalid::-webkit-datetime-edit {
   box-shadow: none;
 }
 
-.travel-info .form h2 {
+.create-category .form {
+  background-color: transparent;
+  box-shadow: none;
+  border: 2px solid var(--primary-half-opacity);
+}
+
+.create-category .form input {
+  background-color: transparent;
+  box-shadow: none;
+  border: 2px solid var(--primary-half-opacity);
+}
+
+.form h2 {
   text-align: center;
 }
 .form input {
@@ -346,13 +356,13 @@ input[type='date']:invalid::-webkit-datetime-edit {
 
 .image-relative {
   position: relative;
+  width: 40%;
 }
 
 .image {
   width: 40%;
   position: absolute;
   left: 35%;
-  /* margin-left: -50px; */
   top: 15%;
   /* margin-top: -50px; */
   /* top: 50%;
@@ -401,53 +411,61 @@ input[type='date']:invalid::-webkit-datetime-edit {
 
 .categories-item-container {
   display: flex;
-  margin: 2rem 0;
+  /* margin: 2rem 0; */
   flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
   justify-content: center;
 }
 
 .categories-item-boxes {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 2rem 0;
+  /* align-items: center; */
   justify-content: center;
+}
+
+.categories-item-boxes h3 {
+  margin-left: 2rem;
 }
 
 .categories-item-box {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0;
-  padding: 1rem;
-  background-color: var(--violet);
-  color: var(--secondary);
-  border: 1px solid var(--primary-half-opacity);
-  border-radius: 5px;
-  box-shadow: 0px 15px 10px -15px var(--primary);
-  min-width: 40vw;
 }
 
 .categories-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 2rem;
+  padding: 2rem;
+  background-color: var(--violet);
+  color: black;
+  border: 1px solid var(--primary-half-opacity);
+  border-radius: 5px;
+  box-shadow: 0px 15px 10px -15px var(--primary);
+  /* min-width: 10vw; */
+  width: 10rem;
+  height: 10rem;
+}
+
+.categories-item h3 {
+  margin-bottom: 1rem;
+  text-align: center;
+  margin: 0;
 }
 
 .categories-item-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--secondary);
-  margin: 1rem 3rem;
-  padding: 1rem;
-  border-radius: 5px;
+
   cursor: pointer;
-  width: 15%;
 }
 
 .categories-item-icon.no-border {
@@ -462,12 +480,28 @@ input[type='date']:invalid::-webkit-datetime-edit {
   align-items: center;
 }
 
+.timeline-list h2 {
+  text-transform: uppercase;
+}
+
+.timeline-item h3,
+.categories-item-boxes h3 {
+  text-decoration: underline;
+  text-decoration-color: var(--primary-half-opacity);
+  text-underline-offset: 5px;
+  margin-bottom: 1rem;
+}
+
+#no-underline {
+  text-decoration: none;
+}
+
 .list-items {
   display: flex;
   justify-content: space-between;
   align-items: center;
   list-style: none;
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   margin: 0.5rem 0;
   padding: 0.5rem;
   border-radius: 5px;
@@ -490,7 +524,7 @@ input[type='date']:invalid::-webkit-datetime-edit {
   border-radius: 50%;
   padding: 10px;
   background-color: var(--secondary);
-  color: var(--primary);
+  color: black;
 }
 
 .btn-close-absolute {
@@ -534,15 +568,38 @@ input[type='date']:invalid::-webkit-datetime-edit {
   text-align: center;
 }
 
+.travel-collection-container.categories h2 {
+  text-transform: uppercase;
+}
+
+.travel-collection-box h3 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-decoration: underline overline;
+  text-decoration-color: var(--primary-half-opacity);
+  text-underline-offset: 8px;
+  margin-bottom: 1rem;
+}
+
 .travel-collection-image {
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: space-evenly; */
+}
+
+.image-relative {
+  position: absolute;
+  width: 100%;
+  opacity: 0.5;
 }
 
 .travel-collection-boxes {
   display: flex;
   margin: 2rem 0;
-  flex-direction: column;
+  justify-content: center;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
 }
 
 .travel-collection-box {
@@ -555,8 +612,8 @@ input[type='date']:invalid::-webkit-datetime-edit {
   margin: 2rem 3rem 2rem 3rem;
   justify-content: center;
   min-width: 20vw;
-  background: var(--violet);
-  border: 1px solid var(--primary-lighter);
+  background: var(--secondary);
+  border: 2px solid var(--primary-half-opacity);
   border-radius: 5px;
   box-shadow: 0px 15px 10px -15px var(--primary);
 }
@@ -569,6 +626,28 @@ input[type='date']:invalid::-webkit-datetime-edit {
 
 .btn-travel {
   margin: 0 1rem;
+  background-image: linear-gradient(
+    to right,
+    #85aaef94 0%,
+    #ccdeff 31%,
+    #ccdeff 100%
+  );
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  font-size: 1.2rem;
+}
+
+.btn-travel:hover {
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
+}
+
+.btn-travel-text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .travel-collection-item {
@@ -648,9 +727,9 @@ input[type='date']:invalid::-webkit-datetime-edit {
 /* MAP */
 
 .map-container {
+  margin: 2rem 5rem;
   display: flex;
   justify-content: center;
-  /* min-height: 50vh; */
   padding-top: 5rem; /* padding for navbar */
   padding-bottom: 5rem; /* padding for footer */
 }
@@ -662,6 +741,20 @@ input[type='date']:invalid::-webkit-datetime-edit {
 .category-item {
   position: absolute;
   z-index: 998;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.category-item h2 {
+  text-transform: uppercase;
+}
+
+.category-item h3 {
+  text-decoration: underline;
+  text-decoration-color: var(--primary-half-opacity);
+  text-underline-offset: 5px;
 }
 
 /* PLACES */
@@ -679,6 +772,10 @@ input[type='date']:invalid::-webkit-datetime-edit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
+  margin: 1rem 0;
   justify-content: center;
+}
+
+.categories-item-box-pointer h3 {
+  margin: 1rem 0;
 }

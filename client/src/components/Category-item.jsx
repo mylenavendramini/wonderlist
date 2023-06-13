@@ -3,6 +3,8 @@ import { useEffect, useState, useContext } from 'react';
 import apiService from '../apiService';
 import { useParams, useNavigate } from 'react-router';
 import { Context } from "../context/Context"
+import { firstLetterUpperCase } from "../utils/helper";
+
 
 
 function CategoryItem ({ category, travelCol }) {
@@ -125,16 +127,15 @@ function CategoryItem ({ category, travelCol }) {
     navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })
   }
 
+
   return (
     <div className="category-item">
-      <h2>Travel Collection: {travelCollectionObj && travelCollectionObj.travelName}</h2>
-      {categoryCity && <h3>City: {categoryCity}</h3>}
-      <h3>Category: {categoryTitle}</h3>
+      <h2>{travelCollectionObj && travelCollectionObj.travelName}</h2>
+      <h3>City: {categoryCity && firstLetterUpperCase(categoryCity)}</h3>
+      <h3>Category: {categoryTitle && firstLetterUpperCase(categoryTitle)}</h3>
       <div className="categories-item-box-pointer" onClick={handleGoToList}>
-        <h3 className="btn btn-travel" onClick={handleGoToList}>My list of places</h3>
-      </div>
-      <div className='map-container'>
-        <h3>Find your places and add them to your list</h3>
+        {/*<h3 className="btn btn-travel" onClick={handleGoToList}>My list of places</h3>*/}
+        <h3 id='no-underline'>Find a place and add it to your list:</h3>
       </div>
     </div>
   );

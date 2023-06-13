@@ -45,23 +45,22 @@ function TimelineList () {
   });
 
   return (
-    <div className="timeline-list container">
-      <h2>Timeline</h2>
-      <h3>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h3>
+    <div className="timeline-list travel-collection-container">
+      <h2>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h2>
       {sortedtravelCollectionArr.map((travelCollection, idx) => {
         const datesBetween = travelCollection.details.datesBetween;
         return (
-          <VerticalTimeline lineColor="#091d36" key={idx}>
+          <VerticalTimeline lineColor="#edae00" key={idx}>
             {datesBetween.map((date, idx) => {
               const isEven = idx % 2 === 0;
               return (
                 <VerticalTimelineElement
                   key={idx}
-                  contentStyle={{ background: 'var(--secondary)', border: '1px solid var(--primary-half-opacity)', 'boxShadow': '0px 15px 10px -15px var(--primary)' }}
+                  contentStyle={{ background: 'var(--secondary)', border: '2px solid var(--primary-half-opacity)', 'boxShadow': '0px 15px 10px -15px var(--primary)' }}
                   contentArrowStyle={{ display: 'none' }}
                   className="vertical-timeline-element--work"
                   date={date}
-                  iconStyle={{ background: '#091d36', color: '#fff' }}
+                  iconStyle={{ background: '#edae00', color: '#fff' }}
                   icon={isEven ? <PlaneIcon /> : <MontainIcon />}
                 >
                   <TimelineItem date={date} travelCol={travelCollection} />
@@ -71,78 +70,6 @@ function TimelineList () {
           </VerticalTimeline>
         )
       })}
-
-      {/*<VerticalTimeline
-          lineColor="#091d36"
-        >
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<PlaneIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<MontainIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<SuitcaseIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<PassportIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<PlaneIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<MontainIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<SuitcaseIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date={date}
-            iconStyle={{ background: '#091d36', color: '#fff' }}
-            icon={<PassportIcon />}
-          >
-            <TimelineItem />
-          </VerticalTimelineElement>
-      </VerticalTimeline>*/}
-
-
-
     </div>
   );
 }

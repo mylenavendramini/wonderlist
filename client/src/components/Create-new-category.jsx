@@ -42,7 +42,7 @@ function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, select
           onChange={(e) => setCategory(e.target.value)}
         />
         {formError && <p className="error-message">{formError}</p>}
-        <button className="btn" type="submit">
+        <button className="btn btn-travel" type="submit">
           Create category
         </button>
       </form>
