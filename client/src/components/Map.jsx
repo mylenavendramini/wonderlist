@@ -13,6 +13,9 @@ const mapStyles = {
   top: '60%',
   left: '50%',
   transform: 'translate(-50%, -0%)',
+  border: '2px solid var(--primary)',
+  'box-shadow': '0px 15px 10px -15px black',
+  'border-radius': '5px'
 };
 
 function UserMap (props) {

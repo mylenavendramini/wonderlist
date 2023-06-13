@@ -34,7 +34,7 @@ function CreateNewActivity ({ date, travelId }) {
 
   return (
     <>
-      <form className="form" onSubmit={(e) => handleActivitySubmit(e)}>
+      <form className="form activity" onSubmit={(e) => handleActivitySubmit(e)}>
         <label htmlFor="activity-name">Activity name:</label>
         <input
           type="text"
@@ -44,7 +44,7 @@ function CreateNewActivity ({ date, travelId }) {
             setActivity(e.target.value);
           }}
         />
-        <button className="btn" type="submit" >
+        <button className="btn btn-travel" type="submit" >
           Create activity
         </button>
       </form>
