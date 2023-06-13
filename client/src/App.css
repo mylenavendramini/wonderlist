@@ -654,6 +654,15 @@ input[type='date']:invalid::-webkit-datetime-edit {
   border-radius: 5px;
   box-shadow: 0px 15px 10px -15px var(--primary);
 }
+
+.calendar div {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar h2 {
+  text-align: justify;
+}
 .calendar-icon {
   color: var(--gold);
   margin-right: 2rem;

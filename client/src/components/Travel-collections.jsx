@@ -52,6 +52,7 @@ function TravelCollections () {
   function getCounter (date) {
     const daysLeft = counterDate(date)
     if (daysLeft === 0) return 'Today is the day!  🥳'
+    else if (daysLeft === 1) return `${daysLeft} day for your trip!`
     else return `${daysLeft} days for your trip!`
   }
 
@@ -62,14 +63,24 @@ function TravelCollections () {
     })
   }
 
+  function getOneDay () {
+    return uniqueTravelCollections.filter((travel) => checkUserId(travel._id)).map((travel) => {
+      const daysLeft = counterDate(travel.details.startingDate);
+      return daysLeft === 1 ? `${firstLetterUpperCase(travel.travelName)} is tomorrow! ` : '';
+    })
+  }
+
   return (
     <div className="travel-collection-container">
       {travelCollections.length > 0 ? (
         <>
           <h2>YOUR TRAVEL COLLECTIONS</h2>
           <div className="calendar">
-            <i class="fa fa-calendar calendar-icon"></i>
-            <h2>{getTodayIsTheDay()}</h2>
+            <i className="fa fa-calendar calendar-icon"></i>
+            <div>
+              <h2>{getOneDay()}</h2>
+              <h2>{getTodayIsTheDay()}</h2>
+            </div>
           </div>
           <div className="travel-collection-image">
             {/*<div className="image-relative">

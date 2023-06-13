@@ -70,7 +70,6 @@ function TimelineList () {
                 </VerticalTimelineElement>
               );
             })}
-
           </VerticalTimeline>
         )
       })}

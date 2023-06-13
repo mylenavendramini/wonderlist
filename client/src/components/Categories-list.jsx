@@ -29,8 +29,7 @@ function CategoriesList () {
 
   function getAllCategories () {
     apiService.getCategories().then(data => {
-      console.log(data)
-      setCatArray(data)
+      setCatArray(data);
       updateCategories(data);
     });
   }
@@ -69,7 +68,6 @@ function CategoriesList () {
     }
   }
 
-
   return (
     <div className="travel-collection-container categories">
       <h2>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h2>
@@ -78,6 +76,7 @@ function CategoriesList () {
       <div className="categories-item-container">
         {travelCollectionArr.map((travelCol, idx) => {
           const details = travelCol.details;
+
           return (
             <div className="categories-item-boxes" key={idx}>
               <h3 id="no-underline">Add you categories here:</h3>
@@ -89,6 +88,19 @@ function CategoriesList () {
                   </div>
                   <h3>Coffees</h3>
                 </div>
+                <div className="categories-item" >
+                  <div className="categories-item-icon">
+                    <LocationIcon />
+                  </div>
+                  <h3>Restaurants</h3>
+                </div>
+                <div className="categories-item" >
+                  <div className="categories-item-icon">
+                    <LocationIcon />
+                  </div>
+                  <h3>Parks</h3>
+                </div>
+
                 {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
                   return (
                     <div className="categories-item" key={idx} >
