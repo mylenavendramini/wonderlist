@@ -277,6 +277,30 @@ li {
   box-shadow: none;
 }
 
+.map-form {
+  /* display: flex; */
+  position: absolute;
+  top: 80px;
+  left: 300px;
+  min-width: 20vw;
+  /* flex-direction: column; */
+  padding: 0.5rem;
+  margin: 3rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--secondary);
+}
+
+.test div {
+  cursor: pointer;
+}
+
+.map-form input {
+  border: 2px solid black;
+  color: black;
+  padding: 0.2rem;
+}
+
 input:focus,
 select {
   color: black;
@@ -588,6 +612,27 @@ input[type='date']:invalid::-webkit-datetime-edit {
   text-decoration-color: var(--primary-half-opacity);
   text-underline-offset: 8px;
   margin-bottom: 1rem;
+}
+
+#counter {
+  color: var(--gold);
+}
+
+.calendar {
+  display: flex;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  margin: 2rem 3rem 2rem 3rem;
+  /* justify-content: center; */
+  background: var(--secondary);
+  border: 2px solid var(--primary-half-opacity);
+  border-radius: 5px;
+  box-shadow: 0px 15px 10px -15px var(--primary);
+}
+.calendar-icon {
+  color: var(--gold);
+  margin-right: 2rem;
 }
 
 .travel-collection-image {

@@ -14,16 +14,18 @@ const mapStyles = {
   left: '50%',
   transform: 'translate(-50%, -0%)',
   border: '2px solid var(--primary)',
-  'box-shadow': '0px 15px 10px -15px black',
-  'border-radius': '5px'
+  boxShadow: '0px 15px 10px -15px black',
+  borderRadius: '5px'
 };
 
+
+
 function UserMap (props) {
-  const [initialCenter, setInitialCenter] = useState({ lat: 37.7749, lng: -122.4194 });
+  const [initialCenter, setInitialCenter] = useState({ lat: 51.5055, lng: 0.0754 });
   const [clickedPlaces, setClickedPlaces] = useState([]);
   const [placeIds, setPlaceIds] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
-
+  // const [initialCity, setInitialCity] = useState({})
 
   // const [placeInfo, setPlaceInfo] = useState([]);
   // get the category from Categories-List:
@@ -33,13 +35,14 @@ function UserMap (props) {
 
 
   const { id } = useParams();
+
+  const cityName = travelCol.details.cityName;
   const placeId = placeIds[placeIds.length - 1];
 
   // console.log(placeInfo, 'placeInfo');
   const { placeInfo, updatePlaceInfo } = useContext(Context)
 
   const uniquePlaceIds = [];
-  // TODO: setInitialCenter to be the name of the city
 
   const fetchPlaceIds = async () => {
     const promises = clickedPlaces.map(async (coordinate) => {
@@ -87,11 +90,31 @@ function UserMap (props) {
     // Initialize the Places service when the Google Maps API is loaded
     initializePlacesService();
 
+
     return () => {
       // Clean up the event listener when the component unmounts
       window.google.maps.event.clearInstanceListeners(window);
     };
+
   });
+
+  async function getInitialCity (cityName) {
+    return getCoordinates(cityName).then((data) => {
+      console.log(data);
+      // setInitialCity(data);
+      setInitialCenter(data);
+      return data;
+    });
+  }
+
+  useEffect(() => {
+    getInitialCity(cityName).then((city) => {
+      setInitialCenter(city);
+    });
+  }, [cityName]);
+
+  console.log({ initialCenter })
+
 
   const initializePlacesService = () => {
     placesServiceRef.current = new window.google.maps.places.PlacesService(document.createElement('div'));
@@ -101,7 +124,8 @@ function UserMap (props) {
     if (placesServiceRef.current) {
       const request = {
         placeId,
-        fields: ['place_id', 'name', 'formatted_address']
+        fields: ['place_id', 'name', 'formatted_address'],
+        types: ['establishment', 'restaurant', 'cafe', 'museum', 'airport', 'bar', 'tourist_attraction', 'supermarket', 'stadium', 'shopping_mall', 'park', 'library']
       };
 
       placesServiceRef.current.getDetails(request, (place, status) => {
@@ -128,6 +152,25 @@ function UserMap (props) {
   //     updatePlaceInfo(JSON.parse(storedPlaceInfo));
   //   }
   // }, []);
+  async function getCoordinates (cityName) {
+    const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(cityName)}&key=${API_MAPS_KEY}`;
+
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      if (data.results.length > 0) {
+        const coordinates = data.results[0].geometry.location;
+        return coordinates;
+      } else {
+        throw new Error('No results found for the specified city.');
+      }
+    } catch (error) {
+      console.log('Error:', error.message);
+      return null;
+    }
+  }
+
 
 
 
@@ -155,6 +198,8 @@ function UserMap (props) {
   // };
 
   const handleMapClick = (mapProps, map, clickEvent) => {
+    console.log(mapProps, 'mapProps')
+    console.log(map, 'map')
     setSelectedPlace(null);
     const { latLng } = clickEvent;
     const lat = latLng.lat();
@@ -185,6 +230,30 @@ function UserMap (props) {
   // }
 
 
+  // Autocomplete:
+
+  const autoCompleteRef = useRef();
+  const inputRef = useRef();
+  const options = {
+    componentRestrictions: { country: "ng" },
+    fields: ['place_id', 'name', 'formatted_address'],
+    types: ['establishment']
+  };
+  useEffect(() => {
+    autoCompleteRef.current = new window.google.maps.places.Autocomplete(
+      inputRef.current,
+      options
+    );
+    autoCompleteRef.current.addListener("place_changed", async function () {
+      const place = await autoCompleteRef.current.getPlace();
+      console.log({ place });
+      console.log(place.name);
+      console.log({ place });
+    });
+  }, []);
+
+
+
 
 
   return (
@@ -192,19 +261,25 @@ function UserMap (props) {
 
       <CategoryItem category={category} travelCol={travelCol} />
 
+
       <Map
         google={props.google}
         onClick={handleMapClick}
         zoom={14}
         style={mapStyles}
         initialCenter={initialCenter} // Initial center coordinates for the map
+        className='test'
       >
+        <div className='map-form'>
+          <input ref={inputRef} />
+        </div>
         <Marker position={initialCenter}
           onClick={onMarkerClick}
           isSelected={isMarkerSelected(placeId)}
         />
         {/*displayMarkers()*/}
       </Map>
+
     </div>
   );
 }

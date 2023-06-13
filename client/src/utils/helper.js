@@ -27,11 +27,18 @@ function getDatesBetween (startDate, endDate) {
   return dates;
 }
 
-function futureDate (startDate) {
+function futureDate (date) {
   const now = new Date()
-  const inputStartDate = new Date(startDate);
-  const inputEndDate = new Date(startDate);
-  if (inputStartDate < now || inputEndDate < now) return alert('You have to choose a future date.');
+  const inputStartDate = new Date(date);
+  if (inputStartDate < now) return true;
+}
+
+function counterDate (date) {
+  const now = new Date()
+  const inputStartDate = new Date(date.replace(/(\d+)(st|nd|rd|th)/, "$1"));
+  const diffTime = inputStartDate.getTime() - now.getTime();
+  const daysLeft = Math.ceil(diffTime / (1000 * 3600 * 24));
+  return daysLeft;
 }
 
 
@@ -50,4 +57,4 @@ function scrollToBottom () {
 }
 
 
-module.exports = { getDay, formatDate, getDatesBetween, futureDate, firstLetterUpperCase, scrollToTop, scrollToBottom };
+module.exports = { getDay, formatDate, getDatesBetween, futureDate, firstLetterUpperCase, scrollToTop, scrollToBottom, counterDate };

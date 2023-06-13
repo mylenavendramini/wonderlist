@@ -7,6 +7,7 @@ import { firstLetterUpperCase } from "../utils/helper";
 
 
 
+
 function CategoryItem ({ category, travelCol }) {
   // console.log(placeInfo)
   const [place, setPlace] = useState('');
@@ -123,18 +124,23 @@ function CategoryItem ({ category, travelCol }) {
     localStorage.setItem('uniqueCatArray', JSON.stringify([...uniqueCatArray, newCategory]));
   }
 
-  function handleGoToList (e) {
-    navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })
-  }
+  // function handleGoToList (e) {
+  //   navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })
+  // }
+
+
 
 
   return (
     <div className="category-item">
+
       <h2>{travelCollectionObj && travelCollectionObj.travelName}</h2>
       <h3>Category: {categoryTitle && firstLetterUpperCase(categoryTitle)}</h3>
-      <div className="categories-item-box-pointer" onClick={handleGoToList}>
+      <div className="categories-item-box-pointer" >
         {/*<h3 className="btn btn-travel" onClick={handleGoToList}>My list of places</h3>*/}
         <h3 id='no-underline'>Find a place in <span>{categoryCity && firstLetterUpperCase(categoryCity)}</span> and add it to your list:</h3>
+
+
         {message && <p className="add-message">&#128205; {message}</p>}
       </div>
     </div>

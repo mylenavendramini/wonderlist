@@ -5,7 +5,7 @@ import apiService from "../apiService";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 import { useContext } from "react";
-import { scrollToTop, firstLetterUpperCase } from "../utils/helper";
+import { scrollToTop, firstLetterUpperCase, counterDate } from "../utils/helper";
 
 function TravelCollections () {
 
@@ -49,6 +49,20 @@ function TravelCollections () {
     }
   }
 
+  function getCounter (date) {
+    const daysLeft = counterDate(date)
+    if (daysLeft === 0) return 'Today is the day!  🥳'
+    else return `${daysLeft} days for your trip!`
+  }
+
+  function getTodayIsTheDay () {
+    return uniqueTravelCollections.filter((travel) => checkUserId(travel._id)).map((travel) => {
+      const daysLeft = counterDate(travel.details.startingDate);
+      return daysLeft === 0 ? `${firstLetterUpperCase(travel.travelName)} is today!` : '';
+    })
+  }
+
+
 
 
   return (
@@ -56,6 +70,10 @@ function TravelCollections () {
       {travelCollections.length > 0 ? (
         <>
           <h2>YOUR TRAVEL COLLECTIONS</h2>
+          <div className="calendar">
+            <i class="fa fa-calendar calendar-icon"></i>
+            <h2>{getTodayIsTheDay()}</h2>
+          </div>
           <div className="travel-collection-image">
             {/*<div className="image-relative">
               <lottie-player src="walking.json" background="transparent" speed="1" ></lottie-player>
@@ -70,6 +88,7 @@ function TravelCollections () {
                       <h3>
                         {firstLetterUpperCase(travel.travelName)}
                       </h3>
+                      <h2 id="counter">{getCounter(travel.details.startingDate)}</h2>
                       <p><span>City: </span>{travel.details.cityName}</p>
                       <p><span>Dates: </span>{travel.details.startingDate} to {travel.details.endingDate}</p>
                       <div className="travel-collection-btns">

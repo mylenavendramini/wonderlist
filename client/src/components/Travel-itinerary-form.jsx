@@ -58,7 +58,10 @@ function TravelItineraryForm ({ setCities, travelNameParent }) {
       return;
     }
 
-    futureDate();
+    if (startDates.some((d) => futureDate(d)) || endDates.some((d) => futureDate(d))) {
+      setFormError("Plase choose a future date.");
+      return;
+    }
 
 
     const newTravelCollections = cities.map((city, idx) => {
