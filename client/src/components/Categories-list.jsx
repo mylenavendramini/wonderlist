@@ -4,7 +4,7 @@ import CreateCategory from "./Create-new-category";
 import { Context } from "../context/Context";
 import { useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
-import { firstLetterUpperCase } from "../utils/helper";
+import { firstLetterUpperCase, scrollToBottom } from "../utils/helper";
 import PlaneIcon from "./Icons/PlaneIcon";
 import LocationIcon from "./Icons/Location";
 
@@ -46,8 +46,7 @@ function CategoriesList () {
     setCreateCategory(true);
     setClicked(false);
     setSelectedCity(cityName);
-    const element = document.getElementById("bottom");
-    element.scrollIntoView({ behavior: "smooth" });
+    scrollToBottom();
   }
 
   function handleCategoryCreation (newCategory) {
@@ -82,14 +81,7 @@ function CategoriesList () {
             <div className="categories-item-boxes" key={idx}>
               <h3>City: {firstLetterUpperCase(details.cityName)}</h3>
               <h4>Add you categories here:</h4>
-              <div className="categories-item-box">
-                <div className="categories-item" >
-                  <div className="categories-item-icon">
-                    <LocationIcon />
-                  </div>
-                  <h3>Favorite Coffees</h3>
-                </div>
-              </div>
+
 
               {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
                 return (
@@ -108,19 +100,29 @@ function CategoriesList () {
                 )
               }
               )}
+              <div className="categories-item-box">
+                <div className="categories-item" >
+                  <div className="categories-item-icon">
+                    <LocationIcon />
+                  </div>
+                  <h3>Favorite Coffees</h3>
+                </div>
+              </div>
 
               <div className="categories-item-icon close-item no-border" id="btn-center" onClick={() => handleCreateCategory(details.cityName)}>
                 <i className="fa fa-plus btn btn-close btn-plus-blue"></i>
               </div>
             </div>)
         })}
-        {createCategory && <CreateCategory
-          setCatArray={setCatArray}
-          travelId={id}
-          selectedCity={selectedCity}
-          handleCategoryCreation={handleCategoryCreation}
-        />
-        }
+        <div id="bottom">
+          {createCategory && <CreateCategory
+            setCatArray={setCatArray}
+            travelId={id}
+            selectedCity={selectedCity}
+            handleCategoryCreation={handleCategoryCreation}
+          />
+          }
+        </div>
 
       </div>
 

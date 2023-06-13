@@ -10,7 +10,7 @@ function Home ({ isAuthenticated }) {
       <div className="home-content">
         <h1>Wonder List</h1>
         <h2>Unlock the Wonders of Travel</h2>
-        <button className="btn" onClick={handleOnClick}>Start</button>
+        <button className="btn btn-grad" onClick={handleOnClick}>LET'S TRAVEL</button>
       </div>
     </div>
   );

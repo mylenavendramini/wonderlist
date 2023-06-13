@@ -17,7 +17,7 @@ function TravelNameForm ({ setFormSubmitted, formSubmitted, }) {
   function handleTravelNameSubmit (e) {
     e.preventDefault();
     if (travelNameInput.trim() === '') {
-      setFormError("Please enter a travel name");
+      setFormError("Please enter a trip name");
       return;
     }
     updateTravelName(travelNameInput);
@@ -28,11 +28,14 @@ function TravelNameForm ({ setFormSubmitted, formSubmitted, }) {
 
   return (
     <>
+      <div className="image">
+        <lottie-player src="tickets.json" background="transparent" speed="1" loop autoplay></lottie-player>
+      </div>
       {formSubmitted ?
         <TravelItineraryForm travelNameParent={travelName} />
         :
         <form className="form" onSubmit={handleTravelNameSubmit}>
-          <label htmlFor="travel-name">Travel name:</label>
+          <label htmlFor="travel-name">Trip name:</label>
           <input
             type="text"
             name="travel-name"

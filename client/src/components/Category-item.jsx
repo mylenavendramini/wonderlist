@@ -21,6 +21,8 @@ function CategoryItem ({ category, travelCol }) {
   const navigate = useNavigate()
   const { placeInfo, updatePlaceInfo } = useContext(Context)
 
+  console.log(placeInfo)
+
   // TODO: two problems:
   // when refresh the page, I don't get the places
   // when add the place, don't display them automatically
@@ -115,11 +117,11 @@ function CategoryItem ({ category, travelCol }) {
     apiService.createCategory(newCategory, id).then(data => alert(`${newCategory.place} added to your list`)).catch(error => console.log(error));
     getCategoryItems();
     localStorage.setItem('uniqueCatArray', JSON.stringify([...uniqueCatArray, newCategory]));
-
   }
 
+
+
   function handleGoToList (e) {
-    console.log('what?')
     navigate('/places/' + id, { state: { dataArray: uniqueCatArray } })
   }
 
@@ -128,9 +130,8 @@ function CategoryItem ({ category, travelCol }) {
       <h2>Travel Collection: {travelCollectionObj && travelCollectionObj.travelName}</h2>
       {categoryCity && <h3>City: {categoryCity}</h3>}
       <h3>Category: {categoryTitle}</h3>
-
-      <div className='list-items' onClick={handleGoToList}>
-        <h3 >My list of places</h3>
+      <div className="categories-item-box-pointer" onClick={handleGoToList}>
+        <h3 className="btn btn-travel" onClick={handleGoToList}>My list of places</h3>
       </div>
       <div className='map-container'>
         <h3>Find your places and add them to your list</h3>

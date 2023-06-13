@@ -9,7 +9,8 @@ function TravelInfo ({ travelCollections }) {
   return (
     <div className="travel-info">
       <form className="form">
-        <h3>Travel information:</h3>
+        <h2>Everything ready!</h2>
+        <h3>Your trip information:</h3>
         <div className="edit-information-item">
           {travelCollections.map((travelCol, idx) => (
             <div className="new-date-city" key={idx}>

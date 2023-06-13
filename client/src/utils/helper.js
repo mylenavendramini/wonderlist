@@ -41,9 +41,13 @@ function firstLetterUpperCase (text) {
   return arr.join('');
 }
 
-function ScrollToTop () {
+function scrollToTop () {
   window.scrollTo(0, 0);
 }
 
+function scrollToBottom () {
+  window.scrollTo(0, document.body.scrollHeight);
+}
 
-module.exports = { getDay, formatDate, getDatesBetween, futureDate, firstLetterUpperCase, ScrollToTop };
+
+module.exports = { getDay, formatDate, getDatesBetween, futureDate, firstLetterUpperCase, scrollToTop, scrollToBottom };

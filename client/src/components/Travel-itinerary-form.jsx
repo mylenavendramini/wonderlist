@@ -61,7 +61,6 @@ function TravelItineraryForm ({ setCities, travelNameParent }) {
     futureDate();
 
 
-
     const newTravelCollections = cities.map((city, idx) => {
       const startDate = startDates[idx];
       const endDate = endDates[idx];
@@ -86,7 +85,8 @@ function TravelItineraryForm ({ setCities, travelNameParent }) {
         <form className="form">
           <label htmlFor="travel-itinerary">Travel itinerary:</label>
           <button className="btn btn-plus" type="button" onClick={handleAddInput}>
-            <i className="fa fa-plus"></i>
+            {/*<i className="fa fa-plus"></i>*/}
+            Add more
           </button>
           {cities.map((city, idx) => {
             return (

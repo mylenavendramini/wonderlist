@@ -1,5 +1,10 @@
 .app {
   position: relative;
+  /* min-height: 100vh; */
+  background-color: var(--secondary);
+}
+
+body {
   min-height: 100vh;
 }
 
@@ -10,35 +15,68 @@ a {
 }
 
 h1 {
-  font-size: 7rem;
+  font-size: 5rem;
+  margin-top: 2rem;
 }
 
 li {
   list-style: none;
 }
+/*
+.image {
+  position: relative;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.image::before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  background-image: url(../public/tickets.json);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+} */
 
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  /* align-items: center; */
+  /* min-height: 100vh; */
+
   padding-top: 5rem; /* padding for navbar */
   padding-bottom: 5rem; /* padding for footer */
+}
+
+.container h2 {
+  margin: 1rem 2.5rem;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .btn {
   font-size: 1rem;
   font-weight: bold;
   border: none;
-  color: var(--secondary);
-  background-color: var(--tertiary);
+  color: black;
+  background-color: var(--secondary);
   padding: 10px 20px;
   /* background-color: transparent; */
   opacity: 1;
   outline: 0 solid transparent;
   cursor: pointer;
   position: relative;
+  z-index: 0;
   border-radius: 5px;
   box-shadow: var(--primary) 0 10px 20px -10px;
   user-select: none;
@@ -46,24 +84,51 @@ li {
   touch-action: manipulation;
 }
 
-.btn:hover {
-  /* border-radius: 999px;
-  padding: 0.5rem 2rem; */
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #edae00 0%,
+    #e3c570 51%,
+    #edae00 100%
+  );
+  margin: 10px;
+  padding: 10px 30px;
+  text-align: center;
+  transition: 0.5s;
+  text-transform: uppercase;
+  background-size: 200% auto;
+  color: black;
+  box-shadow: 0 0 20px var(--secondary);
+  border-radius: 10px;
+  display: block;
 }
 
-.btn-check,
-.btn-plus {
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.btn-check {
   border-radius: 50%;
   padding: 10px;
   position: absolute;
   bottom: 10px;
   right: 10px;
-  width: 8%;
 }
 
 .btn-plus {
+  /* border-radius: 50%; */
+  left: 40px;
+  padding: 10px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  position: absolute;
   bottom: 10px;
-  left: 50px;
+  box-shadow: none;
+  background-color: transparent;
+  /* left: 50px; */
+  /* width: 8%; */
 }
 
 .btn-add {
@@ -78,27 +143,45 @@ li {
 
 .navbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: var(--secondary);
+  color: black;
+  /* opacity: 0.8; */
+  font-size: 1.2rem;
+  font-weight: bold;
   border-bottom: 1px solid var(--primary);
   box-shadow: 0px 15px 10px -15px var(--primary);
-  padding: 1.5rem 0rem;
+  padding: 1rem 0rem;
   position: fixed;
   z-index: 999;
   top: 0;
   width: 100%;
 }
 
+.logo {
+  color: var(--gold);
+  text-shadow: #e9d7a4 1px 1px 2px;
+  font-weight: bold;
+  margin-right: 4rem;
+}
+
 .footer {
   display: flex;
   justify-content: center;
+  /* opacity: 0.8; */
+  font-size: 1.2rem;
   background-color: var(--secondary);
-  border-top: 1px solid var(--primary);
-  box-shadow: 0px -15px 10px -15px var(--primary);
-  padding: 1.5rem 0rem;
-  position: fixed;
-  bottom: 0;
+  color: black;
+  /* border-top: 1px solid var(--primary);
+  box-shadow: 0px -15px 10px -15px var(--primary); */
+  padding: 3rem 0rem;
   width: 100%;
+  font-weight: bold;
+}
+
+.footer .logo {
+  margin-right: 0;
 }
 .navbar ul {
   display: flex;
@@ -111,6 +194,9 @@ li {
 
 .home-wrap {
   position: relative;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .home-wrap::before {
@@ -121,8 +207,8 @@ li {
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.8;
-  background-image: url(../public/travel-paper.jpg);
+  opacity: 1;
+  background-image: url(../public/van-wallpaper.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -133,16 +219,18 @@ li {
 }
 
 .home-content {
-  height: 100vh;
-  color: var(--secondary);
+  min-height: 100vh;
   display: flex;
+  color: black;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
+
   align-items: center;
 }
 
 .home-content h2 {
-  margin-bottom: 3rem;
+  font-size: 1.2rem;
+  text-shadow: var(--secondary) 1px 0 15px;
 }
 
 /* Form */
@@ -161,28 +249,81 @@ li {
 
 .form {
   display: flex;
-  width: 50vh;
+  width: 30vw;
+  min-height: 35vh;
   flex-direction: column;
   padding: 3rem;
-  border: 1px solid var(--primary);
-  box-shadow: 0px 15px 10px -15px var(--primary);
+  margin: 3rem;
+  border: 1px solid var(--tertiary);
+  box-shadow: 0px 15px 10px -15px black;
   border-radius: 5px;
+  background-color: var(--gold);
 }
 .form label,
 .form h3 {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  color: black;
 }
 
-.form input,
-.new-date-city {
+.form input {
+  border: 2px solid black;
+  background-color: var(--gold);
+  color: black;
+}
+
+input:focus,
+select {
+  color: black;
+}
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1; /* Firefox */
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: black;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: black;
+}
+input[type='date']:invalid::-webkit-datetime-edit {
+  color: black;
+}
+
+/* ::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+} */
+
+.travel-info .form {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.travel-info .form h2 {
+  text-align: center;
+}
+.form input {
   margin-bottom: 1rem;
-  border: 1px solid var(--primary);
   border-radius: 5px;
   padding: 10px;
   font-size: 1rem;
+}
+
+.new-date-city {
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2rem;
+}
+
+.new-date-city {
+  border: 2px solid var(--primary);
 }
 
 .form button {
@@ -197,10 +338,36 @@ li {
 
 /* TRAVEL FORM */
 
+.travel-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-relative {
+  position: relative;
+}
+
+.image {
+  width: 40%;
+  position: absolute;
+  left: 35%;
+  /* margin-left: -50px; */
+  top: 15%;
+  /* margin-top: -50px; */
+  /* top: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%); */
+}
+
+.image-50 {
+  width: 50%;
+}
+
 .travel-form form {
   border: none;
   position: relative;
-  /* margin: 10rem 0; */
+  margin: 6rem 0;
 }
 
 .travel-itinerary-container {
@@ -220,11 +387,14 @@ li {
 }
 
 .new-date-city {
-  background-color: white;
+  background-color: #edae003f;
 }
 
 .new-date-city span {
   font-weight: 1000;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--gold);
 }
 
 /* TIMELINE-LIST */
@@ -253,8 +423,9 @@ li {
   justify-content: center;
   margin: 2rem 0;
   padding: 1rem;
-  background: var(--secondary);
-  border: 1px solid var(--primary-lighter);
+  background-color: var(--violet);
+  color: var(--secondary);
+  border: 1px solid var(--primary-half-opacity);
   border-radius: 5px;
   box-shadow: 0px 15px 10px -15px var(--primary);
   min-width: 40vw;
@@ -271,7 +442,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--primary);
+  border: 1px solid var(--secondary);
   margin: 1rem 3rem;
   padding: 1rem;
   border-radius: 5px;
@@ -353,19 +524,25 @@ li {
 .travel-collection-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 2rem 0;
+  /* align-items: center; */
+  margin: 2rem 5rem;
   padding-top: 5rem; /* padding for navbar */
   padding-bottom: 5rem; /* padding for footer */
+}
+
+.travel-collection-container h2 {
+  text-align: center;
+}
+
+.travel-collection-image {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .travel-collection-boxes {
   display: flex;
   margin: 2rem 0;
-  /* flex-direction: column; */
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
 }
 
 .travel-collection-box {
@@ -377,8 +554,8 @@ li {
   align-items: center;
   margin: 2rem 3rem 2rem 3rem;
   justify-content: center;
-  min-width: 40vw;
-  background: var(--secondary);
+  min-width: 20vw;
+  background: var(--violet);
   border: 1px solid var(--primary-lighter);
   border-radius: 5px;
   box-shadow: 0px 15px 10px -15px var(--primary);
@@ -480,4 +657,28 @@ li {
 
 .map {
   position: relative;
+}
+
+.category-item {
+  position: absolute;
+  z-index: 998;
+}
+
+/* PLACES */
+
+.places-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+  padding-top: 5rem; /* padding for navbar */
+  padding-bottom: 5rem; /* padding for footer */
+}
+
+.categories-item-box-pointer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  justify-content: center;
 }

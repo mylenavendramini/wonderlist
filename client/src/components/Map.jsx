@@ -1,25 +1,18 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import CategoryItem from './Category-item';
 import { useLocation, useParams } from 'react-router';
 import apiService from '../apiService';
 import { Context } from '../context/Context';
-import env from "react-dotenv";
 
-const API_MAPS_KEY = env.API_MAPS_KEY;
-
-
-// import dotenv from 'dotenv'
-// dotenv.config();
-
-// const API_MAPS_KEY = `${process.env.API_MAPS_KEY}`;
+const API_MAPS_KEY = process.env.REACT_APP_API_MAPS_KEY2;
 
 const mapStyles = {
   width: '80vh',
   height: '60vh',
-  top: '60%',
+  top: '100%',
   left: '50%',
-  transform: 'translate(-50%, -70%)',
+  transform: 'translate(-50%, -0%)',
 };
 
 function UserMap (props) {

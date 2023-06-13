@@ -5,15 +5,15 @@ function Navbar ({ isAuthenticated }) {
   return (
     <div className='navbar'>
       <ul>
-        <li>
-          <Link to="/travel-collections">Travel Collections</Link>
+        <li className='logo'>
+          <Link to="/">Wonder List</Link>
         </li>
       </ul>
       <ul>
         {isAuthenticated ? (
           <>
             <li>
-              <Link to="/profile">Home</Link>
+              <Link to="/travel-collections">My account</Link>
             </li>
             <li>
               <Link to="/logout">Logout</Link>

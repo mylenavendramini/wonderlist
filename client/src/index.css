@@ -4,13 +4,18 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Reem Kufi Fun', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: scale;
   background-color: var(--secondary);
 }
 
 :root {
-  --primary: #091d36;
+  --primary: #012360;
   --secondary: #fffdfa;
-  --tertiary: #87dcf0;
-  --primary-lighter: #091d3658;
+  --tertiary: #fed8ea;
+  --violet: #ddd3f6;
+  --cool-blue: #ccdeff;
+  --primary-half-opacity: #0122606e;
+  --gold: #edae00;
 }

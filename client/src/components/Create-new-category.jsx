@@ -32,7 +32,7 @@ function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, select
 
 
   return (
-    <div className="create-category" id="bottom">
+    <div className="create-category">
       <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="category-name">Category name:</label>
         <input

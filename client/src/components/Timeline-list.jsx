@@ -57,7 +57,7 @@ function TimelineList () {
               return (
                 <VerticalTimelineElement
                   key={idx}
-                  contentStyle={{ background: 'var(--secondary)', border: '1px solid var(--primary-lighter)', 'boxShadow': '0px 15px 10px -15px var(--primary)' }}
+                  contentStyle={{ background: 'var(--secondary)', border: '1px solid var(--primary-half-opacity)', 'boxShadow': '0px 15px 10px -15px var(--primary)' }}
                   contentArrowStyle={{ display: 'none' }}
                   className="vertical-timeline-element--work"
                   date={date}
