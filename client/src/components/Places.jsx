@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import apiService from '../apiService';
 
 // Mock for London:
@@ -11,7 +11,7 @@ function Places () {
   const uniqueCatArray = categoryObj && categoryObj.dataArray;
   const [placesData, setPlacesData] = useState([]);
   const [uniquePlacesData, setUniquePlacesData] = useState([]);
-
+  const navigate = useNavigate();
 
 
 
@@ -57,6 +57,8 @@ function Places () {
   return (
     <div className="travel-collection-container places-container">
       <h2>MY PLACES</h2>
+      <h3 className='go-back' onClick={() => navigate('/travel-collections')}>
+        <span>&larr;</span> Go back to Trip Collections</h3>
       {uniquePlacesData.length > 0 ? uniquePlacesData.map((cat, idx) => (
         <div className='list-items' key={idx}>
           <ul>

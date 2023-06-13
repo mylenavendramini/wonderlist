@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Reem Kufi Fun', sans-serif;
   -webkit-font-smoothing: antialiased;

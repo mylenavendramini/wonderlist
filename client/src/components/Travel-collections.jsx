@@ -62,9 +62,6 @@ function TravelCollections () {
     })
   }
 
-
-
-
   return (
     <div className="travel-collection-container">
       {travelCollections.length > 0 ? (

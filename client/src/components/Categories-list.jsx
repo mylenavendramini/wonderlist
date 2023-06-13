@@ -73,6 +73,8 @@ function CategoriesList () {
   return (
     <div className="travel-collection-container categories">
       <h2>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h2>
+      <h3 className='go-back' onClick={() => navigate('/travel-collections')}>
+        <span>&larr;</span> Go back to Trip Collections</h3>
       <div className="categories-item-container">
         {travelCollectionArr.map((travelCol, idx) => {
           const details = travelCol.details;

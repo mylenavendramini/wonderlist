@@ -19,7 +19,7 @@ function TravelInfo ({ travelCollections }) {
             </div>
           ))}
 
-          <button className="btn btn-check" onClick={handleClick}>
+          <button className="btn btn-check btn-yellow" onClick={handleClick}>
             <i className="fa fa-check"></i>
           </button>
         </div>

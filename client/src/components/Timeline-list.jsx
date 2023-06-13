@@ -6,15 +6,16 @@ import SuitcaseIcon from './Icons/SuitcaseIcon';
 import TimelineItem from './Timeline-item';
 import { useContext, useEffect, useState } from "react";
 import apiService from "../apiService";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Context } from '../context/Context';
-import { compareDates, firstLetterUpperCase } from "../utils/helper";
+import { compareDates, firstLetterUpperCase, scrollToTop } from "../utils/helper";
 
 
 function TimelineList () {
   const { id } = useParams();
   const { dates, updateDates } = useContext(Context);
   const { updateTravelCollections, travelCollections } = useContext(Context);
+  const navigate = useNavigate();
 
 
   async function getAllTravelCollections () {
@@ -47,6 +48,8 @@ function TimelineList () {
   return (
     <div className="timeline-list travel-collection-container">
       <h2>{travelCollectionArr.length && firstLetterUpperCase(travelCollectionArr[0].travelName)}</h2>
+      <h3 className='go-back' onClick={() => navigate('/travel-collections')}>
+        <span>&larr;</span> Go back to Trip Collections</h3>
       {sortedtravelCollectionArr.map((travelCollection, idx) => {
         const datesBetween = travelCollection.details.datesBetween;
         return (
@@ -67,9 +70,13 @@ function TimelineList () {
                 </VerticalTimelineElement>
               );
             })}
+
           </VerticalTimeline>
         )
       })}
+      <h3 className='go-up' onClick={() => scrollToTop()}>
+        <span>	&uarr;</span> Go back to the top</h3>
+
     </div>
   );
 }

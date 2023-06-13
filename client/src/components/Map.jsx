@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import CategoryItem from './Category-item';
 import { useLocation, useParams } from 'react-router';
-import apiService from '../apiService';
+// import apiService from '../apiService';
 import { Context } from '../context/Context';
 
 const API_MAPS_KEY = process.env.REACT_APP_API_MAPS_KEY2;
@@ -18,28 +18,20 @@ const mapStyles = {
   borderRadius: '5px'
 };
 
-
-
 function UserMap (props) {
   const [initialCenter, setInitialCenter] = useState({ lat: 51.5055, lng: 0.0754 });
   const [clickedPlaces, setClickedPlaces] = useState([]);
   const [placeIds, setPlaceIds] = useState([]);
+  // for the marker:
   const [selectedPlace, setSelectedPlace] = useState(null);
-  // const [initialCity, setInitialCity] = useState({})
 
-  // const [placeInfo, setPlaceInfo] = useState([]);
-  // get the category from Categories-List:
   const location = useLocation();
   const { category, travelCol } = location.state;
-
-
-
   const { id } = useParams();
 
   const cityName = travelCol.details.cityName;
   const placeId = placeIds[placeIds.length - 1];
 
-  // console.log(placeInfo, 'placeInfo');
   const { placeInfo, updatePlaceInfo } = useContext(Context)
 
   const uniquePlaceIds = [];
@@ -90,7 +82,6 @@ function UserMap (props) {
     // Initialize the Places service when the Google Maps API is loaded
     initializePlacesService();
 
-
     return () => {
       // Clean up the event listener when the component unmounts
       window.google.maps.event.clearInstanceListeners(window);
@@ -100,7 +91,7 @@ function UserMap (props) {
 
   async function getInitialCity (cityName) {
     return getCoordinates(cityName).then((data) => {
-      console.log(data);
+      // console.log(data);
       // setInitialCity(data);
       setInitialCenter(data);
       return data;
@@ -113,7 +104,7 @@ function UserMap (props) {
     });
   }, [cityName]);
 
-  console.log({ initialCenter })
+  // console.log({ initialCenter })
 
 
   const initializePlacesService = () => {
@@ -125,12 +116,12 @@ function UserMap (props) {
       const request = {
         placeId,
         fields: ['place_id', 'name', 'formatted_address'],
-        types: ['establishment', 'restaurant', 'cafe', 'museum', 'airport', 'bar', 'tourist_attraction', 'supermarket', 'stadium', 'shopping_mall', 'park', 'library']
+        types: ['restaurant', 'bar', 'airport', 'supermarket', 'cafe']
       };
 
       placesServiceRef.current.getDetails(request, (place, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          // console.log(place);
+          console.log({ place });
           // Store the place details:
           updatePlaceInfo((prevPlaces) => {
             if (!prevPlaces.find((prevPlace) => prevPlace.place_id === place.place_id)) {
@@ -198,15 +189,16 @@ function UserMap (props) {
   // };
 
   const handleMapClick = (mapProps, map, clickEvent) => {
-    console.log(mapProps, 'mapProps')
-    console.log(map, 'map')
     setSelectedPlace(null);
+
     const { latLng } = clickEvent;
     const lat = latLng.lat();
     const lng = latLng.lng();
     // const clickedCoordinates = { lat, lng };
     // reverseGeocode(clickedCoordinates);
     const newPlace = { lat, lng }
+    console.log({ clickEvent });
+    console.log({ newPlace })
     setClickedPlaces((prev) => [...prev, newPlace]);
     // fetchPlaceDetails(placeId);
   };
@@ -249,6 +241,12 @@ function UserMap (props) {
       console.log({ place });
       console.log(place.name);
       console.log({ place });
+      updatePlaceInfo((prevPlaces) => {
+        if (!prevPlaces.find((prevPlace) => prevPlace.place_id === place.place_id)) {
+          return [...prevPlaces, place];
+        }
+        return prevPlaces;
+      });
     });
   }, []);
 
@@ -260,11 +258,10 @@ function UserMap (props) {
     <div className='map-container'>
 
       <CategoryItem category={category} travelCol={travelCol} />
-
-
       <Map
         google={props.google}
         onClick={handleMapClick}
+        yesIWantToUseGoogleMapApiInternals
         zoom={14}
         style={mapStyles}
         initialCenter={initialCenter} // Initial center coordinates for the map

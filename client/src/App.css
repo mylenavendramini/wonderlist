@@ -22,25 +22,6 @@ h1 {
 li {
   list-style: none;
 }
-/*
-.travel-collection-container {
-  position: relative;
-}
-
-.travel-collection-container::before {
-  content: ' ';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.3;
-  background-image: url(../public/travel-wallpaper.png);
-  background-repeat: space;
-  background-size: auto;
-  background-size: 20%;
-} */
 
 .container {
   display: flex;
@@ -112,6 +93,15 @@ li {
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+.btn-yellow {
+  background-color: var(--gold);
+}
+
+.btn-yellow:hover {
+  background-color: black;
+  color: var(--gold);
 }
 
 .btn-plus {
@@ -280,15 +270,15 @@ li {
 .map-form {
   /* display: flex; */
   position: absolute;
-  top: 80px;
-  left: 300px;
+  top: 75px;
+  left: 297px;
   min-width: 20vw;
   /* flex-direction: column; */
   padding: 0.5rem;
   margin: 3rem;
   border: none;
   border-radius: 5px;
-  background-color: var(--secondary);
+  background-color: transparent;
 }
 
 .test div {
@@ -296,9 +286,11 @@ li {
 }
 
 .map-form input {
-  border: 2px solid black;
+  border: 2px solid var(--primary);
   color: black;
-  padding: 0.2rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 input:focus,
@@ -437,6 +429,28 @@ input[type='date']:invalid::-webkit-datetime-edit {
 }
 
 /* TIMELINE-LIST */
+
+.go-back {
+  position: absolute;
+  cursor: pointer;
+  top: 85px;
+  right: 60px;
+  color: var(--gold);
+}
+
+.go-back:hover,
+.go-up:hover {
+  color: black;
+  transition: 0.3s;
+}
+
+.go-up {
+  margin-top: 4rem;
+  cursor: pointer;
+  top: 85px;
+  right: 60px;
+  color: var(--gold);
+}
 
 .categories-item-container {
   display: flex;
@@ -589,6 +603,7 @@ input[type='date']:invalid::-webkit-datetime-edit {
 /* TRAVEL COLLECTIONS */
 
 .travel-collection-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -616,6 +631,15 @@ input[type='date']:invalid::-webkit-datetime-edit {
 
 #counter {
   color: var(--gold);
+  font-size: 1.2rem;
+}
+
+#clickable {
+  cursor: pointer;
+}
+#clickable:hover {
+  transition: 0.2s;
+  color: var(--gold);
 }
 
 .calendar {
@@ -625,7 +649,7 @@ input[type='date']:invalid::-webkit-datetime-edit {
   align-items: center;
   margin: 2rem 3rem 2rem 3rem;
   /* justify-content: center; */
-  background: var(--secondary);
+  background: var(--cool-blue);
   border: 2px solid var(--primary-half-opacity);
   border-radius: 5px;
   box-shadow: 0px 15px 10px -15px var(--primary);
