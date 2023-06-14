@@ -21,6 +21,8 @@ Once you have the Wonderlist running, you can start organizing your trips using 
 
 ## Getting started
 
+Run `git clone git@github.com:mylenavendramini/wonderlist.git`.
+Run `cd wonderlist`.
 Run `npm install` from the project folder.
 Run `npm start` from the Client folder.
 Run `nodemon index.js` from the Server folder.
