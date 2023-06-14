@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Register ({ setIsAuthenticated }) {
+  const [formError, setFormError] = useState("");
+
   let navigate = useNavigate();
   const initialState = {
     email: '',
@@ -12,25 +14,17 @@ function Register ({ setIsAuthenticated }) {
   };
   const [user, setUser] = useState(initialState);
 
-  function validateForm () {
-    if (!user.userName) {
-      // userName alert
-    } else
-      if (!user.email) {
-        // userName alert
-      } else if (!user.password) {
-        // password alert
-      }
-  }
   async function handleSubmit (e) {
     e.preventDefault();
-    console.log(user)
+    if (!user.userName || !user.email || !user.password) {
+      setFormError("Please fill in all fields");
+      return;
+    }
     const res = await apiServiceJWT.register(user);
+    setFormError("");
 
-    console.log(res);
     if (res.error) {
       console.log(res.message);
-      // error alert
       setUser(initialState);
     } else {
       const { accessToken } = res;
@@ -72,7 +66,8 @@ function Register ({ setIsAuthenticated }) {
           value={user.password}
           onChange={handleChange}
         />
-        <button className="btn btn-submit" type="submit" disabled={validateForm()}>
+        {formError && <p className="error-message">{formError}</p>}
+        <button className="btn btn-submit" type="submit">
           Register
         </button>
       </form>

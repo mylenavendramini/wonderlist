@@ -53,6 +53,7 @@ function TimelineItem ({ date, travelCol }) {
               <i className="fa fa-close btn btn-close" onClick={() => handleDelete(activity._id)}></i>
             </div>
           </div>
+
         ))}
 
         <Popup trigger={<button className="btn btn-add">

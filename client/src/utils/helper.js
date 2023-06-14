@@ -41,7 +41,6 @@ function counterDate (date) {
   return daysLeft;
 }
 
-
 function firstLetterUpperCase (text) {
   const arr = text.split('');
   arr[0] = arr[0].toUpperCase();

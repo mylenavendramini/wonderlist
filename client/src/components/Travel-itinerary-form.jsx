@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { formatDate, futureDate, getDatesBetween } from "../utils/helper";
 import apiService from "../apiService";
 import { Context } from "../context/Context";
@@ -16,18 +16,17 @@ class TravelCollection {
   }
 }
 
-function TravelItineraryForm ({ setCities, travelNameParent }) {
+function TravelItineraryForm ({ travelNameParent }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
   const [travelCollections, setTravelCollections] = useState([]);
-  const { user, dates, updateDates, cities, updateCities, startDates, updateStartDates, endDates, updateEndDates, } = useContext(Context);
+  const { user, cities, updateCities, startDates, updateStartDates, endDates, updateEndDates, } = useContext(Context);
 
   function handleAddInput () {
     if (cities[cities.length - 1].trim() === "") {
       setFormError("Please fill in the previous city details");
       return;
     }
-
     updateCities([...cities, ""]);
     updateStartDates([...startDates, ""]);
     updateEndDates([...endDates, ""]);
@@ -57,12 +56,10 @@ function TravelItineraryForm ({ setCities, travelNameParent }) {
       setFormError("Please fill in all fields");
       return;
     }
-
     if (startDates.some((d) => futureDate(d)) || endDates.some((d) => futureDate(d))) {
       setFormError("Plase choose a future date.");
       return;
     }
-
 
     const newTravelCollections = cities.map((city, idx) => {
       const startDate = startDates[idx];
@@ -70,15 +67,12 @@ function TravelItineraryForm ({ setCities, travelNameParent }) {
       const datesBetween = getDatesBetween(startDate, endDate);
       return new TravelCollection(travelNameParent, city.trim(), startDate, endDate, datesBetween);
     });
-    console.log({ newTravelCollections })
     setTravelCollections(prev => [...prev, ...newTravelCollections]);
-    // pass to the back end each element in the newTravelCollections array
     newTravelCollections.forEach(newTravel => {
       apiService.createTravelCollection(newTravel, user._id);
     })
     setFormSubmitted(true);
   }
-
 
   return (
     <>
@@ -88,7 +82,6 @@ function TravelItineraryForm ({ setCities, travelNameParent }) {
         <form className="form">
           <label htmlFor="travel-itinerary">Travel itinerary:</label>
           <button className="btn btn-plus" type="button" onClick={handleAddInput}>
-            {/*<i className="fa fa-plus"></i>*/}
             Add more
           </button>
           {cities.map((city, idx) => {

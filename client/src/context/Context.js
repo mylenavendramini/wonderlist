@@ -15,9 +15,6 @@ export const MyProvider = ({ children }) => {
   const [startDates, setStartDates] = useState([''])
   const [endDates, setEndDates] = useState([''])
   const [cities, setCities] = useState(['']);
-
-  // dates should be related to activities
-
   const [dates, setDates] = useState(['9th June, 2023', '10th June, 2023']);
 
   const updateUser = (newUser) => {

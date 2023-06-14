@@ -2,18 +2,16 @@ import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeli
 import 'react-vertical-timeline-component/style.min.css';
 import PlaneIcon from './Icons/PlaneIcon';
 import MontainIcon from './Icons/MontainIcon';
-import SuitcaseIcon from './Icons/SuitcaseIcon';
 import TimelineItem from './Timeline-item';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import apiService from "../apiService";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Context } from '../context/Context';
-import { compareDates, firstLetterUpperCase, scrollToTop } from "../utils/helper";
+import { firstLetterUpperCase, scrollToTop } from "../utils/helper";
 
 
 function TimelineList () {
   const { id } = useParams();
-  const { dates, updateDates } = useContext(Context);
   const { updateTravelCollections, travelCollections } = useContext(Context);
   const navigate = useNavigate();
 
@@ -31,10 +29,6 @@ function TimelineList () {
     const travelNameElement = travelElement && travelElement.travelName;
     return travelCollections.filter((travel) => travel.travelName === travelNameElement);
   }
-
-
-
-  // const travelCollectionArr = getTravelCollectionArr();
 
   const travelCollectionArr = getTravelCollectionArr();
   const sortedtravelCollectionArr = travelCollectionArr.sort((a, b) => {
@@ -74,8 +68,7 @@ function TimelineList () {
         )
       })}
       <h3 className='go-up' onClick={() => scrollToTop()}>
-        <span>	&uarr;</span> Go back to the top</h3>
-
+        <span>&uarr;</span> Go back to the top</h3>
     </div>
   );
 }

@@ -10,12 +10,6 @@ const userSchema = new Schema({
 const User = model("User", userSchema);
 
 const editUser = async (id) => {
-  // try {
-  //   const userToEdit = await User.findByIdAndUpdate(id);
-  //   return userToEdit;
-  // } catch (error) {
-  //   console.log(error);
-  // }
 }
 
 module.exports = { User, editUser };

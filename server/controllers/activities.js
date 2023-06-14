@@ -11,9 +11,7 @@ const getActivities = async (req, res) => {
 
 const createActivity = async (req, res) => {
   try {
-    // const activity = req.body;
     const { activityObj, travelId } = req.body;
-
     const newActivity = await Activity.createActivity(activityObj, travelId);
     res.status(201).send(newActivity);
   } catch (error) {
@@ -31,7 +29,6 @@ const deleteActivity = async (req, res) => {
   }
 }
 
-// TODO:
 const editActivity = async (req, res) => {
   try {
     const id = req.params.id;

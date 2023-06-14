@@ -1,21 +1,10 @@
 import { useContext, useState } from "react";
 import apiService from "../apiService";
 import { Context } from '../context/Context';
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
 
 function CreateNewActivity ({ date, travelId }) {
   const [activity, setActivity] = useState('')
-  const [addInput, setAddInput] = useState(false);
-  // const [date, setDate] = useState('');
-  const { dates, updateDates, activities, updateActivities } = useContext(Context);
-
-
-  function handleAddInput (inputDate) {
-    console.log(inputDate)
-    // setDate(inputDate)
-    setAddInput(true);
-  }
+  const { updateActivities } = useContext(Context);
 
   function handleActivitySubmit (e) {
     e.preventDefault();

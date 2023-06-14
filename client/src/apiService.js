@@ -9,7 +9,6 @@ apiService.getTravelCollections = async () => {
 }
 
 apiService.createTravelCollection = async (travelCollection, userId) => {
-  console.log(travelCollection)
   const res = await fetch(`${url}/travelCollections`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },
@@ -40,7 +39,6 @@ apiService.getCategories = async () => {
 }
 
 apiService.createCategory = async (categoryObj, travelId) => {
-  console.log(categoryObj, travelId)
   const res = await fetch(`${url}/categories`, {
     method: 'POST',
     headers: { 'Content-type': 'application/json' },

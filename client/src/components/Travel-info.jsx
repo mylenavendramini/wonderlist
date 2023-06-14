@@ -1,9 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-
 function TravelInfo ({ travelCollections }) {
   const navigate = useNavigate();
-
   function handleClick () { navigate('/travel-collections') };
 
   return (
@@ -18,7 +16,6 @@ function TravelInfo ({ travelCollections }) {
               <p><span>Dates: </span>{travelCol.details.startingDate} to {travelCol.details.endingDate}</p>
             </div>
           ))}
-
           <button className="btn btn-check btn-yellow" onClick={handleClick}>
             <i className="fa fa-check"></i>
           </button>

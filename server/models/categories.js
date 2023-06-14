@@ -22,7 +22,6 @@ const getCategories = async () => {
 
 const createCategory = async (category, travelId) => {
   try {
-    console.log(category)
     const newCategory = await Categories.create(category);
     const result = await Travel.findOneAndUpdate({ _id: travelId }, { $push: { 'details.categories': newCategory._id } }, { new: true });
     return newCategory;
@@ -43,15 +42,11 @@ const deleteCategory = async (id) => {
 
 const editCategory = async (categoryId, place, address) => {
   try {
-    console.log(categoryId, 'catid')
-    console.log(place, 'place')
-    console.log(address, 'address')
     const updatedCategory = await Categories.findOneAndUpdate(
       { _id: categoryId },
       { $set: { place, address } },
       { new: true }
     );
-    console.log(updatedCategory, 'updated cat')
     return updatedCategory;
   } catch (error) {
     console.log(error);

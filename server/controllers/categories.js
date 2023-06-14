@@ -33,9 +33,7 @@ const editCategory = async (req, res) => {
   try {
     const categoryId = req.params.id;
     const { place, address } = req.body;
-    // console.log(categoryId, place, address)
     const updatedCategory = await CategoriesModel.editCategory(categoryId, place, address);
-    console.log(updatedCategory)
     res.status(200).send(updatedCategory);
   } catch (error) {
     res.status(400).send({ error, message: 'Could not update category.' });

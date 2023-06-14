@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import CategoryItem from './Category-item';
 import { useLocation, useParams } from 'react-router';
-// import apiService from '../apiService';
 import { Context } from '../context/Context';
 
 const API_MAPS_KEY = process.env.REACT_APP_API_MAPS_KEY2;
@@ -32,7 +31,7 @@ function UserMap (props) {
   const cityName = travelCol.details.cityName;
   const placeId = placeIds[placeIds.length - 1];
 
-  const { placeInfo, updatePlaceInfo } = useContext(Context)
+  const { updatePlaceInfo } = useContext(Context)
 
   const uniquePlaceIds = [];
 
@@ -91,8 +90,6 @@ function UserMap (props) {
 
   async function getInitialCity (cityName) {
     return getCoordinates(cityName).then((data) => {
-      // console.log(data);
-      // setInitialCity(data);
       setInitialCenter(data);
       return data;
     });
@@ -103,9 +100,6 @@ function UserMap (props) {
       setInitialCenter(city);
     });
   }, [cityName]);
-
-  // console.log({ initialCenter })
-
 
   const initializePlacesService = () => {
     placesServiceRef.current = new window.google.maps.places.PlacesService(document.createElement('div'));
@@ -121,15 +115,12 @@ function UserMap (props) {
 
       placesServiceRef.current.getDetails(request, (place, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          console.log({ place });
-          // Store the place details:
           updatePlaceInfo((prevPlaces) => {
             if (!prevPlaces.find((prevPlace) => prevPlace.place_id === place.place_id)) {
               return [...prevPlaces, place];
             }
             return prevPlaces;
           });
-          // localStorage.setItem('placeInfo', JSON.stringify([...placeInfo, place]));
         } else {
           console.error('Error fetching place details:', status);
         }
@@ -137,12 +128,6 @@ function UserMap (props) {
     }
   };
 
-  // useEffect(() => {
-  //   const storedPlaceInfo = localStorage.getItem('placeInfo');
-  //   if (storedPlaceInfo) {
-  //     updatePlaceInfo(JSON.parse(storedPlaceInfo));
-  //   }
-  // }, []);
   async function getCoordinates (cityName) {
     const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(cityName)}&key=${API_MAPS_KEY}`;
 
@@ -162,45 +147,13 @@ function UserMap (props) {
     }
   }
 
-
-
-
-  // const reverseGeocode = (coordinates) => {
-  //   const geocoder = new window.google.maps.Geocoder();
-
-  //   geocoder.geocode({ location: coordinates }, (results, status) => {
-  //     if (status === window.google.maps.GeocoderStatus.OK) {
-  //       if (results[0]) {
-  //         console.log(results[0]);
-  //         const placeData = {
-  //           address: results[0].formatted_address,
-  //           // Extract any other relevant place information you need
-  //         };
-
-  //         // Do something with the place data
-  //         console.log(placeData, 'placeData');
-  //       } else {
-  //         console.log('No results found');
-  //       }
-  //     } else {
-  //       console.log(`Geocoder failed due to: ${status}`);
-  //     }
-  //   });
-  // };
-
   const handleMapClick = (mapProps, map, clickEvent) => {
     setSelectedPlace(null);
-
     const { latLng } = clickEvent;
     const lat = latLng.lat();
     const lng = latLng.lng();
-    // const clickedCoordinates = { lat, lng };
-    // reverseGeocode(clickedCoordinates);
     const newPlace = { lat, lng }
-    console.log({ clickEvent });
-    console.log({ newPlace })
     setClickedPlaces((prev) => [...prev, newPlace]);
-    // fetchPlaceDetails(placeId);
   };
 
   const onMarkerClick = (props, placeId) => {
@@ -211,19 +164,7 @@ function UserMap (props) {
     return selectedPlace && selectedPlace.id === placeId;
   };
 
-  // function displayMarkers () {
-  //   return clickedPlaces.map((clicked, idx) => {
-  //     return <Marker key={idx} id={idx} position={{
-  //       lat: clicked.lat,
-  //       lng: clicked.lng
-  //     }}
-  //       onClick={() => console.log("You clicked me!")} />
-  //   })
-  // }
-
-
   // Autocomplete:
-
   const autoCompleteRef = useRef();
   const inputRef = useRef();
   const options = {
@@ -238,9 +179,6 @@ function UserMap (props) {
     );
     autoCompleteRef.current.addListener("place_changed", async function () {
       const place = await autoCompleteRef.current.getPlace();
-      console.log({ place });
-      console.log(place.name);
-      console.log({ place });
       updatePlaceInfo((prevPlaces) => {
         if (!prevPlaces.find((prevPlace) => prevPlace.place_id === place.place_id)) {
           return [...prevPlaces, place];
@@ -249,10 +187,6 @@ function UserMap (props) {
       });
     });
   }, []);
-
-
-
-
 
   return (
     <div className='map-container'>
@@ -274,13 +208,11 @@ function UserMap (props) {
           onClick={onMarkerClick}
           isSelected={isMarkerSelected(placeId)}
         />
-        {/*displayMarkers()*/}
       </Map>
-
     </div>
   );
 }
 
 export default GoogleApiWrapper({
-  apiKey: API_MAPS_KEY // Replace with your Google Maps API key
+  apiKey: API_MAPS_KEY
 })(UserMap);

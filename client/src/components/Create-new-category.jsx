@@ -18,18 +18,14 @@ function CreateCategory ({ setCatArray, travelId, handleCategoryCreation, select
       address: '',
       icon_url: '/icons8-new-50.png',
     }
-    console.log(newCategory)
-    console.log(travelId)
-    // apiService.createCategory(newCategory, travelId).then(newCategory => setCatArray(categories => [...categories, newCategory]));
     apiService.createCategory(newCategory, travelId).then((createdCategory) => {
       setCatArray((prevCategories) => [...prevCategories, createdCategory]);
       handleCategoryCreation(createdCategory);
     });
 
     setCategory('');
-    setFormError("");
+    setFormError('');
   };
-
 
   return (
     <div className="create-category">

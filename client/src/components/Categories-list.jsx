@@ -1,11 +1,10 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import apiService from '../apiService'
 import CreateCategory from "./Create-new-category";
 import { Context } from "../context/Context";
 import { useContext } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { firstLetterUpperCase, scrollToBottom } from "../utils/helper";
-import PlaneIcon from "./Icons/PlaneIcon";
 import LocationIcon from "./Icons/Location";
 
 
@@ -15,7 +14,7 @@ function CategoriesList () {
   const [clicked, setClicked] = useState(false);
   const [selectedCity, setSelectedCity] = useState(null);
   const [createCategory, setCreateCategory] = useState(false);
-  const { user, categories, updateCategories, travelCollections } = useContext(Context);
+  const { updateCategories, travelCollections } = useContext(Context);
   const { id } = useParams();
   const navigate = useNavigate()
 
@@ -34,12 +33,9 @@ function CategoriesList () {
     });
   }
 
-
   useEffect(() => {
     getAllCategories()
-
   }, [])
-
 
   function handleCreateCategory (cityName) {
     setCreateCategory(true);
@@ -52,8 +48,6 @@ function CategoriesList () {
     setCatArray(prevCategories => [...prevCategories, newCategory]);
     setCreateCategory(false);
   }
-
-
 
   const uniqueCatArray = []
   const titlesArray = [];
@@ -76,7 +70,6 @@ function CategoriesList () {
       <div className="categories-item-container">
         {travelCollectionArr.map((travelCol, idx) => {
           const details = travelCol.details;
-
           return (
             <div className="categories-item-boxes" key={idx}>
               <h3 id="no-underline">Add you categories here:</h3>
@@ -94,13 +87,6 @@ function CategoriesList () {
                   </div>
                   <h3>Restaurants</h3>
                 </div>
-                <div className="categories-item" >
-                  <div className="categories-item-icon">
-                    <LocationIcon />
-                  </div>
-                  <h3>Parks</h3>
-                </div>
-
                 {uniqueCatArray.filter((cat) => cat.cityName === details.cityName).map((cat, idx) => {
                   return (
                     <div className="categories-item" key={idx} >
@@ -135,11 +121,7 @@ function CategoriesList () {
           />
           }
         </div>
-
       </div>
-
-      {/*{clicked && <CategoryItem category={catArray.find((cat) => cat.title === currCat.title)} />}*/}
-      {/*clicked && <UserMap category={catArray.find((cat) => cat.title === currCat.title)} />*/}
     </div >
   );
 }

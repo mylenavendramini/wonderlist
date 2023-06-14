@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import apiService from '../apiService';
 
-// Mock for London:
-const uniquePlacesDataMock = [{ address: 'Great Russell St, London WC1B 3DG', place: 'The British Museum' }, { address: 'Riverside Building, County Hall, London SE1 7PB', place: 'London Eye' }, { address: 'Regal House, 14 James St, London WC2E 8BU', place: 'Covent Garden' }]
-
 function Places () {
   const location = useLocation();
   const categoryObj = location.state && location.state;
@@ -12,8 +9,6 @@ function Places () {
   const [placesData, setPlacesData] = useState([]);
   const [uniquePlacesData, setUniquePlacesData] = useState([]);
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     // Retrieve the uniqueCatArray from localStorage
@@ -30,8 +25,6 @@ function Places () {
     setPlacesData(uniqueCatArray);
   }, [uniqueCatArray]);
 
-
-
   async function handleDelete (id) {
     const categoryToDelete = await apiService.deleteCategory(id);
     console.log(categoryToDelete);
@@ -41,7 +34,6 @@ function Places () {
   }
 
   useEffect(() => {
-    // Filter unique travel collections based on their names
     const uniqueData = [];
     const uniqueNames = [];
     placesData && placesData.forEach((data) => {
@@ -53,13 +45,12 @@ function Places () {
     setUniquePlacesData(uniqueData);
   }, [placesData]);
 
-  console.log('working')
   return (
     <div className="travel-collection-container places-container">
       <h2>MY PLACES</h2>
       <h3 className='go-back' onClick={() => navigate('/travel-collections')}>
         <span>&larr;</span> Go back to Trip Collections</h3>
-      {uniquePlacesData.length > 0 ? uniquePlacesData.map((cat, idx) => (
+      {uniquePlacesData.length > 0 && uniquePlacesData.map((cat, idx) => (
         <div className='list-items' key={idx}>
           <ul>
             <li>&#128205; {cat.place}</li>
@@ -69,25 +60,8 @@ function Places () {
             <i className="fa fa-close btn btn-close" onClick={() => handleDelete(cat._id)}></i>
           </div>
         </div>
-      )) :
-        <div>
-          {uniquePlacesDataMock.map((cat, idx) => {
-            console.log(cat)
-            return (
-              <div className='list-items' key={idx}>
-                <ul>
-                  <li id='list-place'>&#128205; {cat.place}</li>
-                  <li>{cat.address}</li>
-                </ul>
-                <div className='close-item'>
-                  <i className="fa fa-close btn btn-close" onClick={() => handleDelete(cat._id)}></i>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+      ))
       }
-
     </div>
   );
 }

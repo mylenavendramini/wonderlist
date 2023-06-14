@@ -10,8 +10,7 @@ import { Context } from './context/Context';
 
 function App () {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // const [user, setUser] = useState(null);
-  const { user, updateUser } = useContext(Context);
+  const { updateUser } = useContext(Context);
 
   function checkToken () {
     const accessToken = localStorage.getItem('accessToken');

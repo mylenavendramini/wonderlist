@@ -10,7 +10,7 @@ const initialState = {
 
 const Login = ({ setIsAuthenticated }) => {
   let navigate = useNavigate();
-  const { user, updateUser } = useContext(Context);
+  const { updateUser } = useContext(Context);
   const [state, setState] = useState(initialState);
 
   const handleChange = (e) => {
@@ -22,7 +22,6 @@ const Login = ({ setIsAuthenticated }) => {
   };
 
   const handleSubmit = async (e) => {
-    // Check the session branch to see how to handle redirects
     e.preventDefault();
     const res = await apiServiceJWT.login(state);
 
@@ -34,7 +33,6 @@ const Login = ({ setIsAuthenticated }) => {
       localStorage.setItem('accessToken', accessToken);
       setIsAuthenticated(true);
       updateUser(user);
-      console.log(user)
       navigate('/profile');
       window.location.reload()
     }

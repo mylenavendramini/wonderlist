@@ -21,7 +21,6 @@ function TravelCollections () {
   }, []);
 
   useEffect(() => {
-    // Filter unique travel collections based on their names
     const uniqueCollections = [];
     const uniqueNames = [];
     travelCollections.forEach((travel) => {
@@ -83,13 +82,10 @@ function TravelCollections () {
             </div>
           </div>
           <div className="travel-collection-image">
-            {/*<div className="image-relative">
-              <lottie-player src="walking.json" background="transparent" speed="1" ></lottie-player>
-      </div>*/}
             <div className="travel-collection-boxes">
               {uniqueTravelCollections
                 .filter((travel) => checkUserId(travel._id))
-                .map((travel, idx) => {
+                .map((travel) => {
                   const travelId = travel._id;
                   return (
                     <div className="travel-collection-box" key={travel._id}>
@@ -106,7 +102,6 @@ function TravelCollections () {
                         <Link onClick={scrollToTop} to={`/places/${travelId}`} className="btn btn-travel">
                           Fav Places
                         </Link>
-
                       </div>
                       <Link onClick={scrollToTop} to={`/categories/${travelId}`} className="btn btn-travel-text">
                         Add new places
@@ -120,7 +115,6 @@ function TravelCollections () {
                     </div>
                   );
                 })}
-
             </div>
           </div>
         </>

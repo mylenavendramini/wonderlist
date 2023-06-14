@@ -8,9 +8,7 @@ const authMiddleware = async (req, res, next) => {
   if (!authHeaders) return res.sendStatus(403);
   const token = authHeaders.split(' ')[1];
   try {
-    // verify & decode token payload,
     const { _id } = jwt.verify(token, SECRET_KEY);
-    // attempt to find user object and set to req
     const user = await User.find({ _id });
     if (!user) return res.status(401);
     req.user = user;
