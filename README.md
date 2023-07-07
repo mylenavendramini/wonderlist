@@ -16,13 +16,13 @@ Users stay in the loop with Wonderlist's countdown feature, which keeps them upd
 
 ## Google Maps API
 
-Go to (https://developers.google.com/maps/documentation/javascript/get-api-key) to get your own API key.
+Go to https://developers.google.com/maps/documentation/javascript/get-api-key to get your own API key.
 
 Include your API key in your `.env` file in your Client folder.
 
 ## MongoDB
 
-Go to (https://www.mongodb.com/docs/manual/reference/connection-string/) to get your own MongoDB URI.
+Go to https://www.mongodb.com/docs/manual/reference/connection-string/ to get your own MongoDB URI.
 
 The MongoDB URI follow this format:
 
