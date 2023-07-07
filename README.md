@@ -6,7 +6,35 @@ Welcome to Wonderlist, a website designed to organize and visualize a trip itine
 
 ![alt text](/client/public/main-page.png)
 
-You can create a collection of trips, add cities and dates, and the app generates a timeline for you. You can plan activities for each day and mark the ones you've already done. You can also use a map to find the places you want to add for each city on your trip. These places will be organized by categories that you can also create. Wonderlist also tells you how many days are left until the day of your trip.
+Wonderlist is an application that empowers users to easily select and organize their trips. Users effortlessly create travel collections, adding cities and dates to create a personalized itinerary. With Wonderlist, users can plan activities for each day and keep track of the ones they've already enjoyed. They can discover the perfect spots for each city using an interactive map and categorize them for a well-organized journey.
+
+Users stay in the loop with Wonderlist's countdown feature, which keeps them updated on the number of days left until their trip begins. ✈️🌴
+
+## Installation
+
+Run `git clone git@github.com:mylenavendramini/wonderlist.git`.
+Run `cd wonderlist`.
+Run `npm install` on both the Server folder and Client folder.
+
+## Google Maps API
+
+Go to [[Link Text](https://developers.google.com/maps/documentation/javascript/get-api-key)] to get your own API key.
+
+Include your API key in your `.env` file in your Client folder.
+
+## MongoDB
+
+Go to [[Link Text](https://www.mongodb.com/docs/manual/reference/connection-string/)] to get your own MongoDB URI.
+
+The MongoDB URI follow this format:
+mongodb://[username:password@]host1[:port1],...hostN[:portN]][/[defaultauthdb][?options]]
+
+Include your MongoDB URI in your `.env` file in your Server folder.
+
+## Getting started
+
+Run `npm start` from the Client folder.
+Run `nodemon index.js` from the Server folder.
 
 ## Usage
 
@@ -18,11 +46,3 @@ Once you have the Wonderlist running, you can start organizing your trips using 
 - Check your trip collections
 - Create and delete activities, mark activities as done
 - Add new places to the list using the map
-
-## Getting started
-
-Run `git clone git@github.com:mylenavendramini/wonderlist.git`.
-Run `cd wonderlist`.
-Run `npm install` from the project folder.
-Run `npm start` from the Client folder.
-Run `nodemon index.js` from the Server folder.
