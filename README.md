@@ -12,22 +12,23 @@ Users stay in the loop with Wonderlist's countdown feature, which keeps them upd
 
 ## Installation
 
-Run `git clone git@github.com:mylenavendramini/wonderlist.git`.
-Run `cd wonderlist`.
-Run `npm install` on both the Server folder and Client folder.
+- Run `npm install` on both the Server folder and Client folder.
 
 ## Google Maps API
 
-Go to [[Link Text](https://developers.google.com/maps/documentation/javascript/get-api-key)] to get your own API key.
+Go to (https://developers.google.com/maps/documentation/javascript/get-api-key) to get your own API key.
 
 Include your API key in your `.env` file in your Client folder.
 
 ## MongoDB
 
-Go to [[Link Text](https://www.mongodb.com/docs/manual/reference/connection-string/)] to get your own MongoDB URI.
+Go to (https://www.mongodb.com/docs/manual/reference/connection-string/) to get your own MongoDB URI.
 
 The MongoDB URI follow this format:
+
+```bash
 mongodb://[username:password@]host1[:port1],...hostN[:portN]][/[defaultauthdb][?options]]
+```
 
 Include your MongoDB URI in your `.env` file in your Server folder.
 
