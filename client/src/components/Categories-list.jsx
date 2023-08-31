@@ -18,6 +18,8 @@ function CategoriesList () {
   const { id } = useParams();
   const navigate = useNavigate()
 
+
+
   function getTravelCollectionArr () {
     const travelElement = travelCollections.find((travel) => travel._id === id);
     const travelNameElement = travelElement && travelElement.travelName;

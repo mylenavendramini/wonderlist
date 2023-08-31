@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 function Home ({ isAuthenticated }) {
   const navigate = useNavigate();
