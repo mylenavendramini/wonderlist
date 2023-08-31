@@ -12,6 +12,7 @@ function TravelCollections () {
   const [uniqueTravelCollections, setUniqueTravelCollections] = useState([]);
   const { user, travelCollections, updateTravelCollections } = useContext(Context);
 
+
   async function getAllTravelCollections () {
     const travelCollections = await apiService.getTravelCollections();
     updateTravelCollections(travelCollections);
